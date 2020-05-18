@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Video;
 
 public class Menu_Script : MonoBehaviour
 {
-    private Animator logoApparition;
     private Image fondTransition;
     private Image backgroundImageMenu;
+
+    private VideoPlayer IntroCinematique;
 
     [SerializeField] private GameObject[] PagesMenuPrincipal;
     [SerializeField] private Transform[] BoutonsMenuPrincipal;
@@ -29,10 +31,32 @@ public class Menu_Script : MonoBehaviour
 {
             backgroundImageMenu = GameObject.Find("Canvas/ZoneMenuPrincipal/Background").GetComponent<Image>();
             backgroundImageMenu.sprite = ImagesBackground[0];
-        }
-        if (scene.name == "Menu_00") logoApparition = GameObject.Find("Canvas/ZoneBandeau/Bandeau/ParentLogo").GetComponent<Animator>();
 
-        fondTransition.DOFade(0, 0.5f).OnComplete(() => logoApparition.Play("ApparitionLogo"));//Lance l'animation d'apparition du logo quand le fade est fini
+            fondTransition.DOFade(0, 0.5f);
+        }
+        else if(scene.name == "Menu_00")
+        {
+            IntroCinematique = GameObject.Find("Canvas/CinematiqueIntro").GetComponent<VideoPlayer>();
+
+            StartCoroutine(JouerCinematiqueIntro());
+        }
+    }
+
+    IEnumerator JouerCinematiqueIntro()
+    {
+        IntroCinematique.Play();
+        yield return new WaitForSeconds(7);
+
+        for (int i = 0; i < 10; i++)
+        {
+            yield return new WaitForSeconds(0.05f);
+            IntroCinematique.targetCameraAlpha -= 0.1f;
+
+            if (IntroCinematique.targetCameraAlpha <= 0)
+            {
+                fondTransition.DOFade(0, 0.5f).SetDelay(0.5f);
+            }
+        }
     }
 
     public void menuPrincipale()
