@@ -40,7 +40,7 @@ public class RaccourciClavier_Script : MonoBehaviour
         toucheClavier.Add("Pouvoir3", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pouvoir3", "Alpha3")));
         toucheClavier.Add("Pouvoir4", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pouvoir4", "Alpha4")));
 
-        toucheClavier.Add("Courir", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pouvoir4", "LeftShift")));
+        toucheClavier.Add("Courir", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Courir", "LeftShift")));
         toucheClavier.Add("Attaque", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attaque", "Mouse0")));
         toucheClavier.Add("Garde", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Garde", "Mouse1")));
 
@@ -119,6 +119,10 @@ public class RaccourciClavier_Script : MonoBehaviour
                 case "LeftShift":
                     texteAssignationTouche[i].text = "MAJ-G";
                     break;
+
+                case "RightShift":
+                    texteAssignationTouche[i].text = "MAJ-D";
+                    break;
             }
         }
     }
@@ -128,8 +132,15 @@ public class RaccourciClavier_Script : MonoBehaviour
         if(toucheSelectionne != null)
         {
             Event e = Event.current;
-            if (e.isKey)
+
+            if (e.isKey || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             {
+
+                if (Input.GetKeyDown(KeyCode.Mouse0)) e.keyCode = KeyCode.Mouse0;
+                else if (Input.GetKeyDown(KeyCode.Mouse1)) e.keyCode = KeyCode.Mouse1;
+                else if (Input.GetKeyDown(KeyCode.LeftShift)) e.keyCode = KeyCode.LeftShift;
+                else if (Input.GetKeyDown(KeyCode.RightShift)) e.keyCode = KeyCode.RightShift;
+
                 toucheClavier[toucheSelectionne.name] = e.keyCode;
                 toucheSelectionne.GetComponent<Text>().text = e.keyCode.ToString();
                 toucheSelectionne.GetComponent<Text>().color = normal;
@@ -186,6 +197,10 @@ public class RaccourciClavier_Script : MonoBehaviour
 
                     case KeyCode.LeftShift:
                         toucheSelectionne.GetComponent<Text>().text = "MAJ-G";
+                        break;
+
+                    case KeyCode.RightShift:
+                        toucheSelectionne.GetComponent<Text>().text = "MAJ-D";
                         break;
                 }
 

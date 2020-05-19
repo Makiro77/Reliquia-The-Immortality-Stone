@@ -24,8 +24,6 @@ public class Menu_Script : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
 
-        Debug.Log(scene.name);
-
         fondTransition = GameObject.Find("Canvas/FondNoir").GetComponent<Image>();
         if (scene.name == "Menu_01") 
 {
@@ -107,7 +105,7 @@ public class Menu_Script : MonoBehaviour
         else {
             for (int i = 0; i < 4; i++)
             {
-                BoutonsMenuPrincipal[i].DOMoveX(138f, 0.5f);
+                BoutonsMenuPrincipal[i].DOLocalMoveX(-822f, 0.5f);
             }
             backgroundImageMenu.sprite = ImagesBackground[0];
         }
@@ -119,7 +117,7 @@ public class Menu_Script : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            BoutonsMenuPrincipal[i].DOMoveX(-300f, 0.5f);
+            BoutonsMenuPrincipal[i].DOLocalMoveX(-1260f, 0.5f);
         }
 
         PagesMenuPrincipal[2].SetActive(true);
