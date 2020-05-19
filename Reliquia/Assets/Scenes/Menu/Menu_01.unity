@@ -1809,6 +1809,8 @@ MonoBehaviour:
   ImagesBackground:
   - {fileID: 21300000, guid: 6bd2d79d6a4b0f44fa29558d7e9e6e67, type: 3}
   - {fileID: 21300000, guid: 84b82c00153e73946a8922b47190d1e6, type: 3}
+  popUpQuitter: {fileID: 3723548539194287258, guid: a3a0c08ec2447f844b9208ecb3768528,
+    type: 3}
 --- !u!4 &432264037
 Transform:
   m_ObjectHideFlags: 0

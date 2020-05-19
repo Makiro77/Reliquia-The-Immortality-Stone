@@ -19,6 +19,8 @@ public class Menu_Script : MonoBehaviour
 
     private int pageMenuActive;
 
+    [SerializeField] private GameObject popUpQuitter;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -80,7 +82,7 @@ public class Menu_Script : MonoBehaviour
 
     public void quitterJeu()
     {
-        Application.Quit(); //Quitte le jeu
+        Instantiate(popUpQuitter, new Vector2(1520, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
     }
 
     public void retourMenu()
