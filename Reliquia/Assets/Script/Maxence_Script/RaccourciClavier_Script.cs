@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class RaccourciClavier_Script : MonoBehaviour
 {
@@ -18,9 +20,13 @@ public class RaccourciClavier_Script : MonoBehaviour
     private Color32 normal = new Color32(115, 115, 115, 255);
     private Color32 selection = new Color32(247, 247, 247, 255);
 
+    bool toucheExistante;
+    string nomToucheExistante;
+
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         AssignationTouche();
     }
 
@@ -132,14 +138,73 @@ public class RaccourciClavier_Script : MonoBehaviour
         if(toucheSelectionne != null)
         {
             Event e = Event.current;
-
             if (e.isKey || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             {
 
-                if (Input.GetKeyDown(KeyCode.Mouse0)) e.keyCode = KeyCode.Mouse0;
-                else if (Input.GetKeyDown(KeyCode.Mouse1)) e.keyCode = KeyCode.Mouse1;
-                else if (Input.GetKeyDown(KeyCode.LeftShift)) e.keyCode = KeyCode.LeftShift;
-                else if (Input.GetKeyDown(KeyCode.RightShift)) e.keyCode = KeyCode.RightShift;
+                toucheExistante = toucheClavier.ContainsValue(e.keyCode);
+
+                if (toucheExistante == true)
+                {
+                    nomToucheExistante = toucheClavier.FindKeyByValue(e.keyCode);
+                    toucheClavier[nomToucheExistante] = toucheClavier[toucheSelectionne.name];
+                    GameObject.Find(nomToucheExistante).GetComponent<Text>().text = toucheClavier[toucheSelectionne.name].ToString();
+                    GameObject.Find(nomToucheExistante).GetComponent<Text>().color = normal;
+                    ChangementTextToucheExistante();
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    e.keyCode = KeyCode.Mouse0;
+                    toucheExistante = toucheClavier.ContainsValue(e.keyCode);
+                    if (toucheExistante)
+                    {
+                        nomToucheExistante = toucheClavier.FindKeyByValue(e.keyCode);
+                        toucheClavier[nomToucheExistante] = toucheClavier[toucheSelectionne.name];
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().text = toucheClavier[toucheSelectionne.name].ToString();
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().color = normal;
+                        ChangementTextToucheExistante();
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    e.keyCode = KeyCode.Mouse1;
+                    toucheExistante = toucheClavier.ContainsValue(e.keyCode);
+                    if (toucheExistante)
+                    {
+                        nomToucheExistante = toucheClavier.FindKeyByValue(e.keyCode);
+                        toucheClavier[nomToucheExistante] = toucheClavier[toucheSelectionne.name];
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().text = toucheClavier[toucheSelectionne.name].ToString();
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().color = normal;
+                        ChangementTextToucheExistante();
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    e.keyCode = KeyCode.LeftShift;
+                    toucheExistante = toucheClavier.ContainsValue(e.keyCode);
+                    if (toucheExistante)
+                    {
+                        nomToucheExistante = toucheClavier.FindKeyByValue(e.keyCode);
+                        toucheClavier[nomToucheExistante] = toucheClavier[toucheSelectionne.name];
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().text = toucheClavier[toucheSelectionne.name].ToString();
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().color = normal;
+                        ChangementTextToucheExistante();
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    e.keyCode = KeyCode.RightShift;
+                    toucheExistante = toucheClavier.ContainsValue(e.keyCode);
+                    if (toucheExistante)
+                    {
+                        nomToucheExistante = toucheClavier.FindKeyByValue(e.keyCode);
+                        toucheClavier[nomToucheExistante] = toucheClavier[toucheSelectionne.name];
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().text = toucheClavier[toucheSelectionne.name].ToString();
+                        GameObject.Find(nomToucheExistante).GetComponent<Text>().color = normal;
+                        ChangementTextToucheExistante();
+                    }
+                }
 
                 toucheClavier[toucheSelectionne.name] = e.keyCode;
                 toucheSelectionne.GetComponent<Text>().text = e.keyCode.ToString();
@@ -229,6 +294,68 @@ public class RaccourciClavier_Script : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+    }
+
+    public void ChangementTextToucheExistante()
+    {
+        switch (GameObject.Find(nomToucheExistante).GetComponent<Text>().text)
+        {
+            case "Alpha0":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "0";
+                break;
+
+            case "Alpha1":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "1";
+                break;
+
+            case "Alpha2":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "2";
+                break;
+
+            case "Alpha3":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "3";
+                break;
+
+            case "Alpha4":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "4";
+                break;
+
+            case "Alpha5":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "5";
+                break;
+
+            case "Alpha6":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "6";
+                break;
+
+            case "Alpha7":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "7";
+                break;
+
+            case "Alpha8":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "8";
+                break;
+
+            case "Alpha9":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "9";
+                break;
+
+            case "Mouse0":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "CLIC-G";
+                break;
+
+            case "Mouse1":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "CLIC-D";
+                break;
+
+            case "LeftShift":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "MAJ-G";
+                break;
+
+            case "RightShift":
+                GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "MAJ-D";
+                break;
+        }
     }
 
     private void Update()
