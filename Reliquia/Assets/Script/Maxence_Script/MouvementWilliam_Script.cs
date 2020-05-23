@@ -16,6 +16,8 @@ public class MouvementWilliam_Script : MonoBehaviour
 
     private Vector3 _mouvementDir = Vector3.zero;
 
+    private Transform relativeTransform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +46,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Gauche", false);
             _animator.SetBool("Avancer", true);
 
-            transform.localPosition += new Vector3(0, 0, 0.5f * vitesse * Time.deltaTime);
+            transform.position += transform.forward * vitesse * Time.deltaTime;
         }
         else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Avancer"])) _animator.SetBool("Avancer", false);
     }
@@ -58,7 +60,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Gauche", false);
             _animator.SetBool("Reculer", true);
 
-            transform.localPosition += new Vector3(0, 0, -(0.5f * vitesse * Time.deltaTime));
+            transform.position += -transform.forward * vitesse * Time.deltaTime;
         }
         else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Reculer"])) _animator.SetBool("Reculer", false);
     }
@@ -72,7 +74,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Droite", false);
             _animator.SetBool("Gauche", true);
 
-            transform.localPosition += new Vector3(-(0.25f * vitesse * Time.deltaTime), 0, 0);
+            transform.position += -transform.right * 2 * Time.deltaTime;
         }
         else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Gauche"])) _animator.SetBool("Gauche", false);
     }
@@ -86,7 +88,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Gauche", false);
             _animator.SetBool("Droite", true);
 
-            transform.localPosition += new Vector3(0.25f * vitesse * Time.deltaTime, 0, 0);
+            transform.position += transform.right * 2 * Time.deltaTime;
         }
         else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Droite"])) _animator.SetBool("Droite", false);
     }

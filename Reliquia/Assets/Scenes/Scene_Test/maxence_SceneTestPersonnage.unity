@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 406473091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.51, y: 1.99, z: -2.34}
+  m_LocalPosition: {x: 0.51, y: 2, z: -4.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -311,9 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e71f6cad13d234d916816a00f65648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personnageTransform: {fileID: 1477340974779945565}
-  smoothFacteur: 0.5
-  regardePersonnage: 0
+  regardPersonnage: {fileID: 1477340974779945565}
+  cameraTransform: {fileID: 0}
 --- !u!1 &428450957
 GameObject:
   m_ObjectHideFlags: 0
