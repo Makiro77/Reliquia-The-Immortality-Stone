@@ -18,6 +18,8 @@ public class MouvementWilliam_Script : MonoBehaviour
 
     private Transform relativeTransform;
 
+    public bool enMouvement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,55 +43,82 @@ public class MouvementWilliam_Script : MonoBehaviour
     {
         if (Input.GetKey(raccourciClavier.toucheClavier["Avancer"]))
         {
+            enMouvement = true;
+
             _animator.SetBool("Reculer", false);
             _animator.SetBool("Droite", false);
             _animator.SetBool("Gauche", false);
-            _animator.SetBool("Avancer", true);
+            _animator.SetBool("Avancer", enMouvement);
 
             transform.position += transform.forward * vitesse * Time.deltaTime;
         }
-        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Avancer"])) _animator.SetBool("Avancer", false);
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Avancer"]))
+        {
+            enMouvement = false;
+            _animator.SetBool("Avancer", enMouvement);
+        }
     }
 
     public void Reculer()
     {
         if (Input.GetKey(raccourciClavier.toucheClavier["Reculer"]))
         {
+            enMouvement = true;
+
+
             _animator.SetBool("Avancer", false);
             _animator.SetBool("Droite", false);
             _animator.SetBool("Gauche", false);
-            _animator.SetBool("Reculer", true);
+            _animator.SetBool("Reculer", enMouvement);
 
             transform.position += -transform.forward * vitesse * Time.deltaTime;
         }
-        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Reculer"])) _animator.SetBool("Reculer", false);
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Reculer"]))
+        {
+            enMouvement = false;
+            _animator.SetBool("Reculer", enMouvement);
+        }
     }
 
     public void Gauche()
     {
         if (Input.GetKey(raccourciClavier.toucheClavier["Gauche"]))
         {
+            enMouvement = true;
+
+
             _animator.SetBool("Avancer", false);
             _animator.SetBool("Reculer", false);
             _animator.SetBool("Droite", false);
-            _animator.SetBool("Gauche", true);
+            _animator.SetBool("Gauche", enMouvement);
 
             transform.position += -transform.right * 2 * Time.deltaTime;
         }
-        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Gauche"])) _animator.SetBool("Gauche", false);
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Gauche"]))
+        {
+            enMouvement = false;
+            _animator.SetBool("Gauche", enMouvement);
+        }
     }
 
     public void Droite()
     {
         if (Input.GetKey(raccourciClavier.toucheClavier["Droite"]))
         {
+            enMouvement = true;
+
+
             _animator.SetBool("Avancer", false);
             _animator.SetBool("Reculer", false);
             _animator.SetBool("Gauche", false);
-            _animator.SetBool("Droite", true);
+            _animator.SetBool("Droite", enMouvement);
 
             transform.position += transform.right * 2 * Time.deltaTime;
         }
-        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Droite"])) _animator.SetBool("Droite", false);
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Droite"]))
+        {
+            enMouvement = false;
+            _animator.SetBool("Droite", enMouvement);
+        }
     }
 }
