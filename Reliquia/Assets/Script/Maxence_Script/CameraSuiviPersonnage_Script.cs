@@ -38,7 +38,7 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
         //currentY += Input.GetAxis("Mouse Y");
 
         //currentY = Mathf.Clamp(currentY, Y_Angle_Min, Y_Angle_Max);
-        //currentX = Mathf.Clamp(currentX, X_Angle_Min, X_Angle_Max);
+        if (!mouvementWilliam.enMouvement) currentX = Mathf.Clamp(currentX, X_Angle_Min, X_Angle_Max);
     }
 
     private void LateUpdate()
