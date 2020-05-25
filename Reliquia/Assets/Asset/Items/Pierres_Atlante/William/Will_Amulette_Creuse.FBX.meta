@@ -3,7 +3,12 @@ guid: 85439cb980559d049a7023c43b1ba9e5
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Will_Amulette
+    second: {fileID: 2100000, guid: 63f28e3cf11dcc34f8f4b93e3d03bb9c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

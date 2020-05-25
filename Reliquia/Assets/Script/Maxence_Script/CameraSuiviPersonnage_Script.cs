@@ -38,12 +38,12 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
         //currentY += Input.GetAxis("Mouse Y");
 
         //currentY = Mathf.Clamp(currentY, Y_Angle_Min, Y_Angle_Max);
-        if (!mouvementWilliam.enMouvement) currentX = Mathf.Clamp(currentX, X_Angle_Min, X_Angle_Max);
+        //if (!mouvementWilliam.enMouvement) currentX = Mathf.Clamp(currentX, X_Angle_Min, X_Angle_Max);
     }
 
     private void LateUpdate()
     {
-        Vector3 dir = new Vector3(0.6f, 1.7f, -distance);
+        Vector3 dir = new Vector3(0, 1.7f, -distance);
         Quaternion rotation = Quaternion.Euler(0, currentX, 0);
         cameraTransform.position = Personnage.position + rotation * dir;
         cameraTransform.rotation = Quaternion.Euler(9.5f, currentX, 0);
