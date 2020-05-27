@@ -19,6 +19,7 @@ public class MouvementWilliam_Script : MonoBehaviour
     private Transform relativeTransform;
 
     public bool enMouvement;
+    public bool accroupi;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class MouvementWilliam_Script : MonoBehaviour
         Reculer();
         Gauche();
         Droite();
+        Accroupir();
     }
 
 
@@ -119,6 +121,28 @@ public class MouvementWilliam_Script : MonoBehaviour
         {
             enMouvement = false;
             _animator.SetBool("Droite", enMouvement);
+        }
+    }
+
+    public void Accroupir()
+    {
+        if (Input.GetKey(raccourciClavier.toucheClavier["Accroupir"]))
+        {
+            enMouvement = false;
+            accroupi = true;
+
+            _animator.SetBool("Avancer", enMouvement);
+            _animator.SetBool("Reculer", enMouvement);
+            _animator.SetBool("Gauche", enMouvement);
+            _animator.SetBool("Droite", enMouvement);
+            _animator.SetBool("Accroupissement", accroupi);
+
+            transform.position += transform.right * 2 * Time.deltaTime;
+        }
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Accroupir"]))
+        {
+            accroupi = false;
+            _animator.SetBool("Accroupissement", accroupi);
         }
     }
 }

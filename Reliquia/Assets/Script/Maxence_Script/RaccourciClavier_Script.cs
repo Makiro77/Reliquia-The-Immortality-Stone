@@ -13,7 +13,7 @@ namespace clavier
 
         public Dictionary<string, KeyCode> toucheClavier = new Dictionary<string, KeyCode>();
 
-        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, attaque, garde;
+        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, accroupir, attaque, garde;
         [SerializeField] private Text[] texteAssignationTouche;
 
         int Alpha;
@@ -50,10 +50,12 @@ namespace clavier
             toucheClavier.Add("Pouvoir4", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pouvoir4", "Alpha4")));
 
             toucheClavier.Add("Courir", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Courir", "LeftShift")));
+            toucheClavier.Add("Accroupir", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Accroupir", "LeftControl")));
             toucheClavier.Add("Attaque", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attaque", "Mouse0")));
             toucheClavier.Add("Garde", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Garde", "Mouse1")));
 
-            
+            Debug.Log("1");
+
             avancer.text = toucheClavier["Avancer"].ToString();
             gauche.text = toucheClavier["Gauche"].ToString();
             reculer.text = toucheClavier["Reculer"].ToString();
@@ -69,10 +71,13 @@ namespace clavier
             pouvoir4.text = toucheClavier["Pouvoir4"].ToString();
 
             courir.text = toucheClavier["Courir"].ToString();
+            accroupir.text = toucheClavier["Accroupir"].ToString();
             attaque.text = toucheClavier["Attaque"].ToString();
+            Debug.Log("2");
             garde.text = toucheClavier["Garde"].ToString();
+            Debug.Log("3");
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 15; i++)
             {
                 Alpha = i;
 
@@ -120,10 +125,12 @@ namespace clavier
 
                     case "Mouse0":
                         texteAssignationTouche[i].text = "CLIC-G";
+                        Debug.Log("clic g");
                         break;
 
                     case "Mouse1":
                         texteAssignationTouche[i].text = "CLIC-D";
+                        Debug.Log("clic d");
                         break;
 
                     case "LeftShift":
@@ -132,6 +139,15 @@ namespace clavier
 
                     case "RightShift":
                         texteAssignationTouche[i].text = "MAJ-D";
+                        break;
+
+                    case "LeftControl":
+                        texteAssignationTouche[i].text = "CTRL-L";
+                        Debug.Log("ctrl l");
+                        break;
+
+                    case "RightControl":
+                        texteAssignationTouche[i].text = "CTRL-D";
                         break;
                 }
             }
@@ -271,6 +287,14 @@ namespace clavier
                         case KeyCode.RightShift:
                             toucheSelectionne.GetComponent<Text>().text = "MAJ-D";
                             break;
+
+                        case KeyCode.LeftControl:
+                            toucheSelectionne.GetComponent<Text>().text = "CTRL-L";
+                            break;
+
+                        case KeyCode.RightControl:
+                            toucheSelectionne.GetComponent<Text>().text = "CTRL-D";
+                            break;
                     }
 
                     SauvegardeToucheClavier();
@@ -358,6 +382,14 @@ namespace clavier
 
                 case "RightShift":
                     GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "MAJ-D";
+                    break;
+
+                case "LeftControl":
+                    GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "CTRL-L";
+                    break;
+
+                case "RightControl":
+                    GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "CTRL-D";
                     break;
             }
         }
