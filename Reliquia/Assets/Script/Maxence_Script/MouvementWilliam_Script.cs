@@ -19,6 +19,7 @@ public class MouvementWilliam_Script : MonoBehaviour
     private Transform relativeTransform;
 
     public bool enMouvement;
+    public bool enCourse;
     public bool accroupi;
 
     // Start is called before the first frame update
@@ -38,6 +39,8 @@ public class MouvementWilliam_Script : MonoBehaviour
         Gauche();
         Droite();
         Accroupir();
+        Attaque();
+        Course();
     }
 
 
@@ -50,6 +53,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Reculer", false);
             _animator.SetBool("Droite", false);
             _animator.SetBool("Gauche", false);
+            _animator.SetBool("Course", false);
             _animator.SetBool("Avancer", enMouvement);
 
             transform.position += transform.forward * vitesse * Time.deltaTime;
@@ -143,6 +147,53 @@ public class MouvementWilliam_Script : MonoBehaviour
         {
             accroupi = false;
             _animator.SetBool("Accroupissement", accroupi);
+        }
+    }
+
+    public void Attaque()
+    {
+        if (Input.GetKey(raccourciClavier.toucheClavier["Attaque"]))
+        {
+            enMouvement = false;
+            accroupi = false;
+
+            _animator.SetBool("Avancer", enMouvement);
+            _animator.SetBool("Reculer", enMouvement);
+            _animator.SetBool("Gauche", enMouvement);
+            _animator.SetBool("Droite", enMouvement);
+            _animator.SetBool("Accroupissement", accroupi);
+            _animator.SetBool("Attaque", true);
+        } else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Attaque"])) _animator.SetBool("Attaque", false);
+    }
+
+    public void Course()
+    {
+        if (Input.GetKey(raccourciClavier.toucheClavier["Courir"])) enCourse = true;
+        else if (Input.GetKeyUp(raccourciClavier.toucheClavier["Courir"]))
+        {
+            enCourse = false;
+            Debug.Log(enCourse);
+            Debug.Log(enMouvement);
+        }
+
+        if (enCourse && enMouvement)
+        {
+            _animator.SetBool("Reculer", false);
+            _animator.SetBool("Droite", false);
+            _animator.SetBool("Gauche", false);
+            _animator.SetBool("Avancer", false);
+            _animator.SetBool("Accroupissement", false);
+            _animator.SetBool("Attaque", false);
+            _animator.SetBool("Course", true);
+
+            transform.position += transform.forward * 10.0f * Time.deltaTime;
+        }
+        else if (enCourse == false && enMouvement == true) Avancer();
+        else if (enCourse == false && enMouvement == false)
+        {
+            enMouvement = false;
+            _animator.SetBool("Course", false);
+            _animator.SetBool("Avancer", false);
         }
     }
 }

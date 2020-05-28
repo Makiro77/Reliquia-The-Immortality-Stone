@@ -6,8 +6,20 @@ using DG.Tweening;
 
 public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
 {
-    [SerializeField] private float valeurMana;
-    [SerializeField] private float valeurVie;
+    [SerializeField] private int manaWilliam;
+    [SerializeField] private int vieWilliam;
+
+    [SerializeField] private int valeurMana;
+    [SerializeField] private int valeurVie;
+
+    [SerializeField] private float pourcentageMana;
+    [SerializeField] private float pourcentageVie;
+
+    [SerializeField] private int maxVie = 120;
+    [SerializeField] private int minVie = 0;
+
+    [SerializeField] private int maxMana = 120;
+    [SerializeField] private int minMana = 0;
 
     [SerializeField] private Text texteMana;
     [SerializeField] private Text texteVie;
@@ -18,11 +30,11 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        valeurMana = 100f;
-        valeurVie = 100f;
+        vieWilliam = maxVie;
+        manaWilliam = maxMana;
 
-        barreMana.fillAmount = valeurMana/100;
-        barreVie.fillAmount = valeurVie/100;
+        SetMana(manaWilliam);
+        SetVie(vieWilliam);
     }
 
     // Update is called once per frame
@@ -33,48 +45,103 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.E)) RajouterVie();
         if (Input.GetKeyUp(KeyCode.C)) RajouterMana();
-
-        valeurVie = Mathf.Clamp(valeurVie, 0f, 100f);
-        valeurMana = Mathf.Clamp(valeurMana, 0f, 100f);
     }
 
     public void EnleverVie()
     {
-        if (valeurVie > 0)
+        if (valeurVie > minVie)
         {
-            valeurVie -= 10;
-            texteVie.text = valeurVie.ToString("N0") + " %";
-            barreVie.DOFillAmount(valeurVie / 100, 0.5f);
+            vieWilliam -= 10;
+            SetVie(vieWilliam);
         }
     }
 
     public void EnleverMana()
     {
-        if (valeurMana > 0)
+        if (valeurMana > minMana)
         {
-            valeurMana -= 10;
-            texteMana.text = valeurMana.ToString("N0") + " %";
-            barreMana.DOFillAmount(valeurMana / 100, 0.5f);
+            manaWilliam -= 10;
+            SetMana(manaWilliam);
         }
     }
 
     public void RajouterVie()
     {
-        if (valeurVie < 100)
+        if (valeurVie < maxVie)
         {
-            valeurVie += 10;
-            texteVie.text = valeurVie.ToString("N0") + " %";
-            barreVie.DOFillAmount(valeurVie / 100, 0.5f);
+            vieWilliam += 10;
+            SetVie(vieWilliam);
         }
     }
 
     public void RajouterMana()
     {
-        if (valeurMana < 100)
+        if (valeurMana < maxMana)
         {
-            valeurMana += 10;
-            texteMana.text = valeurMana.ToString("N0") + " %";
-            barreMana.DOFillAmount(valeurMana / 100, 0.5f);
+            manaWilliam += 10;
+            SetMana(manaWilliam);
         }
+    }
+
+    public void SetVie(int Vie)
+    {
+        if(Vie != valeurVie)
+        {
+            if (maxVie - minVie == 0)
+            {
+                valeurVie = 0;
+                pourcentageVie = 0;
+            }
+            else
+            {
+                valeurVie = Vie;
+
+                pourcentageVie = (float)valeurVie / (float)(maxVie - minVie);
+            }
+
+            texteVie.text = string.Format("{0} %", Mathf.RoundToInt(pourcentageVie * 100));
+            barreVie.DOFillAmount(pourcentageVie, 0.5f);
+        }
+    }
+
+    public float pourcentageVieActuel
+    {
+        get { return pourcentageVie; }
+    }
+
+    public int valeurVieActuel
+    {
+        get { return valeurVie; }
+    }
+
+    public void SetMana(int Mana)
+    {
+        if (Mana != valeurMana)
+        {
+            if (maxMana - minMana == 0)
+            {
+                valeurMana = 0;
+                pourcentageMana = 0;
+            }
+            else
+            {
+                valeurMana = Mana;
+
+                pourcentageMana = (float)valeurMana / (float)(maxMana - minMana);
+            }
+
+            texteMana.text = string.Format("{0} %", Mathf.RoundToInt(pourcentageMana * 100));
+            barreMana.DOFillAmount(pourcentageMana, 0.5f);
+        }
+    }
+
+    public float pourcentageManaActuel
+    {
+        get { return pourcentageMana; }
+    }
+
+    public int valeurManaActuel
+    {
+        get { return valeurMana; }
     }
 }

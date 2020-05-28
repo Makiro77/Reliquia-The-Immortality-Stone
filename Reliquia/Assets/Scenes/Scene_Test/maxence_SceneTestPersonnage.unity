@@ -212,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 97172881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.8431907, y: 5.843188, z: 5.843188}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -651,6 +651,7 @@ MonoBehaviour:
   pouvoir3: {fileID: 0}
   pouvoir4: {fileID: 0}
   courir: {fileID: 0}
+  accroupir: {fileID: 0}
   attaque: {fileID: 0}
   garde: {fileID: 0}
   texteAssignationTouche: []
@@ -2420,6 +2421,8 @@ MonoBehaviour:
   vitesse: 5
   vitesseRotation: 240
   enMouvement: 0
+  enCourse: 0
+  accroupi: 0
 --- !u!143 &2511821200623509585
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2450,8 +2453,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5d5c7cbd287bc428882af2ebd56316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaWilliam: 0
+  vieWilliam: 0
   valeurMana: 0
   valeurVie: 0
+  pourcentageMana: 0
+  pourcentageVie: 0
+  maxVie: 120
+  minVie: 0
+  maxMana: 120
+  minMana: 0
   texteMana: {fileID: 185676227}
   texteVie: {fileID: 1530620509}
   barreMana: {fileID: 2139378409}
