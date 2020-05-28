@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c3679a7efd8654494cd2f58f5ff341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changementCouleurText: 1
 --- !u!1 &521737238
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ MonoBehaviour:
   PagesMenuPrincipal: []
   BoutonsMenuPrincipal: []
   ImagesBackground: []
+  popUpQuitter: {fileID: 0}
 --- !u!1 &639308404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,6 +1206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c3679a7efd8654494cd2f58f5ff341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changementCouleurText: 1
 --- !u!1 &1757072291
 GameObject:
   m_ObjectHideFlags: 0
