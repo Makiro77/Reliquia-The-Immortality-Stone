@@ -22,10 +22,14 @@ public class MouvementWilliam_Script : MonoBehaviour
     public bool enCourse;
     public bool accroupi;
 
+    public bool auSol;
+
     // Start is called before the first frame update
     void Start()
     {
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
+
+        auSol = true;
 
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
@@ -41,6 +45,7 @@ public class MouvementWilliam_Script : MonoBehaviour
         Accroupir();
         Attaque();
         Course();
+        Saut();
     }
 
 
@@ -195,5 +200,42 @@ public class MouvementWilliam_Script : MonoBehaviour
             _animator.SetBool("Course", false);
             _animator.SetBool("Avancer", false);
         }
+    }
+
+    public void Saut()
+    {
+        if (Input.GetKey(raccourciClavier.toucheClavier["Saut"]) && auSol)
+        {
+            _animator.SetBool("Saut", true);
+            if (enCourse == false) StartCoroutine(ForceSautNormal());
+            else StartCoroutine(ForceSautCourse());
+            auSol = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Au sol");
+        if (collision.gameObject.CompareTag("Sol"))  auSol = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("En l'air");
+        if (collision.gameObject.CompareTag("Sol")) auSol = false;
+    }
+
+    IEnumerator ForceSautNormal()
+    {
+        yield return new WaitForSeconds(0.7f);
+        GetComponent<Rigidbody>().AddForce(Vector3.up * 150);
+        _animator.SetBool("Saut", false);
+    }
+
+    IEnumerator ForceSautCourse()
+    {
+        GetComponent<Rigidbody>().AddForce(Vector3.up * 150);
+        yield return new WaitForSeconds(0.5f);
+        _animator.SetBool("Saut", false);
     }
 }

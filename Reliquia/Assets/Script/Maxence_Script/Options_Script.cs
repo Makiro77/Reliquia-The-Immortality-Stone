@@ -54,7 +54,7 @@ public class Options_Script : MonoBehaviour
         ValeurMusique.text = (VolumeMusiques.value * 100).ToString("N0");
 
         //Set l'affichage au maximum
-        //Screen.SetResolution(1920, 1080, true);
+        Screen.SetResolution(1920, 1080, true);
         ValeurAffichage.text = "FULL";
 
         //Set la qualité des effets
