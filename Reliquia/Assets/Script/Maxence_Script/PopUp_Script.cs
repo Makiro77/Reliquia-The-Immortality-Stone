@@ -22,10 +22,4 @@ public class PopUp_Script : MonoBehaviour
     {
         transform.DOMoveX(-1630f, 0.5f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

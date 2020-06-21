@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class Options_Script : MonoBehaviour
 {
@@ -28,8 +29,6 @@ public class Options_Script : MonoBehaviour
     [SerializeField] private Text ValeurSousTitres;
     [SerializeField] private Text ValeurAffichage;
 
-    [SerializeField] private bool SousTitresActive;
-
     /// <summary>
     /// Gameobjet menu paramètres généraux
     /// </summary>
@@ -39,30 +38,50 @@ public class Options_Script : MonoBehaviour
 
     [SerializeField] private Slider SensibiliteSouris;
 
-    [SerializeField] private bool InversionSourisActive;
+    private bool InversionSourisActive;
+    private bool SousTitresActive;
+    private bool FullEcran;
+
+    private string[] TextesQualitesEffets = new string[] { "FAIBLE", "NORMALE", "ÉLEVÉE", "ULTRA" };
+    private string[] TextesResolution = new string[] { "FAIBLE", "NORMALE", "ÉLEVÉE" };
+
+    private int indexEffets;
+    private int indexResolution;
 
     // Start is called before the first frame update
     void Start()
     {
-        SousTitresActive = true;
-        InversionSourisActive = false;
-
+        //Set l'état des sous-titres au lancement du jeu
+        SousTitresActive = Convert.ToBoolean(PlayerPrefs.GetInt("SousTitreEtat", 1)); ;
         ValeurSousTitres.text = SousTitresActive ? "OUI" : "NON";
+
+        //Set l'état d'inversion de la souris au lancement du jeu
+        InversionSourisActive = Convert.ToBoolean(PlayerPrefs.GetInt("InversionSourisEtat", 0));
         ValeurSouris.text = !InversionSourisActive ? "NON" : "OUI";
+
+        //Set le volume des dialogues et de la musique au lancement du jeu
+        VolumeDialogues.value = PlayerPrefs.GetFloat("EtatVolumeDialogues", 1f);
+        VolumeMusiques.value = PlayerPrefs.GetFloat("EtatVolumeMusique", 1f);
 
         ValeurDialogues.text = (VolumeDialogues.value * 100).ToString("N0");
         ValeurMusique.text = (VolumeMusiques.value * 100).ToString("N0");
 
-        //Set l'affichage au maximum
-        Screen.SetResolution(1920, 1080, true);
-        ValeurAffichage.text = "FULL";
+        //Set l'affichage de l'écran au lancement du jeu
+        FullEcran = Convert.ToBoolean(PlayerPrefs.GetInt("EcranEtat", 1));
+        Screen.SetResolution(1920, 1080, FullEcran);
+        ValeurAffichage.text = FullEcran == true ? "FULL" : "FENÊTRÉ";
 
-        //Set la qualité des effets
-        QualitySettings.SetQualityLevel(3);
-        ValeurQualiteEffets.text = "ULTRA";
+        //Set la qualité des effets au lancement du jeu
+        indexEffets = PlayerPrefs.GetInt("EtatQualiteEffets", 3);
+        QualitySettings.SetQualityLevel(indexEffets);
+        ValeurQualiteEffets.text = TextesQualitesEffets[indexEffets];
 
-        //Set la résolution
-        ValeurResolution.text = "NORMALE";
+        //Set la résolution au lancement du jeu
+        indexResolution = PlayerPrefs.GetInt("EtatResolution", 0);
+        ValeurResolution.text = TextesResolution[indexResolution];
+
+        //Set la sensibilité de la souris au lancement du jeu
+        SensibiliteSouris.value = PlayerPrefs.GetFloat("EtatSensibiliteSouris", 0.5f);
 
         AfficherReglages();
     }
@@ -109,20 +128,28 @@ public class Options_Script : MonoBehaviour
         ImageBoutonOptions[2].DOColor(new Color32(247, 247, 247, 255), 0.2f);
     }
 
+    public void ChangerSensibiliteSouris()
+    {
+        PlayerPrefs.SetFloat("EtatSensibiliteSouris", SensibiliteSouris.value);
+    }
+
     public void ChangerVolumeMusique()
     {
         ValeurMusique.text = (VolumeMusiques.value * 100).ToString("N0");
+        PlayerPrefs.SetFloat("EtatVolumeMusique", VolumeMusiques.value);
     }
 
     public void ChangerVolumeDialogues()
     {
         ValeurDialogues.text = (VolumeDialogues.value * 100).ToString("N0");
+        PlayerPrefs.SetFloat("EtatVolumeDialogues", VolumeDialogues.value);
     }
 
     public void ChangerValeurSousTitre()
     {
         SousTitresActive = !SousTitresActive;
         ValeurSousTitres.text = SousTitresActive ? "OUI" : "NON";
+        PlayerPrefs.SetInt("SousTitreEtat", Convert.ToInt32(SousTitresActive));
     }
 
     public void ChangerValeurAffichages()
@@ -133,13 +160,17 @@ public class Options_Script : MonoBehaviour
         switch (index) //Change l'affichage en fonction de la valeur actuelle
         {
             case "FULL":
-                Screen.SetResolution(1920, 1080, false);
+                FullEcran = false;
+                Screen.SetResolution(1920, 1080, FullEcran);
                 ValeurAffichage.text = "FENÊTRÉ";
+                PlayerPrefs.SetInt("EcranEtat", Convert.ToInt32(FullEcran));
                 break;
 
             case "FENÊTRÉ":
-                Screen.SetResolution(1920, 1080, true);
+                FullEcran = true;
+                Screen.SetResolution(1920, 1080, FullEcran);
                 ValeurAffichage.text = "FULL";
+                PlayerPrefs.SetInt("EcranEtat", Convert.ToInt32(FullEcran));
                 break;
         }
     }
@@ -148,6 +179,7 @@ public class Options_Script : MonoBehaviour
     {
         InversionSourisActive = !InversionSourisActive;
         ValeurSouris.text = !InversionSourisActive ? "NON" : "OUI";
+        PlayerPrefs.SetInt("InversionSourisEtat", Convert.ToInt32(InversionSourisActive));
     }
 
     public void ChangerResolution()
@@ -158,20 +190,24 @@ public class Options_Script : MonoBehaviour
         switch (index) //Change la résolution en fonction de la valeur actuelle
         {
             case "FAIBLE":
-                //QualitySettings.SetQualityLevel(1);
-                ValeurResolution.text = "NORMALE";
+                indexResolution = 1;
                 break;
 
             case "NORMALE":
-                //QualitySettings.SetQualityLevel(2);
-                ValeurResolution.text = "ÉLEVÉE";
+                indexResolution = 2;
                 break;
 
             case "ÉLEVÉE":
-                //QualitySettings.SetQualityLevel(3);
-                ValeurResolution.text = "FAIBLE";
+                indexResolution = 0;
                 break;
         }
+        QualiteResolution();
+    }
+
+    public void QualiteResolution()
+    {
+        ValeurResolution.text = TextesResolution[indexResolution];
+        PlayerPrefs.SetInt("EtatResolution", indexResolution);
     }
 
     public void ChangerQualiteEffets()
@@ -182,24 +218,28 @@ public class Options_Script : MonoBehaviour
         switch (index) //Change la qualité en fonction de la valeur actuelle
         {
             case "FAIBLE":
-                QualitySettings.SetQualityLevel(1);
-                ValeurQualiteEffets.text = "NORMALE";
+                indexEffets = 1;
                 break;
 
             case "NORMALE":
-                QualitySettings.SetQualityLevel(2);
-                ValeurQualiteEffets.text = "ÉLEVÉE";
+                indexEffets = 2;
                 break;
 
             case "ÉLEVÉE":
-                QualitySettings.SetQualityLevel(3);
-                ValeurQualiteEffets.text = "ULTRA";
+                indexEffets = 3;
                 break;
 
             case "ULTRA":
-                QualitySettings.SetQualityLevel(0);
-                ValeurQualiteEffets.text = "FAIBLE";
+                indexEffets = 0;
                 break;
         }
+        QualiteEffets();
+    }
+
+    public void QualiteEffets()
+    {
+        QualitySettings.SetQualityLevel(indexEffets);
+        ValeurQualiteEffets.text = TextesQualitesEffets[indexEffets];
+        PlayerPrefs.SetInt("EtatQualiteEffets", indexEffets);
     }
 }

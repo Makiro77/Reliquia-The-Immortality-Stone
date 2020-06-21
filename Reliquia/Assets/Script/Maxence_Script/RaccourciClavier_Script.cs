@@ -54,8 +54,6 @@ namespace clavier
             toucheClavier.Add("Attaque", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attaque", "Mouse0")));
             toucheClavier.Add("Garde", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Garde", "Mouse1")));
 
-            Debug.Log("1");
-
             avancer.text = toucheClavier["Avancer"].ToString();
             gauche.text = toucheClavier["Gauche"].ToString();
             reculer.text = toucheClavier["Reculer"].ToString();
@@ -73,9 +71,7 @@ namespace clavier
             courir.text = toucheClavier["Courir"].ToString();
             accroupir.text = toucheClavier["Accroupir"].ToString();
             attaque.text = toucheClavier["Attaque"].ToString();
-            Debug.Log("2");
             garde.text = toucheClavier["Garde"].ToString();
-            Debug.Log("3");
 
             for (int i = 0; i < 15; i++)
             {
@@ -125,12 +121,10 @@ namespace clavier
 
                     case "Mouse0":
                         texteAssignationTouche[i].text = "CLIC-G";
-                        Debug.Log("clic g");
                         break;
 
                     case "Mouse1":
                         texteAssignationTouche[i].text = "CLIC-D";
-                        Debug.Log("clic d");
                         break;
 
                     case "LeftShift":
@@ -143,7 +137,6 @@ namespace clavier
 
                     case "LeftControl":
                         texteAssignationTouche[i].text = "CTRL-L";
-                        Debug.Log("ctrl l");
                         break;
 
                     case "RightControl":

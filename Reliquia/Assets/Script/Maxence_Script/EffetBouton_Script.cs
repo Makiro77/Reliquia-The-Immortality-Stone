@@ -19,8 +19,8 @@ public class EffetBouton_Script : MonoBehaviour, IPointerExitHandler, IPointerEn
     {
         if (changementCouleurText)
         {
-            if(scene.name == "Menu_00") gameObject.GetComponentInChildren<Text>().color = new Color32(198,150,82,255);
-            else if(scene.name == "Menu_01") gameObject.GetComponentInChildren<Text>().color = new Color32(105,105,105,255);
+            if(gameObject.tag == "BoutonMenu") gameObject.GetComponentInChildren<Text>().color = new Color32(105,105,105,255);
+            else gameObject.GetComponentInChildren<Text>().color = new Color32(198, 150, 82, 255);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
