@@ -13,7 +13,7 @@ namespace clavier
 
         public Dictionary<string, KeyCode> toucheClavier = new Dictionary<string, KeyCode>();
 
-        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, accroupir, attaque, garde;
+        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, accroupir, attaque, garde, menuPause;
         [SerializeField] private Text[] texteAssignationTouche;
 
         int Alpha;
@@ -53,6 +53,7 @@ namespace clavier
             toucheClavier.Add("Accroupir", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Accroupir", "LeftControl")));
             toucheClavier.Add("Attaque", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attaque", "Mouse0")));
             toucheClavier.Add("Garde", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Garde", "Mouse1")));
+            toucheClavier.Add("MenuPause", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MenuPause", "Escape")));
 
             avancer.text = toucheClavier["Avancer"].ToString();
             gauche.text = toucheClavier["Gauche"].ToString();
@@ -73,7 +74,9 @@ namespace clavier
             attaque.text = toucheClavier["Attaque"].ToString();
             garde.text = toucheClavier["Garde"].ToString();
 
-            for (int i = 0; i < 15; i++)
+            menuPause.text = toucheClavier["MenuPause"].ToString();
+
+            for (int i = 0; i < 16; i++)
             {
                 Alpha = i;
 
@@ -141,6 +144,10 @@ namespace clavier
 
                     case "RightControl":
                         texteAssignationTouche[i].text = "CTRL-D";
+                        break;
+
+                    case "Escape":
+                        texteAssignationTouche[i].text = "ÉCHAP";
                         break;
                 }
             }
@@ -288,6 +295,10 @@ namespace clavier
                         case KeyCode.RightControl:
                             toucheSelectionne.GetComponent<Text>().text = "CTRL-D";
                             break;
+
+                        case KeyCode.Escape:
+                            toucheSelectionne.GetComponent<Text>().text = "ÉCHAP";
+                            break;
                     }
 
                     SauvegardeToucheClavier();
@@ -384,6 +395,11 @@ namespace clavier
                 case "RightControl":
                     GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "CTRL-D";
                     break;
+
+                case "Escape":
+                    GameObject.Find(nomToucheExistante).GetComponent<Text>().text = "ÉCHAP";
+                    break;
+
             }
         }
 
