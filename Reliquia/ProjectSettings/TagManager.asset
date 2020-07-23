@@ -7,6 +7,7 @@ TagManager:
   - Sol
   - BoutonUi
   - BoutonMenu
+  - Item
   layers:
   - Default
   - TransparentFX

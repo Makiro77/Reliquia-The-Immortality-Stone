@@ -13,7 +13,7 @@ namespace clavier
 
         public Dictionary<string, KeyCode> toucheClavier = new Dictionary<string, KeyCode>();
 
-        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, accroupir, attaque, garde, menuPause;
+        public Text avancer, gauche, reculer, droite, action, saut, pouvoirSpecial, pouvoir1, pouvoir2, pouvoir3, pouvoir4, courir, accroupir, attaque, garde, menuPause, menuInventaire;
         [SerializeField] private Text[] texteAssignationTouche;
 
         int Alpha;
@@ -54,6 +54,7 @@ namespace clavier
             toucheClavier.Add("Attaque", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attaque", "Mouse0")));
             toucheClavier.Add("Garde", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Garde", "Mouse1")));
             toucheClavier.Add("MenuPause", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MenuPause", "Escape")));
+            toucheClavier.Add("MenuInventaire", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MenuInventaire", "I")));
 
             avancer.text = toucheClavier["Avancer"].ToString();
             gauche.text = toucheClavier["Gauche"].ToString();
@@ -75,8 +76,9 @@ namespace clavier
             garde.text = toucheClavier["Garde"].ToString();
 
             menuPause.text = toucheClavier["MenuPause"].ToString();
+            menuInventaire.text = toucheClavier["MenuInventaire"].ToString();
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 17; i++)
             {
                 Alpha = i;
 
@@ -401,11 +403,6 @@ namespace clavier
                     break;
 
             }
-        }
-
-        private void Update()
-        {
-
         }
     }
 }

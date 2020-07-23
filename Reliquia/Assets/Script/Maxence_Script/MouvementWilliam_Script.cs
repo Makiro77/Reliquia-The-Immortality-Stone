@@ -6,6 +6,7 @@ using clavier;
 public class MouvementWilliam_Script : MonoBehaviour
 {
     RaccourciClavier_Script raccourciClavier;
+    GameManager gameManager;
 
     private Animator _animator;
     private CharacterController _characterController;
@@ -28,6 +29,7 @@ public class MouvementWilliam_Script : MonoBehaviour
     void Start()
     {
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
+        gameManager = FindObjectOfType<GameManager>();
 
         auSol = true;
 
@@ -38,14 +40,17 @@ public class MouvementWilliam_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Avancer();
-        Reculer();
-        Gauche();
-        Droite();
-        Accroupir();
-        Attaque();
-        Course();
-        Saut();
+        if (gameManager.voirMenu == false)
+        {
+            Avancer();
+            Reculer();
+            Gauche();
+            Droite();
+            Accroupir();
+            Attaque();
+            Course();
+            Saut();
+        }
     }
 
 
