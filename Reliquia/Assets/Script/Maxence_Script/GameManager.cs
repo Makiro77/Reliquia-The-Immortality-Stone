@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,15 +14,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform MenuInventaire;
     public bool voirMenu;
 
+    bool menuPauseOuvert;
+    bool menuInventaireOuvert;
+
     [SerializeField] private GameObject MessageInteraction;
     [SerializeField] private Text TexteMessageInteraction;
+
+    [SerializeField] private Transform ParentBarresVieMana;
+    [SerializeField] private Transform ParentCompas;
 
     // Start is called before the first frame update
     void Start()
     {
         voirMenu = false;
+        menuPauseOuvert = false;
+        menuInventaireOuvert = false;
         MenuPause.SetActive(voirMenu);
-        //TexteMessageInteraction.text = "Appuyer sur " + raccourciClavier.action + " pour intéragir";
         FermerMessageInteraction();
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
     }
@@ -29,23 +37,42 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]))
+        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && menuInventaireOuvert == false)
         {
-            voirMenu = !voirMenu;
-            MenuPause.SetActive(voirMenu);
+            menuPause();
         }
 
-        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]))
+        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]) && menuPauseOuvert == false)
         {
-            voirMenu = !voirMenu;
-            if(voirMenu == true) MenuInventaire.localPosition = Vector3.zero;
-            else MenuInventaire.localPosition = new Vector3 (-2000f, 0 ,0);
+            menuInventaire();
         }
+    }
+
+    public void menuPause()
+    {
+        voirMenu = !voirMenu;
+        DeplacerUIMenu();
+        menuPauseOuvert = !menuPauseOuvert;
+        MenuPause.SetActive(voirMenu);
+    }
+
+    public void menuInventaire()
+    {
+        voirMenu = !voirMenu;
+        DeplacerUIMenu();
+        menuInventaireOuvert = !menuInventaireOuvert;
+        MenuInventaire.localPosition = new Vector3((voirMenu == true ? 0 : -2000f), 0, 0);
+    }
+
+    public void DeplacerUIMenu()
+    {
+        ParentBarresVieMana.DOMoveX((voirMenu == true ? - 632f : 0f), 0.25f);
     }
 
     public void AfficherMessageInteraction(string text)
     {
         MessageInteraction.SetActive(true);
+        TexteMessageInteraction.text = "Appuyer sur " + raccourciClavier.action + " pour intéragir";
     }
 
     public void FermerMessageInteraction()

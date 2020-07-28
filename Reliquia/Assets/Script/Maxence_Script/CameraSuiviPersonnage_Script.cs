@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraSuiviPersonnage_Script : MonoBehaviour
 {
     MouvementWilliam_Script mouvementWilliam;
+    GameManager gameManager;
 
 
     /*private const float Y_Angle_Min = 0.0f;
@@ -25,6 +26,7 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
     private void Start()
     {
         mouvementWilliam = FindObjectOfType<MouvementWilliam_Script>();
+        gameManager = FindObjectOfType<GameManager>();
 
         cameraTransform = transform;
         cam = Camera.main;
@@ -34,7 +36,7 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
 
     private void Update()
     {
-        currentX += Input.GetAxis("Mouse X");
+        if(gameManager.voirMenu == false) currentX += Input.GetAxis("Mouse X");
         //currentY += Input.GetAxis("Mouse Y");
 
         //currentY = Mathf.Clamp(currentY, Y_Angle_Min, Y_Angle_Max);
@@ -43,11 +45,14 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 dir = new Vector3(0, 1.7f, -distance);
-        Quaternion rotation = Quaternion.Euler(0, currentX, 0);
-        cameraTransform.position = Personnage.position + rotation * dir;
-        cameraTransform.rotation = Quaternion.Euler(9.5f, currentX, 0);
+        if (gameManager.voirMenu == false)
+        {
+            Vector3 dir = new Vector3(0, 1.7f, -distance);
+            Quaternion rotation = Quaternion.Euler(0, currentX, 0);
+            cameraTransform.position = Personnage.position + rotation * dir;
+            cameraTransform.rotation = Quaternion.Euler(9.5f, currentX, 0);
 
-        if(mouvementWilliam.enMouvement) Personnage.localRotation = rotation;
+            if (mouvementWilliam.enMouvement) Personnage.localRotation = rotation;
+        }
     }
 }

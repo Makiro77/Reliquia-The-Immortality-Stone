@@ -6,20 +6,20 @@ using DG.Tweening;
 
 public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
 {
-    [SerializeField] private int manaWilliam;
-    [SerializeField] private int vieWilliam;
-
-    [SerializeField] private int valeurMana;
-    [SerializeField] private int valeurVie;
-
-    [SerializeField] private float pourcentageMana;
-    [SerializeField] private float pourcentageVie;
-
-    [SerializeField] private int maxVie = 120;
-    [SerializeField] private int minVie = 0;
-
-    [SerializeField] private int maxMana = 120;
-    [SerializeField] private int minMana = 0;
+    public int manaWilliam;
+    public int vieWilliam;
+    
+    public int valeurMana;
+    public int valeurVie;
+    
+    public float pourcentageMana;
+    public float pourcentageVie;
+    
+    public int maxVie = 120;
+    public int minVie = 0;
+    
+    public int maxMana = 120;
+    public int minMana = 0;
 
     [SerializeField] private Text texteMana;
     [SerializeField] private Text texteVie;

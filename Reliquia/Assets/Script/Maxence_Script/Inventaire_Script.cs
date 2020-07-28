@@ -11,6 +11,8 @@ public class Inventaire_Script : MonoBehaviour
 
     public event EventHandler<InventaireEventArgs> ItemAdded;
 
+    public event EventHandler<InventaireEventArgs> ItemRemoved;
+
     public void AddItem(IInventaireItem item)
     {
         if(mItems.Count < Slots)
@@ -28,6 +30,27 @@ public class Inventaire_Script : MonoBehaviour
                 {
                     ItemAdded(this, new InventaireEventArgs(item));
                 }
+            }
+        }
+    }
+
+    public void RemoveItem(IInventaireItem item)
+    {
+        if (mItems.Contains(item))
+        {
+            mItems.Remove(item);
+
+            item.OnDrop();
+
+            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
+            if(collider != null)
+            {
+                collider.enabled = true;
+            }
+
+            if(ItemRemoved != null)
+            {
+                ItemRemoved(this, new InventaireEventArgs(item));
             }
         }
     }

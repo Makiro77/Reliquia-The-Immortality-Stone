@@ -8,6 +8,7 @@ public class William_Script : MonoBehaviour
 
     public GameManager gameManager;
     RaccourciClavier_Script raccourciClavier;
+    Compas_Script compas_Script;
 
     public Inventaire_Script inventaire;
 
@@ -20,6 +21,7 @@ public class William_Script : MonoBehaviour
         LoadPlayer();
         characterController = GetComponent<CharacterController>();
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
+        compas_Script = FindObjectOfType<Compas_Script>();
     }
 
     public void SavePlayer()

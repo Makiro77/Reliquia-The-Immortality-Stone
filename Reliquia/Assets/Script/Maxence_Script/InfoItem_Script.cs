@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class InfoItem_Script : MonoBehaviour, IInventaireItem
 {
-    public string _NomItem = null;
-
-    public string NomItem
+    public virtual string NomItem
     {
         get
         {
-            return _NomItem;
+            return "_nomBaseItem_";
         }
     }
 
@@ -24,8 +22,19 @@ public class InfoItem_Script : MonoBehaviour, IInventaireItem
         }
     }
 
-    public void OnPickup()
+    public virtual void OnPickup()
     {
         gameObject.SetActive(false);
+    }
+
+    public virtual void OnDrop()
+    {
+        RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(Physics.Raycast(ray, out hit, 1000))
+        {
+            gameObject.SetActive(true);
+            gameObject.transform.position = hit.point;
+        }
     }
 }
