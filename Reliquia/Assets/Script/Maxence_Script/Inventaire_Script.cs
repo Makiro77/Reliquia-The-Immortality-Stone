@@ -7,7 +7,7 @@ public class Inventaire_Script : MonoBehaviour
 {
     private const int Slots = 12;
 
-    private List<IInventaireItem> mItems = new List<IInventaireItem>();
+    public List<IInventaireItem> mItems = new List<IInventaireItem>();
 
     public event EventHandler<InventaireEventArgs> ItemAdded;
 

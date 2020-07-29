@@ -8,9 +8,18 @@ public class SaveData
 {
     public PlayerData MyPlayerData { get; set; }
 
+    public SceneData MySceneData { get; set; }
+
+    public ItemData MyItemData { get; set; }
+
+    public InventoryData MyInventoryData { get; set; }
+
+    public DateTime MyDateTime { get; set; }
+
     public SaveData()
     {
-
+        MyInventoryData = new InventoryData();
+        MyDateTime = DateTime.Now;
     }
 }
 
@@ -46,13 +55,34 @@ public class PlayerData
 }
 
 [Serializable]
+public class SceneData
+{
+    public string NomScene { get; set; }
+
+    public SceneData(string sceneNom)
+    {
+        NomScene = sceneNom;
+    }
+}
+
+[Serializable]
 public class ItemData
 {
+    public string ItemNom { get; set; }
 
+    public ItemData(string itemNom)
+    {
+        ItemNom = itemNom;
+    }
 }
 
 [Serializable]
 public class InventoryData
 {
-    
+    public List<ItemData> ItemsInventaire {get; set;}
+
+    public InventoryData()
+    {
+        ItemsInventaire = new List<ItemData>();
+    }
 }
