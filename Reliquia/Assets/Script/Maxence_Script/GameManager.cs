@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text TexteMessageInteraction;
 
     [SerializeField] private Transform ParentBarresVieMana;
-    [SerializeField] private Transform ParentCompas;
+    [SerializeField] private GameObject ParentCompas;
 
     [SerializeField] private Transform ParentSlotSave;
     [SerializeField] private Transform ParentSlotLoad;
@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
     public void DeplacerUIMenu()
     {
         ParentBarresVieMana.DOMoveX((voirMenu == true ? - 632f : 0f), 0.25f);
+        ParentCompas.SetActive(!voirMenu);
     }
 
     public void AfficherMessageInteraction(string text)

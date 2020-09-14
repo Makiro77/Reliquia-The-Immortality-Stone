@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(Application.persistentDataPath);
+        UnityEngine.Debug.Log(Application.persistentDataPath);
         ressourcesVitales = FindObjectOfType<RessourcesVitalesWilliam_Scrip>();
         william = FindObjectOfType<William_Script>();
         gameManager = FindObjectOfType<GameManager>();
@@ -43,6 +44,8 @@ public class SaveManager : MonoBehaviour
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
+
+            UnityEngine.Debug.Log("test");
 
             file.Close();
             savedGame.ShowInfo(data);
@@ -151,13 +154,13 @@ public class SaveManager : MonoBehaviour
     
     private void LoadScene(SaveData data)
     {
-        Debug.Log(data.MySceneData.NomScene);
+        UnityEngine.Debug.Log(data.MySceneData.NomScene);
         savedGame.nomSceneActuelle = data.MySceneData.NomScene;
     }
 
     private void LoadInventory(SaveData data)
     {
-        Debug.Log("load");
+        UnityEngine.Debug.Log("load");
         Transform inventairePanel = GameObject.Find("ParentSlot").transform;
         foreach (ItemData itemData in inventairePanel)
         {

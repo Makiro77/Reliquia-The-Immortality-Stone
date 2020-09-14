@@ -1627,7 +1627,7 @@ MonoBehaviour:
   MessageInteraction: {fileID: 1308580895}
   TexteMessageInteraction: {fileID: 1458478713}
   ParentBarresVieMana: {fileID: 343790619}
-  ParentCompas: {fileID: 824935713}
+  ParentCompas: {fileID: 824935712}
   ParentSlotSave: {fileID: 404221051}
   ParentSlotLoad: {fileID: 1435898247}
   ParentBoutonPause: {fileID: 2057446195}
