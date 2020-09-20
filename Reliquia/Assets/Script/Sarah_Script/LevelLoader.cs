@@ -2,22 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour {
+
+    public GameObject canvas1;
+    public GameObject canvas2;
+    public GameObject canvas3;
+    public GameObject loadingScreen;
+    public Slider slider;
+
+    public void Start () {
+        
+        canvas2.SetActive(false);
+        canvas3.SetActive(false);
+    }
 
     public void LoadLevel (int sceneIndex) {
 
         StartCoroutine(LoadAsynch(sceneIndex));
-        
     }
 
     IEnumerator LoadAsynch (int sceneIndex) {
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
+        loadingScreen.SetActive(true);
+
         while (!operation.isDone) {
             
-            Debug.Log(operation.progress);
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            
+            slider.value = progress;
 
             yield return null;
         }
