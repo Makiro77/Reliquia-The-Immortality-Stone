@@ -49,6 +49,7 @@ public class LevelLoader : MonoBehaviour {
             float progress = Mathf.Clamp01(operation.progress / .9f);
             
             slider.value = progress;
+            amulette.GetComponent<CanvasGroup>().alpha = progress;
             Debug.Log(progress);
 
             yield return null;
