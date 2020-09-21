@@ -25,7 +25,7 @@ public class LevelLoader : MonoBehaviour {
     IEnumerator LoadAsynch (int sceneIndex) {
 
         /// Le code ci dessous est présent uniquement pour l'aperçu ///
-
+        
         loadingScreen1.SetActive(true);
 
         for(float i=0;i<1.1f;i+=.1f){
