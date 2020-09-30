@@ -245,9 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec1d7933d2b5ca358e49ac0ce12814a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portrait: {fileID: 0}
-  fullName: {fileID: 0}
-  dialogue: {fileID: 0}
+  portrait: {fileID: 384805448}
+  fullName: {fileID: 627854370}
+  dialogue: {fileID: 893757704}
 --- !u!1 &333676250
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,9 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec1d7933d2b5ca358e49ac0ce12814a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portrait: {fileID: 0}
-  fullName: {fileID: 0}
-  dialogue: {fileID: 0}
+  portrait: {fileID: 23343898}
+  fullName: {fileID: 697717987}
+  dialogue: {fileID: 893757704}
 --- !u!1 &384805446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,5 +1329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conversation: {fileID: 11400000, guid: 6459bbb9ccb30ff5383d1fbf077d6c06, type: 2}
-  speakerLeft: {fileID: 0}
-  speakerRight: {fileID: 0}
+  speakerGlobal: {fileID: 680010402}
+  speakerLeft: {fileID: 333676250}
+  speakerRight: {fileID: 115796691}
