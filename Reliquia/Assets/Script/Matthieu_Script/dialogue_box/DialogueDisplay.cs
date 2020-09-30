@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueDisplay : MonoBehaviour
 {
     public Conversation conversation;
+    public GameObject speakerGlobal;
     public GameObject speakerLeft;
     public GameObject speakerRight;
     
@@ -19,7 +20,7 @@ public class DialogueDisplay : MonoBehaviour
         speakerUIRight = speakerRight.GetComponent<SpeakerUI>();
 
         speakerUILeft.Speaker  = conversation.speakerLeft;
-        speakerUIRight.Speaker = conversation.speakerRight;
+        speakerUIRight.Speaker = conversation.speakerRight;        
     }
 
     void Update()
@@ -34,6 +35,7 @@ public class DialogueDisplay : MonoBehaviour
             DisplayLine();
             activeLineIndex += 1;
         } else {
+            speakerGlobal.SetActive(false);
             speakerUILeft.Hide();
             speakerUIRight.Hide();
             activeLineIndex = 0;
@@ -42,7 +44,7 @@ public class DialogueDisplay : MonoBehaviour
 
     void DisplayLine() {
         Line line = conversation.lines[activeLineIndex];
-        Speaker speaker = line.speaker;
+        Character speaker = line.speaker;
 
         if (speakerUILeft.IsSpeaking(speaker)) {
             SetDialogue(speakerUILeft, speakerUIRight, line.text);
@@ -55,5 +57,6 @@ public class DialogueDisplay : MonoBehaviour
         activeSpeakerUI.Dialogue = text;
         activeSpeakerUI.Show();
         inactiveSpeakerUI.Hide();
+        speakerGlobal.SetActive(true);
     }
 }

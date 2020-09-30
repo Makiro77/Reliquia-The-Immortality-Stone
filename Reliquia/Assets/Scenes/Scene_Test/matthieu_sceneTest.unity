@@ -1328,6 +1328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb05d315346ccb620bcfb1cd80f8158d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversation: {fileID: 0}
+  conversation: {fileID: 11400000, guid: 6459bbb9ccb30ff5383d1fbf077d6c06, type: 2}
   speakerLeft: {fileID: 0}
   speakerRight: {fileID: 0}

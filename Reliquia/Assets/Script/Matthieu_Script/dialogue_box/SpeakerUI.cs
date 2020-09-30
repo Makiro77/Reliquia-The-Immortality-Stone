@@ -9,14 +9,14 @@ public class SpeakerUI : MonoBehaviour
     public Text fullName;
     public Text dialogue;
     
-    private Speaker speaker;
-    public Speaker Speaker
+    private Character speaker;
+    public Character Speaker
     {
         get { return speaker; }
         set {
-            speaker     = value;
-            portrait    = speaker.portrait;
-            fullName    = speaker.fullName;
+            speaker = value;
+            portrait.sprite = value.portrait;
+            fullName.text = value.fullName;
         }
     }
     public string Dialogue
@@ -33,7 +33,7 @@ public class SpeakerUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public bool IsSpeaking(Speaker crt_speaker) {
+    public bool IsSpeaking(Character crt_speaker) {
         return speaker == crt_speaker;
     }
 }
