@@ -6,7 +6,7 @@ using UnityEngine;
 public class William_Script : MonoBehaviour
 {
 
-    public GameManager gameManager;
+    GameManager gameManager;
     RaccourciClavier_Script raccourciClavier;
     Compas_Script compas_Script;
 
@@ -16,11 +16,25 @@ public class William_Script : MonoBehaviour
 
     [SerializeField] private GameObject ParentMenu;
 
+    public static William_Script instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
         compas_Script = FindObjectOfType<Compas_Script>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()

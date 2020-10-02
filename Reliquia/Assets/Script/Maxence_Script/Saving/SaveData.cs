@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine;
 [Serializable]
 public class SaveData
 {
+
+    public DataSave MyDataSave { get; set; }
+
     public PlayerData MyPlayerData { get; set; }
 
     public SceneData MySceneData { get; set; }
@@ -20,6 +24,17 @@ public class SaveData
     {
         MyInventoryData = new InventoryData();
         MyDateTime = DateTime.Now;
+    }
+}
+
+[Serializable]
+public class DataSave
+{
+    public string MySaveName { get; set; }
+
+    public DataSave(string saveName)
+    {
+        MySaveName = saveName;
     }
 }
 
@@ -57,11 +72,13 @@ public class PlayerData
 [Serializable]
 public class SceneData
 {
-    public string NomScene { get; set; }
+    public int IdScene { get; set; }
+    public string NameScene { get; set; }
 
-    public SceneData(string sceneNom)
+    public SceneData(int sceneId, string sceneName)
     {
-        NomScene = sceneNom;
+        IdScene = sceneId;
+        NameScene = sceneName;
     }
 }
 

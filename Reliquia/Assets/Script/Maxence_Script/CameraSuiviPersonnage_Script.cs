@@ -30,8 +30,6 @@ public class CameraSuiviPersonnage_Script : MonoBehaviour
 
         cameraTransform = transform;
         cam = Camera.main;
-
-        Debug.Log(cameraTransform.position);
     }
 
     private void Update()

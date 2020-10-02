@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
@@ -13,39 +15,60 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private InfoItem_Script[] items;
 
-    [SerializeField] private SavedGame[] saveSlots;
+    public List<GameObject> saveSlots = new List<GameObject>();
 
-    RessourcesVitalesWilliam_Scrip ressourcesVitales;
     Inventaire_Script inventaire_Script;
-    William_Script william;
-    GameManager gameManager;
     SavedGame savedGame;
 
+    public static SaveManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        saveSlots.Clear();
+
+        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
+        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
+
+        StartCoroutine(affichageSaveLoad());
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        UnityEngine.Debug.Log(Application.persistentDataPath);
-        ressourcesVitales = FindObjectOfType<RessourcesVitalesWilliam_Scrip>();
-        william = FindObjectOfType<William_Script>();
-        gameManager = FindObjectOfType<GameManager>();
         inventaire_Script = FindObjectOfType<Inventaire_Script>();
         savedGame = FindObjectOfType<SavedGame>();
 
-        GestionSlots();
+        saveSlots.Clear();
 
+        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
+        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
 
+        StartCoroutine(affichageSaveLoad());
     }
 
-    private void ShowSavedFile(SavedGame savedGame)
+    public IEnumerator affichageSaveLoad()
     {
-        if(File.Exists(Application.persistentDataPath + "/"+ savedGame.MySaveName + ".dat"))
+        yield return new WaitForSeconds(1);
+        GestionSlots();
+    }
+
+    public void ShowSavedFile(SavedGame savedGame)
+    {
+        if(File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
-
-            UnityEngine.Debug.Log("test");
 
             file.Close();
             savedGame.ShowInfo(data);
@@ -54,9 +77,9 @@ public class SaveManager : MonoBehaviour
 
     public void GestionSlots()
     {
-        foreach (SavedGame saveGame in saveSlots)
+        foreach (GameObject saveGame in saveSlots)
         {
-            ShowSavedFile(saveGame);
+            ShowSavedFile(saveGame.GetComponent<SavedGame>());
         }
     }
 
@@ -64,20 +87,29 @@ public class SaveManager : MonoBehaviour
     {
         try
         {
-            BinaryFormatter bf = new BinaryFormatter();
+            if (savedGame.transform.GetChild(0).GetComponent<Text>().text == "Nouvelle partie")
+            {
+                GameManager.instance.choixNomSauvegarde();
+            }
+            else if (File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat") && GameManager.instance.popUpActif == false) GameManager.instance.ecraserSauvegarde();
+            else
+            {
+                BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
+                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
 
-            SaveData data = new SaveData();
+                SaveData data = new SaveData();
 
-            SavePlayer(data);
-            SaveScene(data);
+                //SaveName(data);
+                SavePlayer(data);
+                SaveScene(data);
 
-            bf.Serialize(file, data);
+                bf.Serialize(file, data);
 
-            file.Close();
+                file.Close();
 
-            GestionSlots();
+                GestionSlots();
+            }
         }
         catch (Exception)
         {
@@ -87,16 +119,21 @@ public class SaveManager : MonoBehaviour
 
     private void SavePlayer(SaveData data)
     {
-        data.MyPlayerData = new PlayerData(ressourcesVitales.vieWilliam, 
-            ressourcesVitales.maxVie, 
-            ressourcesVitales.manaWilliam, 
-            ressourcesVitales.maxMana,
-            william.transform.position);
+        data.MyPlayerData = new PlayerData(RessourcesVitalesWilliam_Scrip.instance.vieWilliam, 
+            RessourcesVitalesWilliam_Scrip.instance.maxVie, 
+            RessourcesVitalesWilliam_Scrip.instance.manaWilliam,
+            RessourcesVitalesWilliam_Scrip.instance.maxMana,
+            William_Script.instance.transform.position);
     }
 
     private void SaveScene(SaveData data)
     {
-        data.MySceneData = new SceneData(SceneManager.GetActiveScene().name);
+        data.MySceneData = new SceneData(SceneManager.GetActiveScene().buildIndex, SceneManager.GetActiveScene().name);
+    }
+
+    private void SaveName(SaveData data)
+    {
+        data.MyDataSave = new DataSave(GameManager.instance.popUp.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text);
     }
 
     private void SaveInventory(SaveData data)
@@ -111,27 +148,64 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void Load(SavedGame savedGame)
+    public void NewSave(SavedGame savedGame)
     {
         try
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
 
-            SaveData data = (SaveData)bf.Deserialize(file);
+            SaveData data = new SaveData();
+
+            NewSavePlayerData(data);
+
+            bf.Serialize(file, data);
 
             file.Close();
 
-            /*if (savedGame.nomSceneActuelle != SceneManager.GetActiveScene().name)
-            {
-                SceneManager.LoadScene(savedGame.nomSceneActuelle);
-            }
-            else return;*/
+            GestionSlots();
 
             LoadPlayer(data);
-            //LoadScene(data);
-            gameManager.menuPause();
+
+            if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) LoadScene(data);
+
+            GameManager.instance.menuPause();
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+
+    private void NewSavePlayerData(SaveData data)
+    {
+        data.MySceneData = new SceneData(2, "maxence_SceneTestPersonnage");
+        data.MyPlayerData = new PlayerData(100, 100, 100, 100, new Vector3(0,5,0));
+    }
+
+    public void Load(SavedGame savedGame)
+    {
+        try
+        {
+            if (savedGame.transform.GetChild(0).GetComponent<Text>().text == "Nouvelle partie") GameManager.instance.choixNomSauvegarde();
+            else
+            {
+                UnityEngine.Debug.Log(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat");
+                BinaryFormatter bf = new BinaryFormatter();
+
+                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
+
+                SaveData data = (SaveData)bf.Deserialize(file);
+
+                file.Close();
+
+                LoadPlayer(data);
+
+                if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) LoadScene(data);
+
+                GameManager.instance.menuPause();
+            }
         }
         catch (Exception)
         {
@@ -141,21 +215,23 @@ public class SaveManager : MonoBehaviour
 
     private void LoadPlayer(SaveData data)
     {
-        ressourcesVitales.vieWilliam = data.MyPlayerData.MyLife;
-        ressourcesVitales.maxVie = data.MyPlayerData.MyMaxLife;
-        ressourcesVitales.SetVie(ressourcesVitales.vieWilliam);
+        InformationsPlayer.instance.williamVie = data.MyPlayerData.MyLife;
+        InformationsPlayer.instance.maxWilliamVie = data.MyPlayerData.MyMaxLife;
+        //RessourcesVitalesWilliam_Scrip.instance.SetVie(RessourcesVitalesWilliam_Scrip.instance.vieWilliam);
 
-        ressourcesVitales.manaWilliam = data.MyPlayerData.MyMana;
-        ressourcesVitales.maxMana = data.MyPlayerData.MyMaxMana;
-        ressourcesVitales.SetMana(ressourcesVitales.manaWilliam);
+        InformationsPlayer.instance.williamMana = data.MyPlayerData.MyMana;
+        InformationsPlayer.instance.maxWilliamMana = data.MyPlayerData.MyMaxMana;
+        //RessourcesVitalesWilliam_Scrip.instance.SetMana(RessourcesVitalesWilliam_Scrip.instance.manaWilliam);
 
-        william.transform.position = new Vector3(data.MyPlayerData.MyX, data.MyPlayerData.MyY, data.MyPlayerData.MyZ);
+        InformationsPlayer.instance.williamPosition = new Vector3(data.MyPlayerData.MyX, data.MyPlayerData.MyY, data.MyPlayerData.MyZ);
     }
     
     private void LoadScene(SaveData data)
     {
-        UnityEngine.Debug.Log(data.MySceneData.NomScene);
-        savedGame.nomSceneActuelle = data.MySceneData.NomScene;
+        savedGame.idSceneActuelle = data.MySceneData.IdScene;
+        savedGame.nomSceneActuelle = data.MySceneData.NameScene;
+
+        SceneManager.LoadSceneAsync(savedGame.idSceneActuelle);
     }
 
     private void LoadInventory(SaveData data)

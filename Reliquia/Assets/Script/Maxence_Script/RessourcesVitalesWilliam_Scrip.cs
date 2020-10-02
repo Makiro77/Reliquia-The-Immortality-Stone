@@ -27,14 +27,23 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
     [SerializeField] private Image barreMana;
     [SerializeField] private Image barreVie;
 
+    public static RessourcesVitalesWilliam_Scrip instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        vieWilliam = maxVie;
-        manaWilliam = maxMana;
 
-        SetMana(manaWilliam);
-        SetVie(vieWilliam);
     }
 
     // Update is called once per frame

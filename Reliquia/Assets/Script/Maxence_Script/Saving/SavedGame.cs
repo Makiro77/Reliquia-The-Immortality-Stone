@@ -17,7 +17,8 @@ public class SavedGame : MonoBehaviour
     [SerializeField] private GameObject texteNomSauvegarde;
 
     [SerializeField] private int index;
-    [SerializeField] private string nameSave;
+    public string nameSave;
+    public int idSceneActuelle;
     public string nomSceneActuelle;
 
     public int MyIndex
@@ -43,7 +44,8 @@ public class SavedGame : MonoBehaviour
         texteChapitre.SetActive(false);
         textePourcentageAvancement.SetActive(false);
 
-        nameSave = "Sauvegarde " + (MyIndex+1);
+        //PlayerPrefs.DeleteAll();
+        nameSave = PlayerPrefs.GetString(MyIndex.ToString());
     }
 
     public void ShowInfo(SaveData saveData)
@@ -53,7 +55,7 @@ public class SavedGame : MonoBehaviour
         textePourcentageAvancement.SetActive(true);
 
         dateTime.text = saveData.MyDateTime.ToString("dd/MM/yyyy") + " à " + saveData.MyDateTime.ToString("H:mm");
-        nomSceneActuelle = SceneManager.GetActiveScene().name;
+        nomSceneActuelle = saveData.MySceneData.NameScene;
         chapitreEnCours.text = nomSceneActuelle;
         NomSauvegarde.text = nameSave;
 

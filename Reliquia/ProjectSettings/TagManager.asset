@@ -8,6 +8,10 @@ TagManager:
   - BoutonUi
   - BoutonMenu
   - Item
+  - Save
+  - Load
+  - HUD
+  - SaveManager
   layers:
   - Default
   - TransparentFX
