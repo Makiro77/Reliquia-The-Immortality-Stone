@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class LevelLoader : MonoBehaviour {
 
@@ -36,16 +37,16 @@ public class LevelLoader : MonoBehaviour {
             else
                 loadingPoints.text = loadingPoints.text + ".";
 
-            amulette.GetComponent<CanvasGroup>().alpha = i;
+            amulette.GetComponent<CanvasGroup>().DOFade(i, 0.3f);
             Debug.Log(i);
-            yield return new WaitForSeconds(.4f);
+            yield return new WaitForSeconds(.3f);
         }
 
         SceneManager.LoadScene(0);
 
         /// La véritable fonction prenant en compte le temps de chargement du niveau est en commentaire ci-dessous ///
-        /*
         
+        /*
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
         loadingScreen1.SetActive(true);
@@ -60,7 +61,7 @@ public class LevelLoader : MonoBehaviour {
             
             float progress = Mathf.Clamp01(operation.progress / .9f);
             
-            amulette.GetComponent<CanvasGroup>().alpha = progress;
+            amulette.GetComponent<CanvasGroup>().DOFade(progress, 0.3f);
             Debug.Log(progress);
 
             yield return null;
