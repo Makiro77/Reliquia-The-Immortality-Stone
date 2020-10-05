@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4677315279493638721}
   - component: {fileID: 4677315279493638751}
-  - component: {fileID: 8409081728233371916}
   - component: {fileID: 6954937260148690552}
-  - component: {fileID: 3626805384673636428}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,59 +47,23 @@ MonoBehaviour:
   MenuPause: {fileID: 0}
   MenuInventaire: {fileID: 0}
   voirMenu: 0
+  menuPauseOuvert: 0
+  menuInventaireOuvert: 0
+  menuSlots: 0
   MessageInteraction: {fileID: 0}
   TexteMessageInteraction: {fileID: 0}
   ParentBarresVieMana: {fileID: 0}
   ParentCompas: {fileID: 0}
   ParentSlotSave: {fileID: 0}
   ParentSlotLoad: {fileID: 0}
-  ParentBoutonPause: {fileID: 0}
---- !u!114 &8409081728233371916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4677315279493638722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17fbd74baf83af4b978ef4a9d114733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avancer: {fileID: 0}
-  gauche: {fileID: 0}
-  reculer: {fileID: 0}
-  droite: {fileID: 0}
-  action: {fileID: 0}
-  saut: {fileID: 0}
-  pouvoirSpecial: {fileID: 0}
-  pouvoir1: {fileID: 0}
-  pouvoir2: {fileID: 0}
-  pouvoir3: {fileID: 0}
-  pouvoir4: {fileID: 0}
-  courir: {fileID: 0}
-  accroupir: {fileID: 0}
-  attaque: {fileID: 0}
-  garde: {fileID: 0}
-  menuPause: {fileID: 0}
-  menuInventaire: {fileID: 0}
-  texteAssignationTouche:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ParentBoutonMenu: {fileID: 0}
+  popUpNomSauvegarde: {fileID: 0}
+  popUpEcraserSauvegarde: {fileID: 0}
+  popUpRetourMenuPrincipal: {fileID: 0}
+  popUp: {fileID: 0}
+  SlotSaveSelect: {fileID: 0}
+  popUpActif: 0
+  chapitreEnCours: 0
 --- !u!114 &6954937260148690552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,31 +91,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 84b82c00153e73946a8922b47190d1e6, type: 3}
   popUpQuitter: {fileID: 3723548539194287258, guid: a3a0c08ec2447f844b9208ecb3768528,
     type: 3}
---- !u!114 &3626805384673636428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4677315279493638722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522d1834a3181a343b0dc4947cbf09d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ImageBoutonOptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ContenuOptions: {fileID: 0}
-  TitreMenuActif: {fileID: 0}
-  ValeurMusique: {fileID: 0}
-  ValeurDialogues: {fileID: 0}
-  VolumeMusiques: {fileID: 0}
-  VolumeDialogues: {fileID: 0}
-  ValeurSousTitres: {fileID: 0}
-  ValeurAffichage: {fileID: 0}
-  ValeurSouris: {fileID: 0}
-  ValeurResolution: {fileID: 0}
-  ValeurQualiteEffets: {fileID: 0}
-  SensibiliteSouris: {fileID: 0}
+  prefabMenuOptions: {fileID: 0}

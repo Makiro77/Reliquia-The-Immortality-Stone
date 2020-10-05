@@ -20,6 +20,8 @@ public class Menu_Script : MonoBehaviour
     private int pageMenuActive;
 
     [SerializeField] private GameObject popUpQuitter;
+    [SerializeField] private GameObject prefabMenuOptions;
+    private GameObject menuOptions;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +35,9 @@ public class Menu_Script : MonoBehaviour
             backgroundImageMenu.sprite = ImagesBackground[0];
 
             fondTransition.DOFade(0, 0.5f);
+
+            Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
+            PagesMenuPrincipal[2].SetActive(false);
         }
         else if(scene.name == "Menu_00")
         {

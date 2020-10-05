@@ -12,6 +12,8 @@ TagManager:
   - Load
   - HUD
   - SaveManager
+  - Options
+  - GameManager
   layers:
   - Default
   - TransparentFX

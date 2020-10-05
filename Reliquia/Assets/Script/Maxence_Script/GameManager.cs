@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -65,16 +66,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && menuInventaireOuvert == false)
+        if (SceneManager.GetActiveScene().name != "Menu_01" && SceneManager.GetActiveScene().name != "Menu_00")
         {
-            menuPause();
-        }
+            if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && menuInventaireOuvert == false)
+            {
+                menuPause();
+            }
 
-        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]) && menuPauseOuvert == false)
-        {
-            menuInventaire();
+            if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]) && menuPauseOuvert == false)
+            {
+                menuInventaire();
+            }
         }
-
         if ((EventSystem.current.currentSelectedGameObject.CompareTag("Load") || EventSystem.current.currentSelectedGameObject.CompareTag("Save")) && menuInventaireOuvert == false) SlotSaveSelect = EventSystem.current.currentSelectedGameObject;
         else return;
     }

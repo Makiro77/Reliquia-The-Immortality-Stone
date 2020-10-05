@@ -48,9 +48,17 @@ public class Options_Script : MonoBehaviour
     private int indexEffets;
     private int indexResolution;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Button boutonRetour;
+
+    private void Awake()
     {
+        valeurAuLancement();
+    }
+
+    public void valeurAuLancement()
+    {
+        boutonRetour.onClick.AddListener(GameManager.instance.GetComponent<Menu_Script>().retourMenu);
+
         //Set l'état des sous-titres au lancement du jeu
         SousTitresActive = Convert.ToBoolean(PlayerPrefs.GetInt("SousTitreEtat", 1)); ;
         ValeurSousTitres.text = SousTitresActive ? "OUI" : "NON";
@@ -58,7 +66,7 @@ public class Options_Script : MonoBehaviour
         //Set l'état d'inversion de la souris au lancement du jeu
         InversionSourisActive = Convert.ToBoolean(PlayerPrefs.GetInt("InversionSourisEtat", 0));
         ValeurSouris.text = !InversionSourisActive ? "NON" : "OUI";
-
+        
         //Set le volume des dialogues et de la musique au lancement du jeu
         VolumeDialogues.value = PlayerPrefs.GetFloat("EtatVolumeDialogues", 1f);
         VolumeMusiques.value = PlayerPrefs.GetFloat("EtatVolumeMusique", 1f);
@@ -84,12 +92,6 @@ public class Options_Script : MonoBehaviour
         SensibiliteSouris.value = PlayerPrefs.GetFloat("EtatSensibiliteSouris", 0.5f);
 
         AfficherReglages();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void AfficherReglages()

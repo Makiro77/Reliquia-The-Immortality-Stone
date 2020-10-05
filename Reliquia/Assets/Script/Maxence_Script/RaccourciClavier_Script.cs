@@ -26,8 +26,7 @@ namespace clavier
         bool toucheExistante;
         string nomToucheExistante;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             //PlayerPrefs.DeleteAll();
             AssignationTouche();
@@ -80,8 +79,6 @@ namespace clavier
 
             for (int i = 0; i < 17; i++)
             {
-                Alpha = i;
-
                 switch (texteAssignationTouche[i].text)
                 {
                     case "Alpha0":
