@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ public class SaveManager : MonoBehaviour
 
     [SerializeField]
     private InfoItem_Script[] items;
+
+    [SerializeField] private Image fondTransition;
 
     public List<GameObject> saveSlots = new List<GameObject>();
 
@@ -168,7 +171,7 @@ public class SaveManager : MonoBehaviour
 
             LoadPlayer(data);
 
-            if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) LoadScene(data);
+            if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(()=>LoadScene(data));
 
             GameManager.instance.menuPause();
         }
@@ -202,7 +205,7 @@ public class SaveManager : MonoBehaviour
 
                 LoadPlayer(data);
 
-                if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) LoadScene(data);
+                if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(() => LoadScene(data));
 
                 GameManager.instance.menuPause();
             }

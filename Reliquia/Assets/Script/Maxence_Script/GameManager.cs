@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject popUpNomSauvegarde;
     public GameObject popUpEcraserSauvegarde;
+    public GameObject popUpRetourMenuPrincipal;
 
     public GameObject popUp;
     public GameObject SlotSaveSelect;
@@ -87,6 +88,12 @@ public class GameManager : MonoBehaviour
     public void ecraserSauvegarde()
     {
         popUp = Instantiate(popUpEcraserSauvegarde, GameObject.FindGameObjectWithTag("HUD").transform);
+        popUpActif = true;
+    }
+
+    public void retourMenu()
+    {
+        popUp = Instantiate(popUpRetourMenuPrincipal, GameObject.FindGameObjectWithTag("HUD").transform.GetChild(3));
         popUpActif = true;
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PopUp_Script : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class PopUp_Script : MonoBehaviour
     {
         SaveManager.instance.Save(GameManager.instance.SlotSaveSelect.GetComponent<SavedGame>());
         fermerPopUp();
+    }
+
+    public void retourMenuPrincipal()
+    {
+        transform.parent.transform.parent.GetComponent<HUD_Script>().imageTransition.DOFade(1, 1.5f).OnComplete(() => SceneManager.LoadScene("Menu_01"));
     }
 
     public void nouveauNomSauvegarde()

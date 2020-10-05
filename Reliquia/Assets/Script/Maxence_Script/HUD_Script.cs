@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -25,9 +26,12 @@ public class HUD_Script : MonoBehaviour
 
     public GameObject[] SloatsLoadSave;
 
+    public Image imageTransition;
+
     // Start is called before the first frame update
     void Awake()
     {
+        imageTransition.DOFade(0, 1.5f);
     }
 
     void Start()
@@ -78,5 +82,15 @@ public class HUD_Script : MonoBehaviour
         GameManager.instance.menuInventaireOuvert = false;
         GameManager.instance.MenuPause.SetActive(GameManager.instance.voirMenu);
         GameManager.instance.FermerMessageInteraction();
+    }
+
+    public void ContinuerJeu()
+    {
+        GameManager.instance.menuPause();
+    }
+
+    public void QuitterPartie()
+    {
+        GameManager.instance.retourMenu();
     }
 }
