@@ -25,12 +25,14 @@ public class HUD_Script : MonoBehaviour
     [SerializeField] private Button boutonMenuLoad;
 
     public GameObject[] SloatsLoadSave;
+    public GameObject prefabMenuOptions;
 
     public Image imageTransition;
 
     // Start is called before the first frame update
     void Awake()
     {
+        Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
         imageTransition.DOFade(0, 1.5f);
     }
 
