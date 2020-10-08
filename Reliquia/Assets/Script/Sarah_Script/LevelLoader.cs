@@ -7,26 +7,19 @@ using DG.Tweening;
 
 public class LevelLoader : MonoBehaviour {
 
-    public GameObject loadingScreen1; // Ecran de chargement à afficher
-    public GameObject loadingScreen2; // Second écran de chargement
     public GameObject amulette; // Amulette remplie
     public Text loadingPoints; // "Chargement..."
+    public int sceneIndex;
 
-    public void Start () {
-        
-        loadingScreen1.SetActive(false); 
-        loadingScreen2.SetActive(false); 
-    }
-
-    public void LoadLevel (int sceneIndex) {
+    void Start() {
 
         StartCoroutine(LoadAsynch(sceneIndex));
     }
 
-    IEnumerator LoadAsynch (int sceneIndex) {
+    IEnumerator LoadAsynch(int sceneIndex) {
 
         /// Le code ci-dessous est présent uniquement pour l'aperçu ///
-        
+        /*
         loadingScreen1.SetActive(true);
 
         for(float i=0;i<1.1f;i+=.1f){
@@ -42,14 +35,12 @@ public class LevelLoader : MonoBehaviour {
             yield return new WaitForSeconds(.3f);
         }
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);*/
 
         /// La véritable fonction prenant en compte le temps de chargement du niveau est en commentaire ci-dessous ///
         
-        /*
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-
-        loadingScreen1.SetActive(true);
 
         while (!operation.isDone) {
 
@@ -60,11 +51,11 @@ public class LevelLoader : MonoBehaviour {
                 loadingPoints.text = loadingPoints.text + ".";
             
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            
-            amulette.GetComponent<CanvasGroup>().DOFade(progress, 0.3f);
+            /* Génère une erreur
+            amulette.GetComponent<CanvasGroup>().DOFade(progress, 0.3f);*/
             Debug.Log(progress);
 
             yield return null;
-        }*/
+        }
     }
 }
