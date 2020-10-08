@@ -605,42 +605,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191227421}
   m_CullTransparentMesh: 0
---- !u!1 &282545601 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4677315279493638722, guid: 294eae1c41823504a924c8ecebb4a76e,
-    type: 3}
-  m_PrefabInstance: {fileID: 48549454}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &282545602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282545601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17fbd74baf83af4b978ef4a9d114733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avancer: {fileID: 0}
-  gauche: {fileID: 0}
-  reculer: {fileID: 0}
-  droite: {fileID: 0}
-  action: {fileID: 0}
-  saut: {fileID: 0}
-  pouvoirSpecial: {fileID: 0}
-  pouvoir1: {fileID: 0}
-  pouvoir2: {fileID: 0}
-  pouvoir3: {fileID: 0}
-  pouvoir4: {fileID: 0}
-  courir: {fileID: 0}
-  accroupir: {fileID: 0}
-  attaque: {fileID: 0}
-  garde: {fileID: 0}
-  menuPause: {fileID: 0}
-  menuInventaire: {fileID: 0}
-  texteAssignationTouche: []
 --- !u!1 &297539324
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1834,7 +1798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3075,7 +3039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3219,7 +3183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -3708,7 +3672,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 48549454}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282545601}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949553bcbd522754ea5a7d12e933dae3, type: 3}

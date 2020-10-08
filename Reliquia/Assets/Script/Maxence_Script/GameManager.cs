@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public Transform ParentSlotSave;
     public Transform ParentSlotLoad;
     public Transform ParentBoutonMenu;
+    public Transform ParentOptions;
 
     public static GameManager instance;
 
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     public bool popUpActif;
 
     public int chapitreEnCours;
+    public string nomSauvegarde;
 
     private void Awake()
     {
@@ -66,18 +68,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "Menu_01" && SceneManager.GetActiveScene().name != "Menu_00")
-        {
-            if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && menuInventaireOuvert == false)
-            {
-                menuPause();
-            }
-
-            if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]) && menuPauseOuvert == false)
-            {
-                menuInventaire();
-            }
-        }
         if ((EventSystem.current.currentSelectedGameObject.CompareTag("Load") || EventSystem.current.currentSelectedGameObject.CompareTag("Save")) && menuInventaireOuvert == false) SlotSaveSelect = EventSystem.current.currentSelectedGameObject;
         else return;
     }
@@ -98,6 +88,13 @@ public class GameManager : MonoBehaviour
     {
         popUp = Instantiate(popUpRetourMenuPrincipal, GameObject.FindGameObjectWithTag("HUD").transform.GetChild(3));
         popUpActif = true;
+    }
+
+    public void menuOptions()
+    {
+        menuSlots = !menuSlots;
+        if (menuSlots == true) ParentBoutonMenu.DOMoveX(-780f, 0.25f).OnComplete(() => ParentOptions.gameObject.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
+        else ParentOptions.gameObject.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(() => ParentBoutonMenu.DOMoveX(0f, 0.25f));
     }
 
     public void menuSauvegarde()
@@ -123,7 +120,7 @@ public class GameManager : MonoBehaviour
         //ParentBoutonPause.localPosition = new Vector3(53, -170, 0);
         ParentSlotLoad.localPosition = new Vector3(2000f, 0, 0);
         ParentSlotSave.localPosition = new Vector3(2000f, 0, 0);
-        ParentBoutonMenu.DOMoveX((voirMenu == true ? 0f : -780f), 0.25f).OnComplete(() => MenuPause.SetActive(voirMenu));
+        ParentBoutonMenu.DOMoveX((voirMenu == true ? 0f : -780f), 0.25f);
 
         //MenuPause.SetActive(voirMenu);
     }

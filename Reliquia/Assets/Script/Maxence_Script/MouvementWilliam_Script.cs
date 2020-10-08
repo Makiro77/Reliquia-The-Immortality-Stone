@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using clavier;
+using UnityEngine.SceneManagement;
 
 public class MouvementWilliam_Script : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class MouvementWilliam_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.voirMenu == false)
+        if (GameManager.instance.voirMenu == false)
         {
             Avancer();
             Reculer();
@@ -50,6 +51,16 @@ public class MouvementWilliam_Script : MonoBehaviour
             Attaque();
             Course();
             Saut();
+        }
+
+        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && GameManager.instance.menuInventaireOuvert == false)
+        {
+            GameManager.instance.menuPause();
+        }
+
+        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuInventaire"]) && GameManager.instance.menuPauseOuvert == false)
+        {
+            GameManager.instance.menuInventaire();
         }
     }
 

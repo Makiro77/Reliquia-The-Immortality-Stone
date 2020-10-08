@@ -187,6 +187,32 @@ public class SaveManager : MonoBehaviour
         data.MyPlayerData = new PlayerData(100, 100, 100, 100, new Vector3(0,5,0));
     }
 
+    public void LoadInGame(string nomSave)
+    {
+        try
+        {
+            UnityEngine.Debug.Log(Application.persistentDataPath + "/" + nomSave + ".dat");
+            BinaryFormatter bf = new BinaryFormatter();
+
+            FileStream file = File.Open(Application.persistentDataPath + "/" + nomSave + ".dat", FileMode.Open);
+
+            SaveData data = (SaveData)bf.Deserialize(file);
+
+            file.Close();
+
+            LoadPlayer(data);
+
+            if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(() => LoadScene(data));
+            else if (data.MySceneData.IdScene == SceneManager.GetActiveScene().buildIndex) HUD_Script.instance.setInfoWilliam();
+
+            GameManager.instance.menuPause();
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+
     public void Load(SavedGame savedGame)
     {
         try
@@ -194,7 +220,6 @@ public class SaveManager : MonoBehaviour
             if (savedGame.transform.GetChild(0).GetComponent<Text>().text == "Nouvelle partie") GameManager.instance.choixNomSauvegarde();
             else
             {
-                UnityEngine.Debug.Log(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat");
                 BinaryFormatter bf = new BinaryFormatter();
 
                 FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
@@ -202,6 +227,8 @@ public class SaveManager : MonoBehaviour
                 SaveData data = (SaveData)bf.Deserialize(file);
 
                 file.Close();
+
+                GameManager.instance.nomSauvegarde = savedGame.MySaveName;
 
                 LoadPlayer(data);
 

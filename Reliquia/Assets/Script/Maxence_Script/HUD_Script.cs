@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using clavier;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -20,28 +21,46 @@ public class HUD_Script : MonoBehaviour
     public Transform ParentSlotSave;
     public Transform ParentSlotLoad;
     public Transform ParentBoutonMenu;
+    public Transform ParentOptions;
 
-    [SerializeField] private Button boutonMenuSave;
-    [SerializeField] private Button boutonMenuLoad;
+    //[SerializeField] private Button boutonMenuSave;
+    //[SerializeField] private Button boutonMenuLoad;
+    [SerializeField] private Button boutonMenuOptions;
+    [SerializeField] private Button boutonRetourOption;
 
     public GameObject[] SloatsLoadSave;
     public GameObject prefabMenuOptions;
 
+    [SerializeField] private GameObject prefab;
+
     public Image imageTransition;
+
+    public static HUD_Script instance;
 
     // Start is called before the first frame update
     void Awake()
     {
-        Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        prefab = Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
+        boutonRetourOption =  prefab.transform.GetChild(1).GetComponent<Button>();
         imageTransition.DOFade(0, 1.5f);
+
+        ManageGame();
+
+        //boutonMenuSave.onClick.AddListener(GameManager.instance.menuSauvegarde);
+        boutonMenuOptions.onClick.AddListener(GameManager.instance.menuOptions);
+        boutonRetourOption.onClick.AddListener(GameManager.instance.menuOptions);
     }
 
     void Start()
     {
-        ManageGame();
-
-        boutonMenuSave.onClick.AddListener(GameManager.instance.menuSauvegarde);
-        boutonMenuLoad.onClick.AddListener(GameManager.instance.menuCharger);
 
         SaveManager.instance.saveSlots.Clear();
 
@@ -52,6 +71,11 @@ public class HUD_Script : MonoBehaviour
 
         StartCoroutine(SaveManager.instance.affichageSaveLoad());
 
+        setInfoWilliam();
+    }
+
+    public void setInfoWilliam()
+    {
         RessourcesVitalesWilliam_Scrip.instance.manaWilliam = InformationsPlayer.instance.williamMana;
         RessourcesVitalesWilliam_Scrip.instance.vieWilliam = InformationsPlayer.instance.williamVie;
         RessourcesVitalesWilliam_Scrip.instance.maxMana = InformationsPlayer.instance.maxWilliamMana;
@@ -77,12 +101,14 @@ public class HUD_Script : MonoBehaviour
         GameManager.instance.ParentSlotSave = ParentSlotSave;
         GameManager.instance.ParentSlotLoad = ParentSlotLoad;
         GameManager.instance.ParentBoutonMenu = ParentBoutonMenu;
+        GameManager.instance.ParentOptions = ParentOptions;
 
         GameManager.instance.voirMenu = false;
         GameManager.instance.menuSlots = false;
         GameManager.instance.menuPauseOuvert = false;
         GameManager.instance.menuInventaireOuvert = false;
-        GameManager.instance.MenuPause.SetActive(GameManager.instance.voirMenu);
+        //GameManager.instance.MenuPause.SetActive(GameManager.instance.voirMenu);
+        GameManager.instance.ParentBoutonMenu.DOMoveX(-780f, 0.01f);
         GameManager.instance.FermerMessageInteraction();
     }
 
@@ -94,5 +120,11 @@ public class HUD_Script : MonoBehaviour
     public void QuitterPartie()
     {
         GameManager.instance.retourMenu();
+    }
+
+    public void LoadCheckpoint()
+    {
+        string nom = GameManager.instance.nomSauvegarde;
+        SaveManager.instance.LoadInGame(nom);
     }
 }
