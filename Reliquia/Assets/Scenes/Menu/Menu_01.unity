@@ -321,42 +321,42 @@ PrefabInstance:
         type: 3}
       propertyPath: PagesMenuPrincipal.Array.data[0]
       value: 
-      objectReference: {fileID: 425597076}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: PagesMenuPrincipal.Array.data[1]
       value: 
-      objectReference: {fileID: 452896479}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: PagesMenuPrincipal.Array.data[2]
       value: 
-      objectReference: {fileID: 707187113}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: PagesMenuPrincipal.Array.data[3]
       value: 
-      objectReference: {fileID: 297539324}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: BoutonsMenuPrincipal.Array.data[0]
       value: 
-      objectReference: {fileID: 1777449466}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: BoutonsMenuPrincipal.Array.data[1]
       value: 
-      objectReference: {fileID: 448136726}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: BoutonsMenuPrincipal.Array.data[2]
       value: 
-      objectReference: {fileID: 810803289}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: BoutonsMenuPrincipal.Array.data[3]
       value: 
-      objectReference: {fileID: 1720038115}
+      objectReference: {fileID: 0}
     - target: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
         type: 3}
       propertyPath: prefabMenuOptions
@@ -964,7 +964,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109759953}
+      - m_Target: {fileID: 2074562054}
         m_MethodName: ecranOption
         m_Mode: 1
         m_Arguments:
@@ -1829,7 +1829,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109759953}
+      - m_Target: {fileID: 2074562054}
         m_MethodName: ecranBonus
         m_Mode: 1
         m_Arguments:
@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109759953}
+      - m_Target: {fileID: 2074562054}
         m_MethodName: retourMenu
         m_Mode: 1
         m_Arguments:
@@ -2854,6 +2854,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250110359}
   m_CullTransparentMesh: 0
+--- !u!1 &1473279943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4677315279493638722, guid: 294eae1c41823504a924c8ecebb4a76e,
+    type: 3}
+  m_PrefabInstance: {fileID: 48549454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1473279944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473279943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17fbd74baf83af4b978ef4a9d114733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avancer: {fileID: 0}
+  gauche: {fileID: 0}
+  reculer: {fileID: 0}
+  droite: {fileID: 0}
+  action: {fileID: 0}
+  saut: {fileID: 0}
+  pouvoirSpecial: {fileID: 0}
+  pouvoir1: {fileID: 0}
+  pouvoir2: {fileID: 0}
+  pouvoir3: {fileID: 0}
+  pouvoir4: {fileID: 0}
+  courir: {fileID: 0}
+  accroupir: {fileID: 0}
+  attaque: {fileID: 0}
+  garde: {fileID: 0}
+  menuPause: {fileID: 0}
+  menuInventaire: {fileID: 0}
+  texteAssignationTouche: []
 --- !u!1 &1605665574 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5621204349682754633, guid: 9c13799709d08eb49b24a017c7c70cc2,
@@ -3070,7 +3106,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109759953}
+      - m_Target: {fileID: 2074562054}
         m_MethodName: quitterJeu
         m_Mode: 1
         m_Arguments:
@@ -3214,7 +3250,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2109759953}
+      - m_Target: {fileID: 2074562054}
         m_MethodName: ecranSauvegarde
         m_Mode: 1
         m_Arguments:
@@ -3602,6 +3638,68 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2074562052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074562053}
+  - component: {fileID: 2074562054}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074562053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074562052}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 146.77014, y: 185.0275, z: -189.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074562054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074562052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d61de54d5577142bd9af335494ee83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fondTransition: {fileID: 1151351430}
+  pagesMenuPrincipal:
+  - {fileID: 425597076}
+  - {fileID: 452896479}
+  - {fileID: 707187113}
+  - {fileID: 297539324}
+  boutonsMenuPrincipal:
+  - {fileID: 1777449466}
+  - {fileID: 448136726}
+  - {fileID: 810803289}
+  - {fileID: 1720038115}
+  backgroundImageMenu: {fileID: 1250110361}
+  ImagesBackground:
+  - {fileID: 21300000, guid: 6bd2d79d6a4b0f44fa29558d7e9e6e67, type: 3}
+  - {fileID: 21300000, guid: 84b82c00153e73946a8922b47190d1e6, type: 3}
+  popUpQuitter: {fileID: 3723548539194287258, guid: a3a0c08ec2447f844b9208ecb3768528,
+    type: 3}
+  prefabMenuOptions: {fileID: 6977534151520831352, guid: 3e6e76ea01359d548a24bbbb6946872c,
+    type: 3}
 --- !u!1 &2094669672
 GameObject:
   m_ObjectHideFlags: 0
@@ -3666,18 +3764,6 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &2109759953 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6954937260148690552, guid: 294eae1c41823504a924c8ecebb4a76e,
-    type: 3}
-  m_PrefabInstance: {fileID: 48549454}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949553bcbd522754ea5a7d12e933dae3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5621204348312495983
 PrefabInstance:
   m_ObjectHideFlags: 0

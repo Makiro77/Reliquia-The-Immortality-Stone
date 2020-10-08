@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Options_Script : MonoBehaviour
 {
@@ -52,12 +54,15 @@ public class Options_Script : MonoBehaviour
 
     private void Awake()
     {
-        valeurAuLancement();
+        if (SceneManager.GetActiveScene().name != "Menu_01") 
+        { 
+            valeurAuLancement(); 
+        }
     }
 
     public void valeurAuLancement()
     {
-        boutonRetour.onClick.AddListener(GameManager.instance.GetComponent<Menu_Script>().retourMenu);
+        boutonRetour.onClick.AddListener(MenuManager_Script.instance.afficherMenuPrincipal);
 
         //Set l'état des sous-titres au lancement du jeu
         SousTitresActive = Convert.ToBoolean(PlayerPrefs.GetInt("SousTitreEtat", 1)); ;

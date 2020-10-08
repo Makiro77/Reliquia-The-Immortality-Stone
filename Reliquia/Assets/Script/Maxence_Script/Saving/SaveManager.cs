@@ -167,6 +167,8 @@ public class SaveManager : MonoBehaviour
 
             file.Close();
 
+            GameManager.instance.nomSauvegarde = savedGame.MySaveName;
+
             GestionSlots();
 
             LoadPlayer(data);
