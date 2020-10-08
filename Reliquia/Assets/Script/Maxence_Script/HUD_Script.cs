@@ -34,6 +34,7 @@ public class HUD_Script : MonoBehaviour
     [SerializeField] private GameObject prefab;
 
     public Image imageTransition;
+    public GameObject fondPause;
 
     public static HUD_Script instance;
 
@@ -51,6 +52,7 @@ public class HUD_Script : MonoBehaviour
         prefab = Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
         boutonRetourOption =  prefab.transform.GetChild(1).GetComponent<Button>();
         imageTransition.DOFade(0, 1.5f);
+        fondPause.SetActive(false);
 
         ManageGame();
 

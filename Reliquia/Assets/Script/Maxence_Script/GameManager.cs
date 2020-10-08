@@ -114,7 +114,8 @@ public class GameManager : MonoBehaviour
     public void menuPause()
     {
         voirMenu = !voirMenu;
-        if(voirMenu == true) MenuPause.SetActive(voirMenu);
+        //if(voirMenu == true) MenuPause.SetActive(voirMenu);
+        HUD_Script.instance.fondPause.SetActive(voirMenu);
         DeplacerUIMenu();
         menuPauseOuvert = !menuPauseOuvert;
         //ParentBoutonPause.localPosition = new Vector3(53, -170, 0);
