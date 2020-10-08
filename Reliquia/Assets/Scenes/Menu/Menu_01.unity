@@ -3810,6 +3810,10 @@ MonoBehaviour:
     type: 3}
   prefabMenuOptions: {fileID: 6977534151520831352, guid: 3e6e76ea01359d548a24bbbb6946872c,
     type: 3}
+  SloatsLoadSave:
+  - {fileID: 1605665574}
+  - {fileID: 574865478}
+  - {fileID: 988439596}
 --- !u!1 &2094669672
 GameObject:
   m_ObjectHideFlags: 0

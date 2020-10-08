@@ -20,6 +20,8 @@ public class MenuManager_Script : MonoBehaviour
     [SerializeField] private GameObject popUpQuitter;
     [SerializeField] private GameObject prefabMenuOptions;
 
+    public GameObject[] SloatsLoadSave;
+
     private int pageMenuActive;
 
     private void Awake()
@@ -32,6 +34,15 @@ public class MenuManager_Script : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        SaveManager.instance.saveSlots.Clear();
+
+        foreach (GameObject slots in SloatsLoadSave)
+        {
+            SaveManager.instance.saveSlots.Add(slots);
+        }
+
+        StartCoroutine(SaveManager.instance.affichageSaveLoad());
 
         fondTransition.DOFade(0, 1f);
 

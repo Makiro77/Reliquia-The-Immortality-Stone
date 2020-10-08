@@ -37,12 +37,12 @@ public class SaveManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        saveSlots.Clear();
+        /*saveSlots.Clear();
 
         saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
         saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
 
-        StartCoroutine(affichageSaveLoad());
+        StartCoroutine(affichageSaveLoad());*/
     }
 
     // Start is called before the first frame update
@@ -51,12 +51,12 @@ public class SaveManager : MonoBehaviour
         inventaire_Script = FindObjectOfType<Inventaire_Script>();
         savedGame = FindObjectOfType<SavedGame>();
 
-        saveSlots.Clear();
+        /*saveSlots.Clear();
 
         saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
         saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
 
-        StartCoroutine(affichageSaveLoad());
+        StartCoroutine(affichageSaveLoad());*/
     }
 
     public IEnumerator affichageSaveLoad()
