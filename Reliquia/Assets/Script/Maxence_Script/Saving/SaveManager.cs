@@ -13,14 +13,9 @@ using UnityEngine.UI;
 public class SaveManager : MonoBehaviour
 {
 
-    [SerializeField]
-    private InfoItem_Script[] items;
-
     [SerializeField] private Image fondTransition;
 
     public List<GameObject> saveSlots = new List<GameObject>();
-
-    Inventaire_Script inventaire_Script;
     SavedGame savedGame;
 
     public static SaveManager instance;
@@ -48,7 +43,6 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventaire_Script = FindObjectOfType<Inventaire_Script>();
         savedGame = FindObjectOfType<SavedGame>();
 
         /*saveSlots.Clear();
@@ -67,10 +61,10 @@ public class SaveManager : MonoBehaviour
 
     public void ShowSavedFile(SavedGame savedGame)
     {
-        if(File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat"))
+        if(File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
 
             file.Close();
@@ -94,12 +88,12 @@ public class SaveManager : MonoBehaviour
             {
                 GameManager.instance.choixNomSauvegarde();
             }
-            else if (File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat") && GameManager.instance.popUpActif == false) GameManager.instance.ecraserSauvegarde();
+            else if (File.Exists(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat") && GameManager.instance.popUpActif == false) GameManager.instance.ecraserSauvegarde();
             else
             {
                 BinaryFormatter bf = new BinaryFormatter();
 
-                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
+                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
 
                 SaveData data = new SaveData();
 
@@ -139,25 +133,21 @@ public class SaveManager : MonoBehaviour
         data.MyDataSave = new DataSave(GameManager.instance.popUp.GetComponentInChildren<InputField>().GetComponentInChildren<Text>().text);
     }
 
-    private void SaveInventory(SaveData data)
-    {
-        Transform inventairePanel = GameObject.Find("ParentSlot").transform;
-        foreach (InfoItem_Script item in inventairePanel)
-        {
-            if(inventaire_Script.mItems.Count > 0)
-            {
-                data.MyInventoryData.ItemsInventaire.Add(new ItemData(item.NomItem));
-            }
-        }
-    }
-
     public void NewSave(SavedGame savedGame)
     {
         try
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
+           Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName);
+
+           FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
+
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire");
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/Sacoche");
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/Consommables");
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/ObjetsQuetes");
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/Puzzles");
 
             SaveData data = new SaveData();
 
@@ -193,10 +183,10 @@ public class SaveManager : MonoBehaviour
     {
         try
         {
-            UnityEngine.Debug.Log(Application.persistentDataPath + "/" + nomSave + ".dat");
+            UnityEngine.Debug.Log(Application.persistentDataPath + "/" + nomSave + "/" + nomSave + ".dat");
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + nomSave + ".dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + nomSave + "/" + nomSave + ".dat", FileMode.Open);
 
             SaveData data = (SaveData)bf.Deserialize(file);
 
@@ -224,7 +214,7 @@ public class SaveManager : MonoBehaviour
             {
                 BinaryFormatter bf = new BinaryFormatter();
 
-                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
+                FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
 
                 SaveData data = (SaveData)bf.Deserialize(file);
 
@@ -264,16 +254,5 @@ public class SaveManager : MonoBehaviour
         savedGame.nomSceneActuelle = data.MySceneData.NameScene;
 
         SceneManager.LoadSceneAsync(savedGame.idSceneActuelle);
-    }
-
-    private void LoadInventory(SaveData data)
-    {
-        UnityEngine.Debug.Log("load");
-        Transform inventairePanel = GameObject.Find("ParentSlot").transform;
-        foreach (ItemData itemData in inventairePanel)
-        {
-            InfoItem_Script infoItem = Array.Find(items, x => x.NomItem == itemData.ItemNom);
-            inventaire_Script.mItems.Add(infoItem);
-        }
     }
 }

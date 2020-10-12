@@ -49,45 +49,45 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.A)) EnleverVie();
-        if (Input.GetKeyUp(KeyCode.B)) EnleverMana();
+        if (Input.GetKeyUp(KeyCode.A)) EnleverVie(10);
+        if (Input.GetKeyUp(KeyCode.B)) EnleverMana(10);
 
-        if (Input.GetKeyUp(KeyCode.E)) RajouterVie();
-        if (Input.GetKeyUp(KeyCode.C)) RajouterMana();
+        if (Input.GetKeyUp(KeyCode.E)) RajouterVie(10);
+        if (Input.GetKeyUp(KeyCode.C)) RajouterMana(10);
     }
 
-    public void EnleverVie()
+    public void EnleverVie(int valeurEnMoins)
     {
         if (valeurVie > minVie)
         {
-            vieWilliam -= 10;
+            vieWilliam -= valeurEnMoins;
             SetVie(vieWilliam);
         }
     }
 
-    public void EnleverMana()
+    public void EnleverMana(int valeurEnMoins)
     {
         if (valeurMana > minMana)
         {
-            manaWilliam -= 10;
+            manaWilliam -= valeurEnMoins;
             SetMana(manaWilliam);
         }
     }
 
-    public void RajouterVie()
+    public void RajouterVie(int valeurEnPlus)
     {
         if (valeurVie < maxVie)
         {
-            vieWilliam += 10;
+            vieWilliam += valeurEnPlus;
             SetVie(vieWilliam);
         }
     }
 
-    public void RajouterMana()
+    public void RajouterMana(int valeurEnPlus)
     {
         if (valeurMana < maxMana)
         {
-            manaWilliam += 10;
+            manaWilliam += valeurEnPlus;
             SetMana(manaWilliam);
         }
     }

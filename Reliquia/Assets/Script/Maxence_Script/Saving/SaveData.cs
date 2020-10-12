@@ -14,15 +14,10 @@ public class SaveData
 
     public SceneData MySceneData { get; set; }
 
-    public ItemData MyItemData { get; set; }
-
-    public InventoryData MyInventoryData { get; set; }
-
     public DateTime MyDateTime { get; set; }
 
     public SaveData()
     {
-        MyInventoryData = new InventoryData();
         MyDateTime = DateTime.Now;
     }
 }
@@ -79,27 +74,5 @@ public class SceneData
     {
         IdScene = sceneId;
         NameScene = sceneName;
-    }
-}
-
-[Serializable]
-public class ItemData
-{
-    public string ItemNom { get; set; }
-
-    public ItemData(string itemNom)
-    {
-        ItemNom = itemNom;
-    }
-}
-
-[Serializable]
-public class InventoryData
-{
-    public List<ItemData> ItemsInventaire {get; set;}
-
-    public InventoryData()
-    {
-        ItemsInventaire = new List<ItemData>();
     }
 }

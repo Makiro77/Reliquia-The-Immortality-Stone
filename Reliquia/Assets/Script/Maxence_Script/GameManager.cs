@@ -7,6 +7,7 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject popUp;
     public GameObject SlotSaveSelect;
+
+    public CanvasGroup GrimoireInventaire;
 
     public bool popUpActif;
 
@@ -129,6 +132,7 @@ public class GameManager : MonoBehaviour
     public void menuInventaire()
     {
         voirMenu = !voirMenu;
+        GrimoireInventaire.alpha = Convert.ToInt32(voirMenu);
         DeplacerUIMenu();
         menuInventaireOuvert = !menuInventaireOuvert;
         MenuInventaire.localPosition = new Vector3((voirMenu == true ? 0 : -2000f), 0, 0);

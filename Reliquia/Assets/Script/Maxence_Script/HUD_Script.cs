@@ -1,5 +1,6 @@
 ﻿using clavier;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,8 @@ public class HUD_Script : MonoBehaviour
 
     public Image imageTransition;
     public GameObject fondPause;
+
+    [SerializeField] private CanvasGroup GrimoireInventaire;
 
     public static HUD_Script instance;
 
@@ -105,11 +108,13 @@ public class HUD_Script : MonoBehaviour
         GameManager.instance.ParentBoutonMenu = ParentBoutonMenu;
         GameManager.instance.ParentOptions = ParentOptions;
 
+        GameManager.instance.GrimoireInventaire = GrimoireInventaire;
+
         GameManager.instance.voirMenu = false;
         GameManager.instance.menuSlots = false;
         GameManager.instance.menuPauseOuvert = false;
         GameManager.instance.menuInventaireOuvert = false;
-        //GameManager.instance.MenuPause.SetActive(GameManager.instance.voirMenu);
+        GrimoireInventaire.alpha = Convert.ToInt32(GameManager.instance.voirMenu);
         GameManager.instance.ParentBoutonMenu.DOMoveX(-780f, 0.01f);
         GameManager.instance.FermerMessageInteraction();
     }
