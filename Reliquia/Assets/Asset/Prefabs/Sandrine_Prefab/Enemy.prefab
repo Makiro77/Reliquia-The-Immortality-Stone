@@ -1774,12 +1774,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   lastState: 0
-  walkPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  alphaSurface: {fileID: 0}
+  walkPoints: []
+  alphaSurface: {fileID: 2528639507549217670}
 --- !u!1 &4819651627545537960
 GameObject:
   m_ObjectHideFlags: 0

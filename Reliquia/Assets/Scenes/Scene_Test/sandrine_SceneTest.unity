@@ -1550,19 +1550,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 503710830, guid: cbb2c12f20615fe4fa6983fd9983e3d4, type: 3}
+    - target: {fileID: 2417382461640805886, guid: cbb2c12f20615fe4fa6983fd9983e3d4,
+        type: 3}
       propertyPath: walkPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1553239627}
-    - target: {fileID: 503710830, guid: cbb2c12f20615fe4fa6983fd9983e3d4, type: 3}
+    - target: {fileID: 2417382461640805886, guid: cbb2c12f20615fe4fa6983fd9983e3d4,
+        type: 3}
       propertyPath: walkPoints.Array.data[1]
       value: 
       objectReference: {fileID: 56513777}
-    - target: {fileID: 503710830, guid: cbb2c12f20615fe4fa6983fd9983e3d4, type: 3}
+    - target: {fileID: 2417382461640805886, guid: cbb2c12f20615fe4fa6983fd9983e3d4,
+        type: 3}
       propertyPath: walkPoints.Array.data[2]
       value: 
       objectReference: {fileID: 1026068638}
-    - target: {fileID: 503710830, guid: cbb2c12f20615fe4fa6983fd9983e3d4, type: 3}
+    - target: {fileID: 2417382461640805886, guid: cbb2c12f20615fe4fa6983fd9983e3d4,
+        type: 3}
       propertyPath: walkPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1412348154}
