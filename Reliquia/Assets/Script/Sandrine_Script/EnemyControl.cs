@@ -14,7 +14,7 @@ public enum EnemyControlState
     DEATH
 }
 
-public class EnemyControlTest : MonoBehaviour
+public class EnemyControl: MonoBehaviour
 {
     // Enemy properties
     private bool finishedMovement = true;
