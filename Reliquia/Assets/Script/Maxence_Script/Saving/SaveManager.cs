@@ -12,8 +12,7 @@ using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
-
-    [SerializeField] private Image fondTransition;
+    public Image fondTransition;
 
     public List<GameObject> saveSlots = new List<GameObject>();
     SavedGame savedGame;
@@ -31,26 +30,12 @@ public class SaveManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        /*saveSlots.Clear();
-
-        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
-        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
-
-        StartCoroutine(affichageSaveLoad());*/
     }
 
     // Start is called before the first frame update
     void Start()
     {
         savedGame = FindObjectOfType<SavedGame>();
-
-        /*saveSlots.Clear();
-
-        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Save"));
-        saveSlots.AddRange(GameObject.FindGameObjectsWithTag("Load"));
-
-        StartCoroutine(affichageSaveLoad());*/
     }
 
     public IEnumerator affichageSaveLoad()
@@ -213,7 +198,7 @@ public class SaveManager : MonoBehaviour
             else
             {
                 BinaryFormatter bf = new BinaryFormatter();
-
+                UnityEngine.Debug.Log(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat");
                 FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Open);
 
                 SaveData data = (SaveData)bf.Deserialize(file);

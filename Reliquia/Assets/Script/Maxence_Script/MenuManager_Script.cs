@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class MenuManager_Script : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class MenuManager_Script : MonoBehaviour
 
     private int pageMenuActive;
 
+    SaveManager saveManager;
+
     private void Awake()
     {
         if (instance == null)
@@ -35,14 +38,9 @@ public class MenuManager_Script : MonoBehaviour
             Destroy(gameObject);
         }
 
-        SaveManager.instance.saveSlots.Clear();
+        saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
 
-        foreach (GameObject slots in SloatsLoadSave)
-        {
-            SaveManager.instance.saveSlots.Add(slots);
-        }
-
-        StartCoroutine(SaveManager.instance.affichageSaveLoad());
+        saveManager.fondTransition = fondTransition;
 
         fondTransition.DOFade(0, 1f);
 
@@ -53,6 +51,32 @@ public class MenuManager_Script : MonoBehaviour
         pagesMenuPrincipal[2].SetActive(false);
 
         backgroundImageMenu.sprite = ImagesBackground[0];
+    }
+
+    private void Start()
+    {
+        SaveManager.instance.saveSlots.Clear();
+
+        foreach (GameObject slots in SloatsLoadSave)
+        {
+            SaveManager.instance.saveSlots.Add(slots);
+        }
+
+        StartCoroutine(SaveManager.instance.affichageSaveLoad());
+    }
+
+    public void Load(SavedGame savedGame)
+    {
+        saveManager.Load(savedGame);
+    }
+
+    public void ClicButton()
+    {
+        if ((EventSystem.current.currentSelectedGameObject.CompareTag("Load") || EventSystem.current.currentSelectedGameObject.CompareTag("Save")))
+        {
+            GameManager.instance.SlotSaveSelect = EventSystem.current.currentSelectedGameObject;
+        }
+        else return;
     }
 
     public void ecranSauvegarde()

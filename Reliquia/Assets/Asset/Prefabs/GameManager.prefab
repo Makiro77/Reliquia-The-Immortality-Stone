@@ -50,20 +50,27 @@ MonoBehaviour:
   menuPauseOuvert: 0
   menuInventaireOuvert: 0
   menuSlots: 0
-  MessageInteraction: {fileID: 0}
+  MessageInteraction: {fileID: 4613776203832194334, guid: 6f3d340b6efdd684daeb841001911f10,
+    type: 3}
   TexteMessageInteraction: {fileID: 0}
   ParentBarresVieMana: {fileID: 0}
   ParentCompas: {fileID: 0}
   ParentSlotSave: {fileID: 0}
   ParentSlotLoad: {fileID: 0}
   ParentBoutonMenu: {fileID: 0}
-  popUpNomSauvegarde: {fileID: 0}
-  popUpEcraserSauvegarde: {fileID: 0}
-  popUpRetourMenuPrincipal: {fileID: 0}
+  ParentOptions: {fileID: 0}
+  popUpNomSauvegarde: {fileID: 3795888232114727211, guid: 16cf51d053a490044812806d59764603,
+    type: 3}
+  popUpEcraserSauvegarde: {fileID: 7597128029782450711, guid: 1d3ec4d44c32e984b995262001d09009,
+    type: 3}
+  popUpRetourMenuPrincipal: {fileID: 3723548539194287258, guid: 85612382366484f4eaebe82a2e518aac,
+    type: 3}
   popUp: {fileID: 0}
   SlotSaveSelect: {fileID: 0}
+  GrimoireInventaire: {fileID: 0}
   popUpActif: 0
   chapitreEnCours: 0
+  nomSauvegarde: 
 --- !u!114 &6954937260148690552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,19 +83,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949553bcbd522754ea5a7d12e933dae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PagesMenuPrincipal:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  BoutonsMenuPrincipal:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ImagesBackground:
-  - {fileID: 21300000, guid: 6bd2d79d6a4b0f44fa29558d7e9e6e67, type: 3}
-  - {fileID: 21300000, guid: 84b82c00153e73946a8922b47190d1e6, type: 3}
   popUpQuitter: {fileID: 3723548539194287258, guid: a3a0c08ec2447f844b9208ecb3768528,
     type: 3}
-  prefabMenuOptions: {fileID: 0}

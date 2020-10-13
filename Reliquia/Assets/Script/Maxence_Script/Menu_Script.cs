@@ -9,6 +9,7 @@ using UnityEngine.Video;
 public class Menu_Script : MonoBehaviour
 {
     private Image fondTransition;
+    [SerializeField] private GameObject popUpQuitter;
 
     private VideoPlayer IntroCinematique;
 
@@ -47,5 +48,9 @@ public class Menu_Script : MonoBehaviour
     public void menuPrincipale()
     {
         fondTransition.DOFade(1, 0.5f).OnComplete(() => SceneManager.LoadScene("Menu_01")); //Lance la scène Menu_01 lorsque le fondu au noir est fini
+    }
+    public void quitterJeu()
+    {
+        Instantiate(popUpQuitter, new Vector2(1520, 0), Quaternion.identity, GameObject.Find("Canvas").transform);
     }
 }

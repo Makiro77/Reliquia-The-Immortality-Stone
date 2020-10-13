@@ -68,13 +68,6 @@ public class GameManager : MonoBehaviour
         raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if ((EventSystem.current.currentSelectedGameObject.CompareTag("Load") || EventSystem.current.currentSelectedGameObject.CompareTag("Save")) && menuInventaireOuvert == false) SlotSaveSelect = EventSystem.current.currentSelectedGameObject;
-        else return;
-    }
-
     public void choixNomSauvegarde()
     {
         popUp = Instantiate(popUpNomSauvegarde, GameObject.FindGameObjectWithTag("HUD").transform);

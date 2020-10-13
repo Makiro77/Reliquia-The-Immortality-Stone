@@ -55,6 +55,7 @@ public class DropSlots : MonoBehaviour, IDropHandler
         {
             if (typeItem.TypeItem == "Consommable") eventData.pointerDrag.transform.SetParent(consommablePanel.transform);
             else if (typeItem.TypeItem == "ObjetQuete") eventData.pointerDrag.transform.SetParent(objetQuetePanel.transform);
+            else if (typeItem.TypeItem == "Sacoche" && typeItem.TypeItemBase != "Consommable") eventData.pointerDrag.transform.SetParent(sacochePanel.transform);
             else
             {
                 if (playerInventory.consommablesInventory.Contains(item))
@@ -78,6 +79,7 @@ public class DropSlots : MonoBehaviour, IDropHandler
         {
             if (typeItem.TypeItem == "ObjetQuete") eventData.pointerDrag.transform.SetParent(objetQuetePanel.transform);
             else if(typeItem.TypeItem == "Consommable") eventData.pointerDrag.transform.SetParent(consommablePanel.transform);
+            else if (typeItem.TypeItem == "Sacoche" && typeItem.TypeItemBase != "ObjetQuete") eventData.pointerDrag.transform.SetParent(sacochePanel.transform);
             else
             {
                 if (playerInventory.objetsQuetesInventory.Contains(item))

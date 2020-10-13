@@ -59,14 +59,13 @@ public class HUD_Script : MonoBehaviour
 
         ManageGame();
 
-        //boutonMenuSave.onClick.AddListener(GameManager.instance.menuSauvegarde);
         boutonMenuOptions.onClick.AddListener(GameManager.instance.menuOptions);
         boutonRetourOption.onClick.AddListener(GameManager.instance.menuOptions);
     }
 
     void Start()
     {
-
+        Debug.Log("start");
         SaveManager.instance.saveSlots.Clear();
 
         foreach (GameObject slots in SloatsLoadSave)

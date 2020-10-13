@@ -16,6 +16,7 @@ public class InventaireSlot : MonoBehaviour
     public ItemInventaire thisItem;
     public InventaireManager thisManager;
 
+    public string TypeItemBase;
     public string TypeItem;
 
     public void Setup(ItemInventaire newItem, InventaireManager newManager)
@@ -26,6 +27,7 @@ public class InventaireSlot : MonoBehaviour
         {
             itemImage.sprite = thisItem.itemImage;
             itemNumberText.text = thisItem.numberHeld.ToString();
+            TypeItemBase = thisItem.typeItem;
             TypeItem = thisItem.typeItem;
         }
     }

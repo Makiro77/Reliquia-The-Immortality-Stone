@@ -17,6 +17,7 @@ public class InventaireManager : MonoBehaviour
     public GameObject PuzzlePanel;
 
     [SerializeField] private Text descriptionText;
+    [SerializeField] private float scaleItemValeur;
 
     public int maxItemQuete;
     public int maxItemConsommable ;
@@ -49,7 +50,7 @@ public class InventaireManager : MonoBehaviour
                 {
                     GameObject temp = Instantiate(blankInventtaireSlot, sacochePanel.transform.localPosition, Quaternion.identity);
                     temp.transform.SetParent(sacochePanel.transform);
-                    temp.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    temp.transform.localScale = new Vector3(scaleItemValeur, scaleItemValeur, scaleItemValeur);
 
                     InventaireSlot newSlot = temp.GetComponent<InventaireSlot>();
 
@@ -69,7 +70,7 @@ public class InventaireManager : MonoBehaviour
                 {
                     GameObject temp = Instantiate(blankInventtaireSlot, consommablePanel.transform.localPosition, Quaternion.identity);
                     temp.transform.SetParent(consommablePanel.transform);
-                    temp.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    temp.transform.localScale = new Vector3(scaleItemValeur, scaleItemValeur, scaleItemValeur);
 
                     InventaireSlot newSlot = temp.GetComponent<InventaireSlot>();
 
@@ -88,7 +89,7 @@ public class InventaireManager : MonoBehaviour
                 {
                     GameObject temp = Instantiate(blankInventtaireSlot, objetQuetePanel.transform.localPosition, Quaternion.identity);
                     temp.transform.SetParent(objetQuetePanel.transform);
-                    temp.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    temp.transform.localScale = new Vector3(scaleItemValeur, scaleItemValeur, scaleItemValeur);
 
                     InventaireSlot newSlot = temp.GetComponent<InventaireSlot>();
 
@@ -107,7 +108,7 @@ public class InventaireManager : MonoBehaviour
                 {
                     GameObject temp = Instantiate(blankInventtaireSlot, PuzzlePanel.transform.localPosition, Quaternion.identity);
                     temp.transform.SetParent(PuzzlePanel.transform);
-                    temp.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    temp.transform.localScale = new Vector3(scaleItemValeur, scaleItemValeur, scaleItemValeur);
 
                     Destroy(temp.GetComponent<DragDrop>());
 

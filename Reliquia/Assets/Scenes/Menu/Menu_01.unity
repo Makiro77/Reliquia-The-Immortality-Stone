@@ -1472,6 +1472,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 574865468}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &574865470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1707946487296006902, guid: 9c13799709d08eb49b24a017c7c70cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 574865468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574865478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4cb40b0e7806d429e9bae8e97d18cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &574865478 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5621204349682754633, guid: 9c13799709d08eb49b24a017c7c70cc2,
@@ -1521,29 +1533,28 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1029203929}
+      - m_Target: {fileID: 2074562054}
+        m_MethodName: ClicButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2074562054}
         m_MethodName: Load
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 574865481}
+          m_ObjectArgument: {fileID: 574865470}
           m_ObjectArgumentAssemblyTypeName: SavedGame, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &574865481 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1707946487296006902, guid: 9c13799709d08eb49b24a017c7c70cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 574865468}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574865478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d4cb40b0e7806d429e9bae8e97d18cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &615743108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,7 +2402,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1029203929}
+      - m_Target: {fileID: 2074562054}
+        m_MethodName: ClicButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2074562054}
         m_MethodName: Load
         m_Mode: 2
         m_Arguments:
@@ -2475,25 +2497,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009141953}
   m_CullTransparentMesh: 0
---- !u!1 &1017010876 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4897445980030446780, guid: e89d655814bf4074c919ee51a9e09184,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029203928}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1017010877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017010876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3870e91fad5964e4faf725f5ebbb017b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInventory: {fileID: 11400000, guid: 217a4abc48ea73541b13fda52c2ed34c, type: 2}
 --- !u!1001 &1029203928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2588,18 +2591,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89d655814bf4074c919ee51a9e09184, type: 3}
---- !u!114 &1029203929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4897445980030446779, guid: e89d655814bf4074c919ee51a9e09184,
-    type: 3}
-  m_PrefabInstance: {fileID: 1029203928}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017010876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e235597975e1c146a0708d0594c986e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1039012375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,42 +2974,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250110359}
   m_CullTransparentMesh: 0
---- !u!1 &1473279943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4677315279493638722, guid: 294eae1c41823504a924c8ecebb4a76e,
-    type: 3}
-  m_PrefabInstance: {fileID: 48549454}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1473279944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1473279943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17fbd74baf83af4b978ef4a9d114733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avancer: {fileID: 0}
-  gauche: {fileID: 0}
-  reculer: {fileID: 0}
-  droite: {fileID: 0}
-  action: {fileID: 0}
-  saut: {fileID: 0}
-  pouvoirSpecial: {fileID: 0}
-  pouvoir1: {fileID: 0}
-  pouvoir2: {fileID: 0}
-  pouvoir3: {fileID: 0}
-  pouvoir4: {fileID: 0}
-  courir: {fileID: 0}
-  accroupir: {fileID: 0}
-  attaque: {fileID: 0}
-  garde: {fileID: 0}
-  menuPause: {fileID: 0}
-  menuInventaire: {fileID: 0}
-  texteAssignationTouche: []
 --- !u!1 &1605665574 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5621204349682754633, guid: 9c13799709d08eb49b24a017c7c70cc2,
@@ -3074,7 +3029,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1029203929}
+      - m_Target: {fileID: 2074562054}
+        m_MethodName: ClicButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2074562054}
         m_MethodName: Load
         m_Mode: 2
         m_Arguments:

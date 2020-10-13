@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -63.25, y: 5.81}
+  m_AnchoredPosition: {x: -60, y: 0.0000076293945}
   m_SizeDelta: {x: 141.21118, y: 37.80348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5653594753110958323
@@ -109,10 +109,10 @@ RectTransform:
   m_Father: {fileID: 1996144570393442898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 91.47278, y: 91.47278}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3975338070529716508
 CanvasRenderer:
@@ -299,6 +299,8 @@ MonoBehaviour:
   itemImage: {fileID: 2698470334155865451}
   thisItem: {fileID: 11400000, guid: 2012066dae2ed6745b64bce8fefc6cb8, type: 2}
   thisManager: {fileID: 0}
+  TypeItemBase: 
+  TypeItem: 
 --- !u!114 &5340677200527671768
 MonoBehaviour:
   m_ObjectHideFlags: 0

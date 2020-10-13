@@ -29,7 +29,7 @@ public class PopUp_Script : MonoBehaviour
     public void fermerPopUp()
     {
         transform.DOMoveX(-1630f, 0.5f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
-        GameManager.instance.popUpActif = false;
+        if(SceneManager.GetActiveScene().name != "Menu_00") GameManager.instance.popUpActif = false;
     }
 
     public void ecraserSauvegarde()
