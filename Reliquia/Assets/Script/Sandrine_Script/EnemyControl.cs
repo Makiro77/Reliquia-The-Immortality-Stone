@@ -35,6 +35,7 @@ public class EnemyControl: MonoBehaviour
 
     // Player Properties
     private Transform playerTarget;
+    private CharacterController playerCaract; // A enlever 
 
     // Distance between player and enemy
     private float followDistance = 8f;
@@ -46,7 +47,7 @@ public class EnemyControl: MonoBehaviour
 
     // Time
     private float waitPauseTime = 0f;
-    private float waitTimeLimit = 2f;
+    private float waitTimeLimit = 1.5f;
 
     // Provisoire pour effet Attack
     public GameObject alphaSurface;
@@ -59,171 +60,199 @@ public class EnemyControl: MonoBehaviour
         playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
         navAgent = GetComponent<NavMeshAgent>();
         initialPosition = transform.position;
+        playerCaract = playerTarget.GetComponent<CharacterController>();
 
         alphaRenderer = alphaSurface.GetComponent<Renderer>(); // Provisoire Attack Effect
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Set Distances
         enemyToPlayerDistance = Vector3.Distance(transform.position, playerTarget.position);
         enemyToInitDistance = Vector3.Distance(transform.position, initialPosition);
-       
-        SetEnemyState();
-        GetStateControl();
         
+        GetStateControl(SetEnemyState());
+        //Debug.Log("End current State : " + currentState);
     }
 
-    void SetEnemyState()
+    private EnemyControlState SetEnemyState()
     {
         lastState = currentState;
-        if (enemyToInitDistance > goBackDistance || currentState == EnemyControlState.GOBACK)
+
+        if ( enemyToInitDistance > goBackDistance || lastState == EnemyControlState.GOBACK)
         {
-            if (currentState == EnemyControlState.FOLLOW)
+            if (lastState == EnemyControlState.FOLLOW)
             {
                 StartPause = false;
             }
-            
+            if (finishedPause)
+            {
+                currentState = EnemyControlState.GOBACK; // Puis Go Back Home
+                return currentState;
+            }
+
             if (!StartPause)
             {
                 currentState = EnemyControlState.PAUSE; // Pause 
+                return currentState;
             }
-            else if (finishedPause) 
-            {
-                currentState = EnemyControlState.GOBACK; // Puis Go Back Home
-            }
-
+            
         } 
-        else if (enemyToPlayerDistance < attackDistance && currentState != EnemyControlState.GOBACK)
+        if (enemyToPlayerDistance < attackDistance && lastState != EnemyControlState.GOBACK)
         {            
             currentState = EnemyControlState.ATTACK; // Attack
+            return currentState;
         } 
-        else if (enemyToPlayerDistance < followDistance && currentState != EnemyControlState.GOBACK)
+        if (enemyToPlayerDistance < followDistance && lastState != EnemyControlState.GOBACK)
         {
-            if (!StartPause)  // Pause
+            if (isPlayerHide()) // Do not Follow Player continue walking
             {
-                currentState = EnemyControlState.PAUSE;
-            } 
-            else if (finishedPause) // Puis Follow Player
-            {
-                currentState = EnemyControlState.FOLLOW;
+                currentState = EnemyControlState.WALK;
+                return currentState;
             }
 
+            if (finishedPause) // End Pause so Follow Player
+            {
+                currentState = EnemyControlState.FOLLOW;
+                return currentState;
+            }
+            if (!StartPause)  // Then start Pause
+            {
+                currentState = EnemyControlState.PAUSE;
+                return currentState;
+            } 
+
+        }
+
+        currentState = EnemyControlState.WALK;
+        waitPauseTime = 0;
+        finishedPause = false;
+        StartPause = false;
+        return currentState;
+
+    }
+
+    private bool isPlayerHide()
+    {
+        RaycastHit hit;
+        Vector3 rayStart = transform.position + Vector3.up * 1.5f;
+        Vector3 rayDirection = new Vector3(playerTarget.transform.position.x - transform.position.x, 0f, playerTarget.transform.position.z - transform.position.z) ;
+
+        if (Physics.Raycast(rayStart, rayDirection, out hit, followDistance))
+        {
+            //Debug.DrawRay(rayStart, playerTarget.transform.TransformDirection(Vector3.left) * hit.distance, Color.yellow);
+            Debug.DrawRay(rayStart, rayDirection * 8, Color.yellow);
+            // if hit.transform == playerTarget => pause puis attack
+            // else not follow player
+            if (hit.transform != playerTarget)
+            {
+                return true; // player hidden
+            }
+            // Player can hide only if enemy walk or follow or pause first only if follow
         }
         else
         {
-            currentState = EnemyControlState.WALK;
-            waitPauseTime = 0;
-            finishedPause = false;
-            StartPause = false;
+            Debug.DrawRay(rayStart, rayDirection * 8, Color.white);
+
         }
+        return false;
     }
 
-    void GetStateControl()
+    void GetStateControl(EnemyControlState enemyState)
     {
+        switch (enemyState)
+        {
+            case EnemyControlState.WALK:
+                alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
+                anim.SetBool("Avancer", true);
+                move();
+                break;
+            case EnemyControlState.RUN:
+                break;
+            case EnemyControlState.PAUSE:
+                if (finishedPause) // New Pause, reset timer
+                {
+                    waitPauseTime = 0f;
+                    finishedPause = false;
+                    StartPause = true;
+                }
+                waitPauseTime += Time.deltaTime;
+                anim.SetBool("Avancer", false);
+                navAgent.isStopped = true;
 
-        if (currentState == EnemyControlState.PAUSE)
-        {
-            if (finishedPause) // New Pause, reset timer
-            {
-                waitPauseTime = 0f;
-                finishedPause = false;
-                StartPause = true;
-            }
-            waitPauseTime += Time.deltaTime;
-            anim.SetBool("Avancer", false);
-            navAgent.isStopped = true;
+                if (waitPauseTime > waitTimeLimit) // End Pause 
+                {
+                    finishedPause = true;
+                }
+                break;
+            case EnemyControlState.FOLLOW:
+                alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
+                anim.SetBool("Avancer", true);
+                followPlayer();
+                break;
+            case EnemyControlState.GOBACK:
+                alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
+                anim.SetBool("Avancer", true);
+                goBackHome();
+                break;
+            case EnemyControlState.ATTACK:
+                alphaRenderer.material.SetColor("_ColorTint", Color.red); // Provisoire
+                anim.SetBool("Avancer", false);
+                navAgent.isStopped = true;
+                break;
+            case EnemyControlState.DEATH:
+                break;
+            default:
+                break;
+        }
 
-            if (waitPauseTime > waitTimeLimit) // End Pause 
-            {
-                finishedPause = true;
-            }
-        } 
-        else if (currentState == EnemyControlState.WALK)
-        {
-            alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
-            anim.SetBool("Avancer", true);
-            move();
-        }
-        else if (currentState == EnemyControlState.PAUSE)
-        {          
-            anim.SetBool("Avancer", false);
-            navAgent.isStopped = true;
-        }
-        else if (currentState == EnemyControlState.FOLLOW)
-        {
-            alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
-            anim.SetBool("Avancer", true);
-            followPlayer();
-        }
-        else if (currentState == EnemyControlState.ATTACK)
-        {
-            alphaRenderer.material.SetColor("_ColorTint", Color.red); // Provisoire
-            anim.SetBool("Avancer", false);
-            navAgent.isStopped = true;
-        }
-        else if (currentState == EnemyControlState.GOBACK)
-        {
-            alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
-            anim.SetBool("Avancer", true);
-            goBackHome();
-        }
     }
 
     void move()
     {
         float distance = Vector3.Distance(transform.position, playerTarget.position);
 
-        if (distance > followDistance)
+        navAgent.isStopped = false ;
+
+        if (navAgent.remainingDistance <= 0.5f)  // set new destination else continue to the destination
         {
-            if (navAgent.remainingDistance <= 0.5f)
-            {
-
-                nextDestination = walkPoints[walk_Index].position;
-
-                navAgent.isStopped = false;
-                navAgent.speed = speed;
-                navAgent.SetDestination(nextDestination);
-
-                if (walk_Index == walkPoints.Length - 1)
-                {
-                    walk_Index = 0;
-                }
-                else
-                {
-                    walk_Index++;
-                }
-
-            }
-        }
-        else if (distance > attackDistance)
-        {
+            nextDestination = walkPoints[walk_Index].position;
             navAgent.isStopped = false;
-            navAgent.speed = speedAttack;
-            navAgent.SetDestination(playerTarget.position);
-        }
-        else if (distance <= attackDistance)
-        {
-            navAgent.isStopped = true;
-        }
+            navAgent.speed = speed;
+            navAgent.SetDestination(nextDestination);
 
+            if (walk_Index >= walkPoints.Length - 1)
+            {
+                walk_Index = 0;
+            }
+            else
+            {
+                walk_Index++;
+            }
+
+        }
     }
 
     void followPlayer()
     {
         navAgent.isStopped = false;
         navAgent.speed = speedAttack;
+        Vector3 relativePos = playerTarget.position - transform.position;
+
+        // the second argument, upwards, defaults to Vector3.up
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime);
+        //transform.rotation = rotation;
         navAgent.SetDestination(playerTarget.position);
     }
 
     void goBackHome()
     {
-        if (navAgent.remainingDistance >= 0.5f)
+        if (navAgent.remainingDistance >= 0.1f)
         {
             navAgent.isStopped = false;
-            navAgent.speed = speedAttack;
+            navAgent.speed = speed;
             navAgent.SetDestination(initialPosition);
         } else
         {
