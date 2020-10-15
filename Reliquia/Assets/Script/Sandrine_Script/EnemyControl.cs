@@ -38,9 +38,9 @@ public class EnemyControl: MonoBehaviour
     private CharacterController playerCaract; // A enlever 
 
     // Distance between player and enemy
-    private float followDistance = 8f;
-    private float attackDistance = 3f;
-    private float goBackDistance = 10f;
+    private float followDistance = 10f;
+    private float attackDistance = 5f;
+    private float goBackDistance = 20;
 
     private float enemyToPlayerDistance;
     private float enemyToInitDistance;
@@ -97,10 +97,17 @@ public class EnemyControl: MonoBehaviour
                 currentState = EnemyControlState.PAUSE; // Pause 
                 return currentState;
             }
-            
+            currentState = EnemyControlState.GOBACK; // Puis Go Back Home
+            return currentState;
+
         } 
         if (enemyToPlayerDistance < attackDistance && lastState != EnemyControlState.GOBACK)
-        {            
+        {
+            if (isPlayerHide()) // Do not Follow Player continue walking
+            {
+                currentState = EnemyControlState.WALK;
+                return currentState;
+            }
             currentState = EnemyControlState.ATTACK; // Attack
             return currentState;
         } 
@@ -121,7 +128,9 @@ public class EnemyControl: MonoBehaviour
             {
                 currentState = EnemyControlState.PAUSE;
                 return currentState;
-            } 
+            }
+            currentState = EnemyControlState.FOLLOW;
+            return currentState;
 
         }
 
