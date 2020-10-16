@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public enum EnemyControlState
@@ -39,8 +37,8 @@ public class EnemyControl: MonoBehaviour
 
     // Distance between player and enemy
     private float followDistance = 10f;
-    private float attackDistance = 5f;
-    private float goBackDistance = 20;
+    private float attackDistance = 3f;
+    private float goBackDistance = 20f;
 
     private float enemyToPlayerDistance;
     private float enemyToInitDistance;
@@ -48,6 +46,8 @@ public class EnemyControl: MonoBehaviour
     // Time
     private float waitPauseTime = 0f;
     private float waitTimeLimit = 1.5f;
+    private float timeKeepFollowLimit = 100f;
+    private float timeKeepFollow = 101f;
 
     // Provisoire pour effet Attack
     public GameObject alphaSurface;
@@ -80,6 +80,16 @@ public class EnemyControl: MonoBehaviour
     {
         lastState = currentState;
 
+        if (enemyToPlayerDistance < attackDistance) //&& lastState != EnemyControlState.GOBACK
+        {
+            if (isPlayerHide()) // Do not Follow Player continue walking
+            {
+                currentState = EnemyControlState.WALK;
+                return currentState;
+            }
+            currentState = EnemyControlState.ATTACK; // Attack
+            return currentState;
+        }
         if ( enemyToInitDistance > goBackDistance || lastState == EnemyControlState.GOBACK)
         {
             if (lastState == EnemyControlState.FOLLOW)
@@ -101,19 +111,40 @@ public class EnemyControl: MonoBehaviour
             return currentState;
 
         } 
-        if (enemyToPlayerDistance < attackDistance && lastState != EnemyControlState.GOBACK)
+        
+        if (enemyToPlayerDistance < followDistance && lastState != EnemyControlState.GOBACK) // Zone bleue "détection"
         {
-            if (isPlayerHide()) // Do not Follow Player continue walking
+
+            // if isPlayerHide && lastState == FOLLOW && timeKeepFollow  > timeKeepFollowLimit
+            // => timeKeepFollow = 0
+            //currentstate = FOLLOW
+            if (isPlayerHide() && lastState == EnemyControlState.FOLLOW && timeKeepFollow > timeKeepFollowLimit)
             {
+                timeKeepFollow = 0;
+                currentState = EnemyControlState.FOLLOW;
+                return currentState;
+            }
+            // if isPlayerHide && lastState == FOLLOW && timeKeepFollow < timeKeepFollowLimit 
+            // => 
+            // currentState == FOLLOW 
+            // timeKeepFollow++;
+            if (isPlayerHide() && lastState == EnemyControlState.FOLLOW && timeKeepFollow < timeKeepFollowLimit)
+            {
+                timeKeepFollow++;
+                currentState = EnemyControlState.FOLLOW;
+                return currentState;
+            }
+            // if isPlayerHide && lastState == FOLLOW && timeKeepFollow = timeKeepFollowLimit 
+            // => 
+            // currentState == WALK 
+            // timeKeepFollow++;
+            if (isPlayerHide() && lastState == EnemyControlState.FOLLOW && timeKeepFollow == timeKeepFollowLimit)
+            {
+                timeKeepFollow++;
                 currentState = EnemyControlState.WALK;
                 return currentState;
             }
-            currentState = EnemyControlState.ATTACK; // Attack
-            return currentState;
-        } 
-        if (enemyToPlayerDistance < followDistance && lastState != EnemyControlState.GOBACK)
-        {
-            if (isPlayerHide()) // Do not Follow Player continue walking
+            if (isPlayerHide() ) // Do not Follow Player continue walking
             {
                 currentState = EnemyControlState.WALK;
                 return currentState;
@@ -129,7 +160,11 @@ public class EnemyControl: MonoBehaviour
                 currentState = EnemyControlState.PAUSE;
                 return currentState;
             }
-            currentState = EnemyControlState.FOLLOW;
+            currentState = EnemyControlState.WALK;
+            if (lastState == EnemyControlState.FOLLOW)
+            {
+                navAgent.isStopped = true;
+            }
             return currentState;
 
         }
@@ -208,6 +243,7 @@ public class EnemyControl: MonoBehaviour
             case EnemyControlState.ATTACK:
                 alphaRenderer.material.SetColor("_ColorTint", Color.red); // Provisoire
                 anim.SetBool("Avancer", false);
+                attackPlayer();
                 navAgent.isStopped = true;
                 break;
             case EnemyControlState.DEATH:
@@ -223,8 +259,22 @@ public class EnemyControl: MonoBehaviour
         float distance = Vector3.Distance(transform.position, playerTarget.position);
 
         navAgent.isStopped = false ;
+        //Debug.Log("nextDestination : " + nextDestination);
+        //Debug.Log("navAgent.remainingDistance : " + navAgent.remainingDistance);
+        //Debug.Log("playerTarget.position : " + playerTarget.position);
+        //Debug.Log("transform.position : " + transform.position);
+        //Debug.Log("walk_Index : " + walk_Index);
+        //Debug.Log("walkPoints[walk_Index].position : " + walkPoints[walk_Index].position);
 
-        if (navAgent.remainingDistance <= 0.5f)  // set new destination else continue to the destination
+        //bool needNewDestination = false;
+
+        //if (nextDestination.x != walkPoints[walk_Index].position.x || nextDestination.z != walkPoints[walk_Index].position.z)
+        //{
+        //    needNewDestination = true;
+        //}
+
+
+        if (navAgent.remainingDistance <= 0.5f || lastState == EnemyControlState.FOLLOW)  // set new destination else continue to the destination
         {
             nextDestination = walkPoints[walk_Index].position;
             navAgent.isStopped = false;
@@ -267,5 +317,14 @@ public class EnemyControl: MonoBehaviour
         {
             currentState = EnemyControlState.WALK;
         }
+    }
+
+    void attackPlayer()
+    {
+        Vector3 relativePos = playerTarget.position - transform.position;
+        navAgent.isStopped = false;
+        // the second argument, upwards, defaults to Vector3.up
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime);
     }
 }
