@@ -309,7 +309,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 625969291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab235f44c5421d543950f86c54ea7582, type: 3}
+  m_Script: {fileID: 11500000, guid: a6e0b797d1a0be34d93f0d7e1b87dafb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &625969294
@@ -456,7 +456,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 625969295}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 625969293}
+        m_MethodName: PrefabToLoad
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8041474701741920479, guid: a281a068bf0e5f5459854ab347798e88,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &625969295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +797,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Changement de chapitre
+  m_Text: Chargement du prefab
 --- !u!222 &1366390101
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -954,7 +966,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Changement de niveau
+  m_Text: "Chargement de la sc\xE8ne"
 --- !u!222 &1916242005
 CanvasRenderer:
   m_ObjectHideFlags: 0
