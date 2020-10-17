@@ -6,6 +6,7 @@ public class DialogueDisplay : MonoBehaviour
 {
     public Conversation conversation;
     public GameObject speakerGlobal;
+    private GameObject nextButton;
     public GameObject speakerLeft;
     public GameObject speakerRight;
     
@@ -14,20 +15,28 @@ public class DialogueDisplay : MonoBehaviour
 
     private int activeLineIndex = 0;
 
+    private TextTyper textTyper = null;
+
     void Start()
     {
+        nextButton = speakerGlobal.transform.Find("button").gameObject;
         speakerUILeft  = speakerLeft.GetComponent<SpeakerUI>();
         speakerUIRight = speakerRight.GetComponent<SpeakerUI>();
 
         speakerUILeft.Speaker  = conversation.speakerLeft;
-        speakerUIRight.Speaker = conversation.speakerRight;        
+        speakerUIRight.Speaker = conversation.speakerRight;
+
+        textTyper = gameObject.GetComponent<TextTyper>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("space")) {
+        if (Input.GetKeyDown("space") && textTyper.IsWaiting()) {
             AdvanceConversation();
-        }        
+        }
+        if (!nextButton.active && textTyper.IsOnTransition()) {
+            nextButton.SetActive(true);
+        }
     }
 
     void AdvanceConversation() {
@@ -54,9 +63,11 @@ public class DialogueDisplay : MonoBehaviour
     }
 
     void SetDialogue(SpeakerUI activeSpeakerUI, SpeakerUI inactiveSpeakerUI, string text) {
-        activeSpeakerUI.Dialogue = text;
+        textTyper.SetTextTyper(activeSpeakerUI, text, 0.025f);
+        textTyper.WriteText();
         activeSpeakerUI.Show();
         inactiveSpeakerUI.Hide();
         speakerGlobal.SetActive(true);
+        nextButton.SetActive(false);
     }
 }

@@ -858,7 +858,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1155,7 +1155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1486782702
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1287,6 +1287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916981467}
   - component: {fileID: 1916981468}
+  - component: {fileID: 1916981469}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -1332,3 +1333,15 @@ MonoBehaviour:
   speakerGlobal: {fileID: 680010402}
   speakerLeft: {fileID: 333676250}
   speakerRight: {fileID: 115796691}
+--- !u!114 &1916981469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916981466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c6a4e67afd0e0ea885accfd3458049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
