@@ -16,7 +16,7 @@ public class SceneLoader : MonoBehaviour {
 
     IEnumerator FadeOut(GameObject canvasToFade) {
         
-        canvasToFade.GetComponent<CanvasGroup>().DOFade(0, 0.4f);
+        canvasToFade.GetComponent<CanvasGroup>().DOFade(0, 0.9f);
         yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 0);
         SceneManager.LoadScene(1);
     }

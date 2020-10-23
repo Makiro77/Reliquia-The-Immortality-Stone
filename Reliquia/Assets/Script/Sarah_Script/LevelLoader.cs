@@ -20,50 +20,31 @@ public class LevelLoader : MonoBehaviour {
     IEnumerator LoadAsynch(int sceneIndex) {
 
         /// Le code ci-dessous est présent uniquement pour l'aperçu ///
-        /*
-        loadingScreen1.SetActive(true);
 
-        for(float i=0;i<1.1f;i+=.1f){
-
-            if (loadingPoints.text.Length == 13)
-                loadingPoints.text = "Chargement";
-
-            else
-                loadingPoints.text = loadingPoints.text + ".";
-
-            amulette.GetComponent<CanvasGroup>().DOFade(i, 0.3f);
-            Debug.Log(i);
-            yield return new WaitForSeconds(.3f);
-        }
-
-        SceneManager.LoadScene(0);*/
-
-        /// La véritable fonction prenant en compte le temps de chargement du niveau est en commentaire ci-dessous ///
-        
-        canvasToFade.GetComponent<CanvasGroup>().DOFade(0, .9f);
+        canvasToFade.GetComponent<CanvasGroup>().DOFade(0, 1f);
         yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 0);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        operation.allowSceneActivation = false;
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        while (operation.progress < .9f) {
 
-        while (!operation.isDone) {
+            for (float i=0;i<1.1f;i+=.1f) {
 
-            if (loadingPoints.text.Length == 13)
-                loadingPoints.text = "Chargement";
+                if (loadingPoints.text.Length == 13)
+                    loadingPoints.text = "Chargement";
 
-            else
-                loadingPoints.text = loadingPoints.text + ".";
-            
-            float progress = Mathf.Clamp01(operation.progress / .9f);
-            /* Génère une erreur
-            amulette.GetComponent<CanvasGroup>().DOFade(progress, 0.3f);*/
-            Debug.Log(progress);
+                else
+                    loadingPoints.text = loadingPoints.text + ".";
 
-            if (progress == .9f) {
-                canvasToFade.GetComponent<CanvasGroup>().DOFade(1, .9f);
-                yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 1);
+                amulette.GetComponent<CanvasGroup>().DOFade(i, 0.3f);
+                Debug.Log(operation.progress);
+                yield return new WaitForSeconds(.4f);
             }
-
-            yield return null;
         }
+
+        canvasToFade.GetComponent<CanvasGroup>().DOFade(1, 1f);
+        yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 1);
+        operation.allowSceneActivation = true;
+        Debug.Log(operation.progress);
     }
 }

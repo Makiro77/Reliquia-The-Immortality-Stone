@@ -463,7 +463,7 @@ MonoBehaviour:
         m_MethodName: PrefabToLoad
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8041474701741920479, guid: a281a068bf0e5f5459854ab347798e88,
+          m_ObjectArgument: {fileID: 9140522051043025264, guid: a281a068bf0e5f5459854ab347798e88,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
