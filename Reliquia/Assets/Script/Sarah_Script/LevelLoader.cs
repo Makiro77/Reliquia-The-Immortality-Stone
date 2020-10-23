@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class LevelLoader : MonoBehaviour {
 
+    public GameObject canvasToFade;
     public GameObject amulette; // Amulette remplie
     public Text loadingPoints; // "Chargement..."
     public int sceneIndex;
@@ -39,7 +40,9 @@ public class LevelLoader : MonoBehaviour {
 
         /// La véritable fonction prenant en compte le temps de chargement du niveau est en commentaire ci-dessous ///
         
-        
+        canvasToFade.GetComponent<CanvasGroup>().DOFade(0, .9f);
+        yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 0);
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
         while (!operation.isDone) {
@@ -54,6 +57,11 @@ public class LevelLoader : MonoBehaviour {
             /* Génère une erreur
             amulette.GetComponent<CanvasGroup>().DOFade(progress, 0.3f);*/
             Debug.Log(progress);
+
+            if (progress == .9f) {
+                canvasToFade.GetComponent<CanvasGroup>().DOFade(1, .9f);
+                yield return new WaitUntil(() => canvasToFade.GetComponent<CanvasGroup>().alpha == 1);
+            }
 
             yield return null;
         }
