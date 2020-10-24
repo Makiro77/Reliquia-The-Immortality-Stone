@@ -34,7 +34,7 @@ public class DialogueDisplay : MonoBehaviour
         if (Input.GetKeyDown("space") && textTyper.IsWaiting()) {
             AdvanceConversation();
         }
-        if (!nextButton.active && textTyper.IsOnTransition()) {
+        if (!nextButton.active && textTyper.IsWaiting()) {
             nextButton.SetActive(true);
         }
     }

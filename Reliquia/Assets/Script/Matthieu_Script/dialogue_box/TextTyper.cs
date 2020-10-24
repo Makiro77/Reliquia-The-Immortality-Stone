@@ -6,8 +6,8 @@ public class TextTyper : MonoBehaviour
 {
     public enum StateTextTyper {
         waiting,
-        onGoing,
-        onTransition
+        onLaunching,
+        onGoing
     }
 
     private SpeakerUI activeSpeakerUI = null;
@@ -18,21 +18,28 @@ public class TextTyper : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown("space") && IsOnGoing()) {
-            CurrentState = StateTextTyper.onTransition;
-        }        
+            CurrentState = StateTextTyper.waiting;
+        }       
     }
 
     public void WriteText() {
         activeSpeakerUI.Dialogue = "";
-        CurrentState = StateTextTyper.onGoing;
+        CurrentState = StateTextTyper.onLaunching;
         StartCoroutine(TypeText());
     }
     
     private IEnumerator TypeText() {
         string currentText = "";
         int i = 0;
+        while(i < 5){
+            currentText += text[i];
+            activeSpeakerUI.Dialogue = currentText;
+            yield return new WaitForSeconds(delay);
+            i++;
+        }
+        CurrentState = StateTextTyper.onGoing;
         while(i < text.Length) {
-            if (IsOnTransition()) {
+            if (IsWaiting()) {
                 activeSpeakerUI.Dialogue = text;
                 break;
             } else {
@@ -79,8 +86,5 @@ public class TextTyper : MonoBehaviour
     }
     public bool IsOnGoing() {
         return CurrentState == StateTextTyper.onGoing;
-    }
-    public bool IsOnTransition() {
-        return CurrentState == StateTextTyper.onTransition;
     }
 }
