@@ -5,8 +5,7 @@ using UnityEngine.UI;
 public class Compas_Script : MonoBehaviour
 {
     public GameObject iconePrefab;
-    GameObject newMarqueur;
-    List<MarqeurQuete_Script> marqueurQuete = new List<MarqeurQuete_Script>();
+    [SerializeField] List<MarqeurQuete_Script> marqueurQuete = new List<MarqeurQuete_Script>();
 
     public RawImage compasImage;
     public Transform player;
@@ -15,15 +14,23 @@ public class Compas_Script : MonoBehaviour
 
     float CompasUnite;
 
-    public MarqeurQuete_Script one;
-    public MarqeurQuete_Script two;
+    public static Compas_Script instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         CompasUnite = compasImage.rectTransform.rect.width / 360f;
-
-        AddMarqueurQuete(one);
-        AddMarqueurQuete(two);
     }
 
     void Update()
@@ -45,7 +52,9 @@ public class Compas_Script : MonoBehaviour
 
     public void AddMarqueurQuete (MarqeurQuete_Script marqueur)
     {
-        newMarqueur = Instantiate(iconePrefab, compasImage.transform);
+        GameObject newMarqueur = Instantiate(iconePrefab, compasImage.transform);
+        marqueur.iconeCompas = newMarqueur;
+
         marqueur.image = newMarqueur.GetComponent<Image>();
         marqueur.image.sprite = marqueur.icone;
 
@@ -54,7 +63,7 @@ public class Compas_Script : MonoBehaviour
 
     public void RemoveMarqueurQuete (MarqeurQuete_Script marqueur)
     {
-        Destroy(newMarqueur);
+        Destroy(marqueur.iconeCompas);
         marqueurQuete.Remove(marqueur);
     }
 

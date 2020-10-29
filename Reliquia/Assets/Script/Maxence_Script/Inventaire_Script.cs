@@ -5,53 +5,19 @@ using UnityEngine;
 
 public class Inventaire_Script : MonoBehaviour
 {
-    private const int Slots = 12;
+    public List<ItemInventaire> items = new List<ItemInventaire>();
 
-    public List<IInventaireItem> mItems = new List<IInventaireItem>();
+    public static Inventaire_Script instance;
 
-    public event EventHandler<InventaireEventArgs> ItemAdded;
-
-    public event EventHandler<InventaireEventArgs> ItemRemoved;
-
-    public void AddItem(IInventaireItem item)
+    private void Awake()
     {
-        if(mItems.Count < Slots)
+        if (instance == null)
         {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if (collider.enabled)
-            {
-                collider.enabled = false;
-
-                mItems.Add(item);
-
-                item.OnPickup();
-
-                if(ItemAdded != null)
-                {
-                    ItemAdded(this, new InventaireEventArgs(item));
-                }
-            }
+            instance = this;
         }
-    }
-
-    public void RemoveItem(IInventaireItem item)
-    {
-        if (mItems.Contains(item))
+        else
         {
-            mItems.Remove(item);
-
-            item.OnDrop();
-
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if(collider != null)
-            {
-                collider.enabled = true;
-            }
-
-            if(ItemRemoved != null)
-            {
-                ItemRemoved(this, new InventaireEventArgs(item));
-            }
+            Destroy(gameObject);
         }
     }
 }

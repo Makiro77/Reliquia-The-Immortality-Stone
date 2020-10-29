@@ -10,8 +10,8 @@ public class InventaireUI_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventaire.ItemAdded += InventaireScript_ItemAdded;
-        inventaire.ItemRemoved += InventaireScript_ItemRemoved;
+        /*inventaire.ItemAdded += InventaireScript_ItemAdded;
+        inventaire.ItemRemoved += InventaireScript_ItemRemoved;*/
     }
 
     private void InventaireScript_ItemAdded(object sender, InventaireEventArgs e)

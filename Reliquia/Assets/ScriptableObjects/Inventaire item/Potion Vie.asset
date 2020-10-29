@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6f94694ef62f7b41991fe280aedbfc2, type: 3}
-  m_Name: PotionVie
+  m_Name: Potion Vie
   m_EditorClassIdentifier: 
   itemNom: Potion Vie
   itemDescription: Une potion de vie
@@ -20,6 +20,7 @@ MonoBehaviour:
   numberHeld: 0
   usable: 1
   unique: 0
+  typeItemBase: Consommable
   typeItem: Consommable
   thisEvent:
     m_PersistentCalls:

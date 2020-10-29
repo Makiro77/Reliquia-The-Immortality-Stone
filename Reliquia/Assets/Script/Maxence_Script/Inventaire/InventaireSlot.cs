@@ -27,7 +27,7 @@ public class InventaireSlot : MonoBehaviour
         {
             itemImage.sprite = thisItem.itemImage;
             itemNumberText.text = thisItem.numberHeld.ToString();
-            TypeItemBase = thisItem.typeItem;
+            TypeItemBase = thisItem.typeItemBase;
             TypeItem = thisItem.typeItem;
         }
     }
@@ -36,17 +36,17 @@ public class InventaireSlot : MonoBehaviour
     {
         if (thisItem)
         {
-            if (thisItem.usable)
+            if (thisItem.usable && TypeItem == "Sacoche")
             {
                 thisManager.SetupDescriptionAndButton(thisItem.itemDescription, thisItem.usable, thisItem);
                 thisItem.Use();
-                thisManager.ClearConsommableSlots();
-                thisManager.MakeConsommableSlot();
+                thisManager.ClearInventorySlots();
+                thisManager.MakeSacocheSlots();
                 thisManager.SetTextAndButton("", false);
 
                 if (thisItem.numberHeld <= 0)
                 {
-                    thisManager.playerInventory.consommablesInventory.Remove(thisItem);
+                    thisManager.playerInventory.sacochesInventory.Remove(thisItem);
                 }
             }
         }

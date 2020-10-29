@@ -38,6 +38,30 @@ public class HUD_Script : MonoBehaviour
     public GameObject fondPause;
 
     [SerializeField] private CanvasGroup GrimoireInventaire;
+    private Vector3 grimmoireItemPouvoirPos = new Vector3(477f, 0f, 0f);
+
+    private Vector3 grimmoireMapPos = new Vector3(-478f, -76f, 0f);
+    [SerializeField] private Transform grimmoireScale;
+
+    [SerializeField] private CanvasGroup sacocheInventaire;
+    [SerializeField] private CanvasGroup zoneItemsGrimmoir;
+
+    [SerializeField] private Transform boutonMap;
+    [SerializeField] private Transform boutonPouvoirs;
+    [SerializeField] private Transform boutonItem;
+
+    int activeMenu;
+
+    public Texture2D cerclePosPlayer;
+    public RawImage cerclePosPlayerImage;
+    Color[] colors = new Color[1]; 
+
+    public Texture2D parentGrimoireMask;
+    public RawImage parentGrimoireMaskImage;
+
+    [SerializeField] private Image pefabPartiGrimoir;
+
+    [SerializeField] private CanvasGroup parentMap;
 
     public static HUD_Script instance;
 
@@ -52,6 +76,9 @@ public class HUD_Script : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        colors[0] = new Color(1, 1, 1, 0);
+
         prefab = Instantiate(prefabMenuOptions, GameObject.FindGameObjectWithTag("Options").transform);
         boutonRetourOption =  prefab.transform.GetChild(1).GetComponent<Button>();
         imageTransition.DOFade(0, 1.5f);
@@ -61,6 +88,14 @@ public class HUD_Script : MonoBehaviour
 
         boutonMenuOptions.onClick.AddListener(GameManager.instance.menuOptions);
         boutonRetourOption.onClick.AddListener(GameManager.instance.menuOptions);
+
+        itemMenu(1);
+
+        SaveManager.instance.LoadMap(GameManager.instance.nomSauvegarde);
+
+        cerclePosPlayer = cerclePosPlayerImage.texture as Texture2D;
+
+        colors = cerclePosPlayer.GetPixels();
     }
 
     void Start()
@@ -76,6 +111,8 @@ public class HUD_Script : MonoBehaviour
         StartCoroutine(SaveManager.instance.affichageSaveLoad());
 
         setInfoWilliam();
+
+        //SetPixelMapMask();
     }
 
     public void setInfoWilliam()
@@ -132,5 +169,69 @@ public class HUD_Script : MonoBehaviour
     {
         string nom = GameManager.instance.nomSauvegarde;
         SaveManager.instance.LoadInGame(nom);
+    }
+
+    public void mapMenu(int menuIndex)
+    {
+        if(activeMenu == 1)
+        {
+            boutonMap.SetSiblingIndex(2);
+            boutonMap.GetComponent<Text>().fontSize = 70;
+            boutonItem.GetComponent<Text>().fontSize = 45;
+            sacocheInventaire.DOFade(0, 0.25f);
+            zoneItemsGrimmoir.DOFade(0, 0.25f).OnComplete(() =>
+            {
+                grimmoireScale.DOScale(0.9f, 0.25f);
+                grimmoireScale.DOLocalMove(grimmoireMapPos, 0.5f).OnComplete(() => parentMap.DOFade(1, 0.25f));
+            });
+            activeMenu = menuIndex;
+        }
+        else if (activeMenu == menuIndex) return;
+        else
+        {
+            activeMenu = menuIndex;
+            boutonMap.SetSiblingIndex(2);
+            boutonMap.GetComponent<Text>().fontSize = 70;
+            boutonItem.GetComponent<Text>().fontSize = 45;
+        }
+    }
+
+    public void itemMenu(int menuIndex)
+    {
+        if (activeMenu == 2)
+        {
+            boutonItem.SetSiblingIndex(2);
+            boutonItem.GetComponent<Text>().fontSize = 70;
+            boutonMap.GetComponent<Text>().fontSize = 45;
+            grimmoireScale.DOScale(1f, 0.25f);
+            parentMap.DOFade(0, 0.25f);
+            grimmoireScale.DOLocalMove(grimmoireItemPouvoirPos, 0.25f).OnComplete(() =>
+            {
+                sacocheInventaire.DOFade(1, 0.25f);
+                zoneItemsGrimmoir.DOFade(1, 0.25f);
+            });
+            activeMenu = menuIndex;
+        }
+        else if (activeMenu == menuIndex) return;
+        else 
+        {
+            activeMenu = menuIndex;
+            boutonItem.SetSiblingIndex(2);
+            parentMap.DOFade(0, 0.25f);
+            boutonItem.GetComponent<Text>().fontSize = 70;
+            boutonMap.GetComponent<Text>().fontSize = 45;
+        }
+    }
+
+    void SetPixelMapMask()
+    {
+        for(int i = 0; i < cerclePosPlayerImage.rectTransform.rect.height; i++)
+        {
+            for (int j = 0; j < cerclePosPlayerImage.rectTransform.rect.height; j++)
+            {
+                parentGrimoireMask.SetPixels(i, j, (int)cerclePosPlayerImage.rectTransform.rect.width, (int)cerclePosPlayerImage.rectTransform.rect.height, colors);
+            }
+        }
+        parentGrimoireMask.Apply();
     }
 }

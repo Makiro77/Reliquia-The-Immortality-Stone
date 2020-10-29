@@ -20,6 +20,7 @@ MonoBehaviour:
   numberHeld: 0
   usable: 0
   unique: 1
+  typeItemBase: ObjetQuete
   typeItem: ObjetQuete
   thisEvent:
     m_PersistentCalls:

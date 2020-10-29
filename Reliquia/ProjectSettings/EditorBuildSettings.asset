@@ -5,25 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Menu_00.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Menu_01.unity
     guid: 6d20e8b673ae6b44fa7ebb3581272499
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Scene_Test/maxence_SceneTestPersonnage.unity
     guid: 77b8ce636be4ada49b5bb88492896870
   - enabled: 0
     path: Assets/Scenes/Scene_Test/sandrine_SceneTest.unity
     guid: 6d5b9eac5f8c1684981da86208ee2450
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_Test/sarah_Scenes/sarah_Scene3.unity
     guid: 259117a45c27747438bcc8e8fceb12ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_Test/sarah_Scenes/sarah_Scene2.unity
     guid: 00d8521a82ee2534cba936885c259213
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_Test/sarah_Scenes/sarah_Scene1.unity
     guid: 07d0375ecb841c34287431482d1353ed
   m_configObjects: {}

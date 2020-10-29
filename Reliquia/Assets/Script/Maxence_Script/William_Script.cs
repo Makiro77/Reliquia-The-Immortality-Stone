@@ -9,6 +9,7 @@ public class William_Script : MonoBehaviour
     GameManager gameManager;
     RaccourciClavier_Script raccourciClavier;
     Compas_Script compas_Script;
+    PhysicaltemInventaire physicaltemInventaire;
 
     public Inventaire_Script inventaire;
 
@@ -37,35 +38,28 @@ public class William_Script : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    private void Update()
-    {
-        if(mItemToPickUp != null && Input.GetKeyDown(raccourciClavier.toucheClavier["Action"]))
-        {
-            inventaire.AddItem(mItemToPickUp);
-            mItemToPickUp.OnPickup();
-            gameManager.FermerMessageInteraction();
-        }
-    }
-
-    private IInventaireItem mItemToPickUp = null;
+    ItemInventaire item;
     private void OnTriggerEnter(Collider other)
     {
-        IInventaireItem item = other.GetComponent<IInventaireItem>();
-        if (item != null)
+        if (other.CompareTag("Item"))
         {
-            mItemToPickUp = item;
-
+            physicaltemInventaire = other.gameObject.GetComponent<PhysicaltemInventaire>();
+            item = physicaltemInventaire.thisItem;
             gameManager.AfficherMessageInteraction("");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        IInventaireItem item = other.GetComponent<IInventaireItem>();
-        if (item != null)
+        gameManager.FermerMessageInteraction();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(raccourciClavier.toucheClavier["Action"]) && GameManager.instance.MessageInteraction.activeSelf == true)
         {
+            physicaltemInventaire.AddItem(item);
             gameManager.FermerMessageInteraction();
-            mItemToPickUp = null;
         }
     }
 }

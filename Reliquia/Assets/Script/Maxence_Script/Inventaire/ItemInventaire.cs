@@ -16,6 +16,7 @@ public class ItemInventaire : ScriptableObject
     public bool usable;
     public bool unique;
 
+    public string typeItemBase;
     public string typeItem;
 
     public UnityEvent thisEvent;
@@ -23,7 +24,8 @@ public class ItemInventaire : ScriptableObject
 
     public void Use()
     {
-       thisEvent.Invoke();
+        Debug.Log("test item");
+        thisEvent.Invoke();
     }
 
     public void DecreaseAmount(int valueToDecrease)

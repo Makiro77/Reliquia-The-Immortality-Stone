@@ -52,7 +52,7 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A)) EnleverVie(10);
         if (Input.GetKeyUp(KeyCode.B)) EnleverMana(10);
 
-        if (Input.GetKeyUp(KeyCode.E)) RajouterVie(10);
+        //if (Input.GetKeyUp(KeyCode.E)) RajouterVie(10);
         if (Input.GetKeyUp(KeyCode.C)) RajouterMana(10);
     }
 

@@ -83,8 +83,13 @@ public class SaveManager : MonoBehaviour
                 SaveData data = new SaveData();
 
                 //SaveName(data);
+
                 SavePlayer(data);
                 SaveScene(data);
+
+                GameManager.instance.nomSauvegarde = savedGame.MySaveName;
+
+                SaveMap(GameManager.instance.nomSauvegarde);
 
                 bf.Serialize(file, data);
 
@@ -128,6 +133,7 @@ public class SaveManager : MonoBehaviour
 
            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.MySaveName + "/" + savedGame.MySaveName + ".dat", FileMode.Create);
 
+            Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Cartes");
             Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire");
             Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/Sacoche");
             Directory.CreateDirectory(Application.persistentDataPath + "/" + savedGame.MySaveName + "/Inventaire/Consommables");
@@ -164,6 +170,45 @@ public class SaveManager : MonoBehaviour
         data.MyPlayerData = new PlayerData(100, 100, 100, 100, new Vector3(0,5,0));
     }
 
+    public void SaveMap(string nomSave)
+    {
+        HUD_Script.instance.parentGrimoireMask = (Texture2D)HUD_Script.instance.parentGrimoireMaskImage.texture;
+
+        var bytes = HUD_Script.instance.parentGrimoireMask.EncodeToPNG();
+        var dirPath = Application.persistentDataPath + "/" + nomSave + "/Cartes";
+
+        File.WriteAllBytes(dirPath + "/Map.png", bytes);
+    }
+
+    public void LoadMap(string nomSave)
+    {
+        var dirPath = Application.persistentDataPath + "/" + nomSave + "/Cartes";
+
+        if (!File.Exists(dirPath + "/Map.png"))
+        {
+            HUD_Script.instance.parentGrimoireMask = HUD_Script.instance.parentGrimoireMaskImage.texture as Texture2D;
+
+            var bytes = HUD_Script.instance.parentGrimoireMask.EncodeToPNG();
+
+            File.WriteAllBytes(dirPath + "/Map.png", bytes);
+        }
+        else
+        {
+
+            byte[] byteArray = File.ReadAllBytes(dirPath + "/Map.png");
+
+            Texture2D sampleTexture = new Texture2D(2, 2);
+
+            bool isLoaded = sampleTexture.LoadImage(byteArray);
+            if (isLoaded)
+            {
+                HUD_Script.instance.parentGrimoireMaskImage.texture = sampleTexture;
+
+                HUD_Script.instance.parentGrimoireMask = (Texture2D)HUD_Script.instance.parentGrimoireMaskImage.texture;
+            }
+        }
+    }
+
     public void LoadInGame(string nomSave)
     {
         try
@@ -178,6 +223,7 @@ public class SaveManager : MonoBehaviour
             file.Close();
 
             LoadPlayer(data);
+            LoadMap(nomSave);
 
             if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(() => LoadScene(data));
             else if (data.MySceneData.IdScene == SceneManager.GetActiveScene().buildIndex) HUD_Script.instance.setInfoWilliam();

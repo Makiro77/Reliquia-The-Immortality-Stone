@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Sacoche
   m_EditorClassIdentifier: 
   sacochesInventory: []
-  consommablesInventory:
-  - {fileID: 11400000, guid: a9cbcb4d00e69f141b1c60486fabb4ae, type: 2}
+  consommablesInventory: []
   objetsQuetesInventory: []
   puzzlesInventory: []

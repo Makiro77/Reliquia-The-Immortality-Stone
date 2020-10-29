@@ -28,10 +28,11 @@ public class InventaireManager : MonoBehaviour
 
     private void Awake()
     {
-        InventaireSauvegarde.instance.LoadInventory();
+        //InventaireSauvegarde.instance.LoadInventory();
     }
     void Start()
     {
+        InventaireSauvegarde.instance.LoadInventory();
 
         MakeSacocheSlots();
         MakeConsommableSlot();

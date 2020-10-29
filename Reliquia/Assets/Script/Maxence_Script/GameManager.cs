@@ -12,7 +12,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
 
-    RaccourciClavier_Script raccourciClavier;
+    public RaccourciClavier_Script raccourciClavier;
 
     public GameObject MenuPause;
     public Transform MenuInventaire;
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public bool menuPauseOuvert;
     public bool menuInventaireOuvert;
+    public bool menuOptionOuvert;
     public bool menuSlots;
 
     public GameObject MessageInteraction;
@@ -62,12 +63,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        raccourciClavier = FindObjectOfType<RaccourciClavier_Script>();
-    }
-
     public void choixNomSauvegarde()
     {
         popUp = Instantiate(popUpNomSauvegarde, GameObject.FindGameObjectWithTag("HUD").transform);
@@ -89,6 +84,7 @@ public class GameManager : MonoBehaviour
     public void menuOptions()
     {
         menuSlots = !menuSlots;
+        menuOptionOuvert = !menuOptionOuvert;
         if (menuSlots == true) ParentBoutonMenu.DOMoveX(-780f, 0.25f).OnComplete(() => ParentOptions.gameObject.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
         else ParentOptions.gameObject.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(() => ParentBoutonMenu.DOMoveX(0f, 0.25f));
     }

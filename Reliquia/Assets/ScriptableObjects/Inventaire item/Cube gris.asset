@@ -20,6 +20,7 @@ MonoBehaviour:
   numberHeld: 0
   usable: 0
   unique: 1
+  typeItemBase: Puzzle
   typeItem: Puzzle
   thisEvent:
     m_PersistentCalls:

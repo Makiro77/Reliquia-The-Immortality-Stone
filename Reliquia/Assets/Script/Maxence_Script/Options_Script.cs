@@ -6,6 +6,7 @@ using DG.Tweening;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using clavier;
 
 public class Options_Script : MonoBehaviour
 {
@@ -58,6 +59,8 @@ public class Options_Script : MonoBehaviour
         { 
             valeurAuLancement(); 
         }
+
+        GameManager.instance.raccourciClavier = gameObject.GetComponent<RaccourciClavier_Script>();
     }
 
     public void valeurAuLancement()

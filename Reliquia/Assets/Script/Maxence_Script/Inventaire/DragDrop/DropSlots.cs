@@ -48,6 +48,7 @@ public class DropSlots : MonoBehaviour, IDropHandler
 
                     playerInventory.sacochesInventory.Add(item);
                     typeItem.TypeItem = "Sacoche";
+                    item.typeItem = "Sacoche";
                 }
             }
         }
@@ -72,6 +73,7 @@ public class DropSlots : MonoBehaviour, IDropHandler
 
                     playerInventory.consommablesInventory.Add(item);
                     typeItem.TypeItem = "Consommable";
+                    item.typeItem = "Consommable";
                 }
             }
         }
@@ -96,13 +98,15 @@ public class DropSlots : MonoBehaviour, IDropHandler
 
                     playerInventory.objetsQuetesInventory.Add(item);
                     typeItem.TypeItem = "ObjetQuete";
+                    item.typeItem = "ObjetQuete";
                 }
             }
         }
-
-        /*if(eventData.pointerDrag != null)
+        else if (gameObject.name == "FondPuzzles")
         {
-            eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-        }*/
+            if (typeItem.TypeItem == "Consommable") eventData.pointerDrag.transform.SetParent(consommablePanel.transform);
+            else if (typeItem.TypeItem == "ObjetQuete") eventData.pointerDrag.transform.SetParent(objetQuetePanel.transform);
+            else if (typeItem.TypeItem == "Sacoche") eventData.pointerDrag.transform.SetParent(sacochePanel.transform);
+        }
     }
 }

@@ -53,7 +53,7 @@ public class MouvementWilliam_Script : MonoBehaviour
             Saut();
         }
 
-        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && GameManager.instance.menuInventaireOuvert == false)
+        if (Input.GetKeyUp(raccourciClavier.toucheClavier["MenuPause"]) && GameManager.instance.menuInventaireOuvert == false && GameManager.instance.menuOptionOuvert == false)
         {
             GameManager.instance.menuPause();
         }

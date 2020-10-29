@@ -1,81 +1,125 @@
-﻿using UnityEngine;
+﻿using clavier;
+using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PhysicaltemInventaire : MonoBehaviour
 {
     [SerializeField] private PlayerInventory playerInventory;
-    [SerializeField] private ItemInventaire thisItem;
+    public ItemInventaire thisItem;
+    public Image itemImage;
     [SerializeField] private InventaireManager thisManager;
 
-    private void OnTriggerEnter(Collider other)
+    public enum TypeItem
     {
-        if (other.gameObject.CompareTag("Player") && !other.isTrigger)
-        {
-            //GameManager.instance.AfficherMessageInteraction("");
-            if(gameObject.CompareTag("Quetes") && thisManager.maxItemQuete < 6) AddItemToQuetes();
-            else if(gameObject.CompareTag("Consommable") && thisManager.maxItemConsommable < 12) AddItemToConsommable();
-            else if(gameObject.CompareTag("Puzzle") && thisManager.maxItemPuzzles < 6) AddItemToPuzzles();
+        None,
+        Quetes,
+        Consommable,
+        Puzzle
+    }
 
-            Destroy(gameObject);
+    public TypeItem typeItemValue;
+
+    private void Awake()
+    {
+        itemImage = gameObject.GetComponent<Image>();
+        itemImage.sprite = thisItem.itemImage;
+    }
+
+    public void AddItem(ItemInventaire item)
+    {
+        Compas_Script.instance.RemoveMarqueurQuete(gameObject.GetComponent<MarqeurQuete_Script>());
+
+        if (typeItemValue == TypeItem.Quetes)
+        {
+            if (playerInventory.consommablesInventory.Contains(thisItem) && thisManager.maxItemQuete < 6) AddItemToQuetes(item);
+            else if (playerInventory.sacochesInventory.Contains(thisItem) && thisManager.maxItemSacoche < 12) AddItemToSacoche(item);
+            else AddItemToQuetes(item);
+        }
+        else if (typeItemValue == TypeItem.Consommable)
+        {
+            if (playerInventory.consommablesInventory.Contains(thisItem) && thisManager.maxItemConsommable < 12) AddItemToConsommable(item);
+            else if (playerInventory.sacochesInventory.Contains(thisItem) && thisManager.maxItemSacoche < 12) AddItemToSacoche(item);
+            else AddItemToConsommable(item);
+        }
+        else if (typeItemValue == TypeItem.Puzzle && thisManager.maxItemPuzzles < 6) AddItemToPuzzles(item);
+
+        Destroy(gameObject);
+    }
+
+    void AddItemToSacoche(ItemInventaire item)
+    {
+        if (playerInventory && item)
+        {
+            thisManager.ClearInventorySlots();
+
+            if (playerInventory.sacochesInventory.Contains(item))
+            {
+                item.numberHeld++;
+            }
+            else
+            {
+                thisManager.maxItemSacoche++;
+                item.numberHeld++;
+                playerInventory.sacochesInventory.Add(item);
+            }
+
+            thisManager.MakeSacocheSlots();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void AddItemToConsommable(ItemInventaire item)
     {
-        //GameManager.instance.FermerMessageInteraction();
-    }
-
-    void AddItemToConsommable()
-    {
-        if (playerInventory && thisItem)
+        if (playerInventory && item)
         {
             thisManager.ClearConsommableSlots();
 
-            if (playerInventory.consommablesInventory.Contains(thisItem))
+            if (playerInventory.consommablesInventory.Contains(item))
             {
-                thisItem.numberHeld++;
+                item.numberHeld++;
             }
             else
             {
                 thisManager.maxItemConsommable++;
-                thisItem.numberHeld++;
-                playerInventory.consommablesInventory.Add(thisItem);
+                item.numberHeld++;
+                playerInventory.consommablesInventory.Add(item);
             }
 
             thisManager.MakeConsommableSlot();
         }
     }
 
-    void AddItemToQuetes()
+    void AddItemToQuetes(ItemInventaire item)
     {
-        if (playerInventory && thisItem)
+        if (playerInventory && item)
         {
             thisManager.maxItemQuete++;
 
             thisManager.ClearObjetQuetesSlots();
-            if (!playerInventory.objetsQuetesInventory.Contains(thisItem))
+            if (!playerInventory.objetsQuetesInventory.Contains(item))
             {
-                thisItem.numberHeld++;
+                item.numberHeld++;
             }
 
-            playerInventory.objetsQuetesInventory.Add(thisItem);
+            playerInventory.objetsQuetesInventory.Add(item);
 
             thisManager.MakeObjetQueteSlot();
         }
     }
 
-    void AddItemToPuzzles()
+    void AddItemToPuzzles(ItemInventaire item)
     {
-        if (playerInventory && thisItem)
+        if (playerInventory && item)
         {
             thisManager.maxItemPuzzles++;
 
             thisManager.ClearPuzzlesSlots();
-            if (!playerInventory.puzzlesInventory.Contains(thisItem))
+            if (!playerInventory.puzzlesInventory.Contains(item))
             {
-                thisItem.numberHeld++;
+                item.numberHeld++;
             }
 
-            playerInventory.puzzlesInventory.Add(thisItem);
+            playerInventory.puzzlesInventory.Add(item);
 
             thisManager.MakePuzzlesSlot();
         }
