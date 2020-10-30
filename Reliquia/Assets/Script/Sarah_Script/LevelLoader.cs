@@ -12,6 +12,23 @@ public class LevelLoader : MonoBehaviour {
     public Text loadingPoints; // "Chargement..."
     public int sceneIndex;
 
+    public static LevelLoader instance;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        sceneIndex = SaveManager.instance.idScene;
+    }
+
     void Start() {
 
         StartCoroutine(LoadAsynch(sceneIndex));

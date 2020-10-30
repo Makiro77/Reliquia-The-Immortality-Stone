@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class SaveManager : MonoBehaviour
 {
     public Image fondTransition;
+    public int idScene;
 
     public List<GameObject> saveSlots = new List<GameObject>();
     SavedGame savedGame;
@@ -154,6 +155,8 @@ public class SaveManager : MonoBehaviour
 
             LoadPlayer(data);
 
+            idScene = 3;
+
             if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(()=>LoadScene(data));
 
             GameManager.instance.menuPause();
@@ -166,7 +169,7 @@ public class SaveManager : MonoBehaviour
 
     private void NewSavePlayerData(SaveData data)
     {
-        data.MySceneData = new SceneData(2, "maxence_SceneTestPersonnage");
+        data.MySceneData = new SceneData(3, "maxence_SceneTestPersonnage");
         data.MyPlayerData = new PlayerData(100, 100, 100, 100, new Vector3(0,5,0));
     }
 
@@ -255,6 +258,9 @@ public class SaveManager : MonoBehaviour
 
                 LoadPlayer(data);
 
+                
+                idScene = data.MySceneData.IdScene;
+
                 if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(() => LoadScene(data));
 
                 GameManager.instance.menuPause();
@@ -284,6 +290,6 @@ public class SaveManager : MonoBehaviour
         savedGame.idSceneActuelle = data.MySceneData.IdScene;
         savedGame.nomSceneActuelle = data.MySceneData.NameScene;
 
-        SceneManager.LoadSceneAsync(savedGame.idSceneActuelle);
+        SceneManager.LoadSceneAsync(2);
     }
 }
