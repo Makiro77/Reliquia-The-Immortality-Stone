@@ -38,15 +38,7 @@ public class WalkState : BaseState
         } 
         else
         {
-            var xPlayer = playerPosition.x;
-            var zPlayer = playerPosition.z;
-            _companion.NavAgent.SetDestination(_destination + new Vector3(1, 0, 0));
-            if (_companion.NavAgent.remainingDistance <= 0.5f) // l'agent a atteint sa destination
-            {
-                _companion.Anim.SetBool("Avancer", false);
-                _companion.NavAgent.isStopped = true;
-                transform.LookAt(_companion.Player);
-            }
+            return typeof(WaitState);
         }
 
         return null;

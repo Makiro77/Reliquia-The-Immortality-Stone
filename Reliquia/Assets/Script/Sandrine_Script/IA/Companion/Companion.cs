@@ -39,6 +39,7 @@ public class Companion : MonoBehaviour
         var states = new Dictionary<Type, BaseState>()
         {
             {typeof(WalkState), new WalkState(companion: this) },
+            {typeof(WaitState), new WaitState(companion: this) },
             {typeof(AttackEnemyState), new AttackEnemyState(companion: this) }
         };
 
