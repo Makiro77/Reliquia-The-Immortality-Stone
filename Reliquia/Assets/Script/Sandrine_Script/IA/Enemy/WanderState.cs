@@ -26,6 +26,7 @@ public class WanderState : BaseState
 
     public override Type Tick()
     {
+
         // assigne les positions 
         _enemyPosition = _enemy.transform.position;
         playerPosition = playerTarget.transform.position;

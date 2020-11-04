@@ -44,7 +44,7 @@ public class AttackState : BaseState
 
         // Si le joeur sort de la zone d'attaque
         // Retour à l'état Chase
-        if (distance > GameSettings.AttackRange)
+        if (distance > GameSettings.AttackRange + 0.5f)
         {
             return typeof(ChaseState);
         }

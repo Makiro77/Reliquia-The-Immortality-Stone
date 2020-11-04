@@ -7,11 +7,18 @@ using UnityEngine.UI;
 
 public class GameSettings : MonoBehaviour
 {
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private float aggroRadius = 20f;
-    [SerializeField] private float attackRange = 3f;
-    [SerializeField] private float chaseRange = 15f;
-    [SerializeField] private float chaseWaitingTime = 30f;
+    //[SerializeField] 
+    private float speed = 2f;
+    //[SerializeField] 
+    private float aggroRadius = 20f;
+    //[SerializeField] 
+    private float attackRange = 3f;
+    //[SerializeField] 
+    private float chaseRange = 15f;
+    //[SerializeField] 
+    private float outOfChaseRange = 20f;
+    //[SerializeField] 
+    private float chaseWaitingTime = 30f;
 
 
 
@@ -25,6 +32,7 @@ public class GameSettings : MonoBehaviour
     public static float AggroRadius => Instance.aggroRadius;
     public static float AttackRange; // => Instance.attackRange;
     public static float ChaseRange => Instance.chaseRange;
+    public static float OutOfChaseRange => Instance.outOfChaseRange;
     public static float ChaseWaintingTime => Instance.chaseWaitingTime;
 
     private void Start()

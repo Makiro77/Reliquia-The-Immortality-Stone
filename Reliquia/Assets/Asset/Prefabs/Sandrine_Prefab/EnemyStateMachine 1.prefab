@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 6992529178252778363}
   - component: {fileID: 6992529178252778360}
   m_Layer: 0
-  m_Name: EnemyStateMachine
+  m_Name: EnemyStateMachine 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,12 +710,12 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_BaseOffset: -0.1
+  m_WalkableMask: 8
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6992529178252778363
 MonoBehaviour:
@@ -741,6 +741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3946b5e9fb2aedb42920cd51563bfbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyWanderSpeed: 1
+  enemyChaseSpeed: 2
+  enemyAttackSpeed: 2
   alphaSurface: {fileID: 4764241063544763380}
   alphaRenderer: {fileID: 0}
 --- !u!1 &2414669459790635034
