@@ -7,7 +7,6 @@ public class ChaseState : BaseState
     private Vector3 _enemyPosition;
     private Vector3 targetPosition;
     private float seekCounter = 0;
-    private bool flagStopWainting = false;
     private Vector3 _destination;
     private Vector3 _direction;
     private Quaternion _desiredRotation;
@@ -48,6 +47,7 @@ public class ChaseState : BaseState
             if (_enemy.Target != null)
                 return typeof(AttackState);
         }
+
         // si le joueur sort de la zone de pistage
         // le joeur n'est plus la cible de l'IA.
         if (distance > GameSettings.ChaseRange) 
@@ -55,13 +55,16 @@ public class ChaseState : BaseState
             _enemy.SetTarget(null);
             return null;
         }
+
         // si le joueur se cache
         // le joeur n'est plus la cible de l'IA
-        if (false == CheckToContinue(GameSettings.ChaseWaintingTime)) // Check if target hide.
+        if (seekCounter >= GameSettings.ChaseWaintingTime && false == CheckToContinue()) // Check if target hide.
         {
             _enemy.SetTarget(null);
+            
             return null;
         }
+
         seekCounter++; // compteur utilisé pour la fonction CheckToContinue
 
         return null;
@@ -75,9 +78,6 @@ public class ChaseState : BaseState
     {
         _enemy.NavAgent.isStopped = false;
         _enemy.Anim.SetBool("Avancer", true);
-        //transform.LookAt(target);
-        //_enemy.NavAgent.SetDestination(target.position);
-
 
         _destination = new Vector3(targetPosition.x, y: 1f, targetPosition.z);
 
@@ -96,30 +96,21 @@ public class ChaseState : BaseState
     /// </summary>
     /// <param name="waitTime">Internvelle de temps entre 2 vérifications</param>
     /// <returns>retourne true s'il est caché et false sinon </returns>
-    private bool CheckToContinue(float waitTime)
+    private bool CheckToContinue()
     {
-
-        if (seekCounter >= waitTime)
-        {
-            flagStopWainting = true;
-            seekCounter = 0;
-        }
-
-        var target = transform;
-        var pos = transform.position;
         RaycastHit hit;
+        seekCounter = 0;
 
-        if (flagStopWainting && 
-            Physics.Raycast(_enemyPosition, _enemy.Target.position - _enemyPosition, out hit, GameSettings.ChaseRange)) 
+        if (Physics.Raycast(_enemyPosition, _enemy.Target.position - _enemyPosition, out hit, GameSettings.ChaseRange))
         {
-            target = hit.transform;
-            flagStopWainting = false;
-        }
+            var target = hit.transform;
 
-        if (target != null && target != _enemy.Target)
-        {
-            return false;
+            if (target != null && target != _enemy.Target.transform)
+            {
+                return false;
+            }
         }
+        
         return true;
     }
 

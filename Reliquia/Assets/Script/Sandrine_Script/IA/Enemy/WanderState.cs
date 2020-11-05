@@ -17,6 +17,7 @@ public class WanderState : BaseState
     // Player propriétés
     private Transform playerTarget;
     private Vector3 playerPosition;
+    private Transform chaseTarget;
 
     public WanderState(Enemy enemy) : base(enemy.gameObject)
     {
@@ -34,12 +35,23 @@ public class WanderState : BaseState
         _enemy.NavAgent.isStopped = false;
         _enemy.NavAgent.speed = _enemy.EnemyWanderSpeed;
 
-        var chaseTarget = CheckForAggro(); // Détecte le joueur
+        // Détecte le joueur si la cible est nulle
+        if (_enemy.Target == null)
+        {
+            chaseTarget = CheckForAggro(); 
+        }
 
         if (chaseTarget != null)
         {
+            // Une fois le joueur détecté, trouver la cible la plus proche
+            var chaseTargetClosest = CheckForClosest();
+
+            if (chaseTargetClosest != null)
+            {
+                chaseTarget = chaseTargetClosest;
+            }
             _enemy.SetTarget((Transform)chaseTarget);
-            return typeof(ChaseState); // Change l'état pour "Chase"
+            return typeof(ChaseState); // Change l'état pour "Chase" 
         }
 
         if (_enemy.NavAgent.remainingDistance <= 0.5f  ) // l'agent a atteint sa destination
@@ -59,10 +71,40 @@ public class WanderState : BaseState
             if (checkAttackState != null) // Le joueur n'est pas caché
             {
                 _enemy.SetTarget((Transform)checkAttackState);
-                return typeof(AttackState);
+                return typeof(ChaseState); //AttackState
             }
         }
         return null;
+    }
+
+    private Transform CheckForClosest()
+    {
+        RaycastHit hit;
+        var angle = transform.rotation * startingAngle;
+        var direction = angle * Vector3.forward;
+
+        for (var i = 0; i < 35; i++)
+        {
+            if (Physics.Raycast(_enemyPosition, direction, out hit, GameSettings.AggroRadius))
+            {
+
+                var target = hit.transform;
+                if (target != null && null != target.GetComponent<Companion>())
+                {
+
+                    Debug.DrawRay(_enemyPosition, direction * hit.distance, Color.red);
+                    return target.transform;
+                }
+                if (target != null && target == playerTarget)
+                {
+                    Debug.DrawRay(_enemyPosition, direction * hit.distance, Color.red);
+                    return target.transform;
+                }
+            }
+
+            direction = stepAngle * direction;
+        }
+        return null; 
     }
 
     /*****

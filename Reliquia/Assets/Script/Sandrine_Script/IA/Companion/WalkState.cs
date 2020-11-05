@@ -28,7 +28,7 @@ public class WalkState : BaseState
         playerPosition = _companion.Player.position;
         var distance = Vector3.Distance(_companionPosition, playerPosition);
 
-        if (distance >= 3f)
+        if (distance >= GameSettings.DistanceToWalk)
         {
             _companion.Anim.SetBool("Avancer", true);
             _companion.NavAgent.isStopped = false;
@@ -38,6 +38,10 @@ public class WalkState : BaseState
         } 
         else
         {
+            _destination = new Vector3(playerPosition.x, y: 1f, playerPosition.z);
+            Vector3 gap = new Vector3(UnityEngine.Random.Range(-2.0f, 2.0f), 0, UnityEngine.Random.Range(-2.0f, 2.0f));
+            _companion.NavAgent.SetDestination(_destination + gap);
+
             return typeof(WaitState);
         }
 

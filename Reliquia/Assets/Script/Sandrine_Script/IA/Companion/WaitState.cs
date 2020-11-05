@@ -20,27 +20,18 @@ public class WaitState : BaseState
         playerPosition = _companion.Player.position;
         var distance = Vector3.Distance(_companionPosition, playerPosition);
 
-        _destination = new Vector3(playerPosition.x, y: 1f, playerPosition.z);
+        if (distance > GameSettings.DistanceToWalk + 1)
+        {
+            return typeof(WalkState);
+        } 
 
-        float gapX = playerPosition.x < _companionPosition.x ? -1f : 1f;
-        float gapZ = playerPosition.z < _companionPosition.z ? -1f : 1f;
-        Vector3 gap = _companionPosition.x - playerPosition.x > _companionPosition.z - playerPosition.z ? 
-            new Vector3(gapX, 0, 0) : new Vector3(0, 0, gapZ);
-
-        _companion.NavAgent.SetDestination(_destination + gap);
-
-        if (_companion.NavAgent.remainingDistance <= 2.5f) // l'agent a atteint sa destination
+        if (_companion.NavAgent.remainingDistance <= 1f || distance <= 1.5f) // l'agent a atteint sa destination
         {
             _companion.Anim.SetBool("Avancer", false);
             _companion.NavAgent.isStopped = true;
             transform.LookAt(_companion.Player);
            
-        }
-
-        if (distance > 3f)
-        {
-            return typeof(WalkState);
-        }
+        } 
 
         return null;
 
