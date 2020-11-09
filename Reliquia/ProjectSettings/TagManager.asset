@@ -4,19 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Sol
-  - BoutonUi
-  - BoutonMenu
+  - UI
+  - Enemy
   - Item
-  - Save
-  - Load
-  - HUD
-  - SaveManager
-  - Options
-  - GameManager
-  - Consommable
-  - Puzzle
-  - Quetes
+  - Metal
+  - Stone
+  - Wood
+  - Sand
   layers:
   - Default
   - TransparentFX
@@ -31,20 +25,20 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ragdoll
+  - Ground
+  - Character
+  - StepUp
+  - LowerClimb
+  - Climb
+  - DroppableLedge
+  - Ladder
+  - Vault
+  - Cover
+  - Item
+  - Enemy
+  - Wall Run
+  - Wall Climb
   - 
   - 
   - 

@@ -163,9 +163,9 @@ public class InventaireSauvegarde : MonoBehaviour
                 {
                     item.itemNom = temp.itemNom;
                     item.itemDescription = temp.itemDescription;
-                    item.itemImage = temp.itemImage;
+                    /*item.itemImage = temp.itemImage;
                     item.itemMesh = temp.itemMesh;
-                    item.itemMaterial = temp.itemMaterial;
+                    item.itemMaterial = temp.itemMaterial;*/
                     item.numberHeld = temp.numberHeld;
                     item.usable = temp.usable;
                     item.unique = temp.unique;
@@ -195,9 +195,9 @@ public class InventaireSauvegarde : MonoBehaviour
                 {
                     item.itemNom = temp.itemNom;
                     item.itemDescription = temp.itemDescription;
-                    item.itemImage = temp.itemImage;
+                    /*item.itemImage = temp.itemImage;
                     item.itemMesh = temp.itemMesh;
-                    item.itemMaterial = temp.itemMaterial;
+                    item.itemMaterial = temp.itemMaterial;*/
                     item.numberHeld = temp.numberHeld;
                     item.usable = temp.usable;
                     item.unique = temp.unique;
@@ -228,9 +228,9 @@ public class InventaireSauvegarde : MonoBehaviour
                 {
                     item.itemNom = temp.itemNom;
                     item.itemDescription = temp.itemDescription;
-                    item.itemImage = temp.itemImage;
+                    /*item.itemImage = temp.itemImage;
                     item.itemMesh = temp.itemMesh;
-                    item.itemMaterial = temp.itemMaterial;
+                    item.itemMaterial = temp.itemMaterial;*/
                     item.numberHeld = temp.numberHeld;
                     item.usable = temp.usable;
                     item.unique = temp.unique;
@@ -260,9 +260,9 @@ public class InventaireSauvegarde : MonoBehaviour
                 {
                     item.itemNom = temp.itemNom;
                     item.itemDescription = temp.itemDescription;
-                    item.itemImage = temp.itemImage;
+                    /*item.itemImage = temp.itemImage;
                     item.itemMesh = temp.itemMesh;
-                    item.itemMaterial = temp.itemMaterial;
+                    item.itemMaterial = temp.itemMaterial;*/
                     item.numberHeld = temp.numberHeld;
                     item.usable = temp.usable;
                     item.unique = temp.unique;

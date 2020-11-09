@@ -17,11 +17,11 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 6b740e7ed5c2cb043b1058c656398398, type: 3}
   itemMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   itemMaterial: {fileID: 2100000, guid: 7812494ef121930419da77ca1ab8081c, type: 2}
-  numberHeld: 0
+  numberHeld: 2
   usable: 0
   unique: 1
   typeItemBase: ObjetQuete
-  typeItem: ObjetQuete
+  typeItem: Sacoche
   thisEvent:
     m_PersistentCalls:
       m_Calls:

@@ -1190,6 +1190,9 @@ MonoBehaviour:
   amulette: {fileID: 679911371}
   loadingPoints: {fileID: 1790562971}
   sceneIndex: 0
+  Canvas:
+  - {fileID: 739191752}
+  - {fileID: 1502017394}
 --- !u!1 &1502128024
 GameObject:
   m_ObjectHideFlags: 0

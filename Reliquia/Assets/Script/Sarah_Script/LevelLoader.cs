@@ -12,6 +12,8 @@ public class LevelLoader : MonoBehaviour {
     public Text loadingPoints; // "Chargement..."
     public int sceneIndex;
 
+    public GameObject[] Canvas;
+
     public static LevelLoader instance;
 
 
@@ -25,7 +27,7 @@ public class LevelLoader : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-
+        //for (int i = 0; i < LevelLoader.instance.Canvas.Length; i++) LevelLoader.instance.Canvas[i].SetActive(true);
         sceneIndex = SaveManager.instance.idScene;
     }
 

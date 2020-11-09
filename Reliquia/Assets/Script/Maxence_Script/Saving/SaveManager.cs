@@ -155,7 +155,7 @@ public class SaveManager : MonoBehaviour
 
             LoadPlayer(data);
 
-            idScene = 3;
+            idScene = data.MySceneData.IdScene;
 
             if (data.MySceneData.IdScene != SceneManager.GetActiveScene().buildIndex) fondTransition.DOFade(1, 1.5f).OnComplete(()=>LoadScene(data));
 
@@ -257,7 +257,6 @@ public class SaveManager : MonoBehaviour
                 GameManager.instance.nomSauvegarde = savedGame.MySaveName;
 
                 LoadPlayer(data);
-
                 
                 idScene = data.MySceneData.IdScene;
 
