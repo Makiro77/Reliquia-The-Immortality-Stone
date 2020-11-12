@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
 {
@@ -43,16 +44,23 @@ public class RessourcesVitalesWilliam_Scrip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(SceneManager.GetActiveScene().name == "test")
+        {
+            vieWilliam = maxVie;
+            manaWilliam = maxMana;
 
+            valeurMana = manaWilliam;
+            valeurVie = vieWilliam;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.A)) EnleverVie(10);
+        if (Input.GetKeyUp(KeyCode.N)) EnleverVie(10);
         if (Input.GetKeyUp(KeyCode.B)) EnleverMana(10);
 
-        //if (Input.GetKeyUp(KeyCode.E)) RajouterVie(10);
+        if (Input.GetKeyUp(KeyCode.V)) RajouterVie(10);
         if (Input.GetKeyUp(KeyCode.C)) RajouterMana(10);
     }
 

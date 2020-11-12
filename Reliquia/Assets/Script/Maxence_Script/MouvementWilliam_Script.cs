@@ -64,7 +64,6 @@ public class MouvementWilliam_Script : MonoBehaviour
         }
     }
 
-
     public void Avancer()
     {
         if (Input.GetKey(raccourciClavier.toucheClavier["Avancer"]))
