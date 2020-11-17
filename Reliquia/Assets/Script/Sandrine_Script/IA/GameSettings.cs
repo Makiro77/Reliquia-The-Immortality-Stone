@@ -13,20 +13,25 @@ public class GameSettings : MonoBehaviour
     //[SerializeField] private float aggroRadius = 20f;
     public float aggroRadius = 20f;
     //[SerializeField] private float attackRange = 3f;
-    public float attackRange = 3f;
+    public float attackRange = 5f;
     //[SerializeField] private float chaseRange = 15f;
-    public float chaseRange = 15f;
+    public float chaseRange = 30f;
     //[SerializeField] private float outOfChaseRange = 20f;
-    public float outOfChaseRange = 20f;
+    public float outOfChaseRange = 30f;
     //[SerializeField] private float chaseWaitingTime = 4500;
     public float chaseWaitingTime = 4500;
 
 
     // Companion Settings
     //[SerializeField] private float distanceToWalk = 4f;
-    public float distanceToWalk = 5f;
+    public float distanceToWalk = 1f;
+
+    public float speedWalking = 5f;
 
 
+    // Compagnon et Ennemi 
+    //[SerializeField] 
+    public float speedRunning = 16f; 
 
 
     public static GameSettings Instance { get; private set; }
@@ -38,6 +43,8 @@ public class GameSettings : MonoBehaviour
     public static float OutOfChaseRange => Instance.outOfChaseRange;
     public static float ChaseWaintingTime => Instance.chaseWaitingTime;
     public static float DistanceToWalk => Instance.distanceToWalk;
+    public static float SpeedRunning => Instance.speedRunning;  // Companion et Enemy to check spped target
+    public static float SpeedWalking => Instance.speedWalking;
 
     private void Awake()
     {

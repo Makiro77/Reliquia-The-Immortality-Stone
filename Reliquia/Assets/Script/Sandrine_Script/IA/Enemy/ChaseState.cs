@@ -5,11 +5,14 @@ public class ChaseState : BaseState
 {
     public Enemy _enemy;
     private Vector3 _enemyPosition;
+    private Vector3 targetLastPosition;
     private Vector3 targetPosition;
     private float seekCounter = 0;
     private Vector3 _destination;
     private Vector3 _direction;
     private Quaternion _desiredRotation;
+
+    private float targetSpeed;
 
     public ChaseState(Enemy enemy) : base(enemy.gameObject)
     {
@@ -24,7 +27,11 @@ public class ChaseState : BaseState
 
         // Assigne la position de l'ennemi
         _enemyPosition = _enemy.transform.position;
+
+        targetLastPosition = targetPosition;
         targetPosition = _enemy.Target.position;
+        targetSpeed = Vector3.Distance(targetPosition, targetLastPosition) / Time.deltaTime;
+
         _enemy.NavAgent.speed = _enemy.EnemyChaseSpeed;
 
         // l'IA arrête de suivre la cible et revient à sa position initiale
@@ -65,6 +72,18 @@ public class ChaseState : BaseState
             return null;
         }
 
+        // si le player court alors compagnon cours aussi
+        if (targetSpeed >= GameSettings.SpeedRunning - 5)
+        {
+            _enemy.NavAgent.speed = GameSettings.SpeedRunning;
+            _enemy.Anim.SetBool("Course", true);
+            _enemy.Anim.SetBool("Avancer", true);
+            _enemy.NavAgent.isStopped = false;
+            return null;
+
+        }
+
+        _enemy.Anim.SetBool("Course", false);
         seekCounter++; // compteur utilisé pour la fonction CheckToContinue
 
         return null;

@@ -31,7 +31,7 @@ public class AttackState : BaseState
 
         Vector3 relativePos = targetPosition - _enemyPosition;
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 3f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
         _attackReadyTimer -= Time.deltaTime;
 
         // A faire : l'IA Attaque (animation, dégats ...)

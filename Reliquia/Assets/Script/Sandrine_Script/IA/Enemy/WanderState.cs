@@ -32,6 +32,7 @@ public class WanderState : BaseState
         _enemyPosition = _enemy.transform.position;
         playerPosition = playerTarget.transform.position;
         _enemy.Anim.SetBool("Avancer", true);
+        _enemy.Anim.SetBool("Course", false);
         _enemy.NavAgent.isStopped = false;
         _enemy.NavAgent.speed = _enemy.EnemyWanderSpeed;
 
@@ -71,7 +72,7 @@ public class WanderState : BaseState
             if (checkAttackState != null) // Le joueur n'est pas caché
             {
                 _enemy.SetTarget((Transform)checkAttackState);
-                return typeof(ChaseState); //AttackState
+                return typeof(AttackState); //AttackState
             }
         }
         return null;

@@ -65,14 +65,14 @@ public class Enemy : MonoBehaviour
     /// </summary>
     internal void LaunchAttack()
     {
-        if (NavAgent.remainingDistance <= 2f) // l'agent a atteint sa destination
-        {
+        //if (NavAgent.remainingDistance <= 2f) // l'agent a atteint sa destination
+        //{
             // assigne une nouvelle destination et rotation          
             navAgent.isStopped = true;
             // Set anim Attack
             alphaRenderer.material.SetColor("_ColorTint", Color.black); // Provisoire
             anim.SetBool("Avancer", false);
-        }
+        //}
 
         
 

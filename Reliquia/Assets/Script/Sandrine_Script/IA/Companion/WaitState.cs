@@ -7,6 +7,8 @@ public class WaitState : BaseState
     private Vector3 _companionPosition;
     private Vector3 playerPosition;
     private Vector3 _destination;
+    private Vector3 _direction;
+    private Quaternion _desiredRotation;
 
     public WaitState(Companion companion) : base(companion.gameObject)
     {
@@ -20,18 +22,39 @@ public class WaitState : BaseState
         playerPosition = _companion.Player.position;
         var distance = Vector3.Distance(_companionPosition, playerPosition);
 
-        if (distance > GameSettings.DistanceToWalk + 1)
+        // si le compagnon est toujours en train de courrir alors il doit s'arrêter.
+        if (!_companion.Anim.IsInTransition(0) && _companion.Anim.GetCurrentAnimatorStateInfo(0).IsName("Running"))
+        {
+            _companion.Anim.SetBool("Course", false);
+            _companion.Anim.SetBool("Avancer", false);
+
+            _companion.NavAgent.speed = 0;
+            return null;
+        }
+
+        // si le player marche le compagnon passe à l'état Walk
+        if (distance > GameSettings.DistanceToWalk || 
+            (!_companion.AnimPlayer.IsInTransition(0) && _companion.AnimPlayer.GetCurrentAnimatorStateInfo(0).IsName("Walking")) )
         {
             return typeof(WalkState);
-        } 
+        }
 
-        if (_companion.NavAgent.remainingDistance <= 1f || distance <= 1.5f) // l'agent a atteint sa destination
-        {
+        // Si le compagnon marche il doit s'arrêter
+        if (!_companion.Anim.IsInTransition(0) && _companion.Anim.GetCurrentAnimatorStateInfo(0).IsName("Walking")) {
+        
             _companion.Anim.SetBool("Avancer", false);
             _companion.NavAgent.isStopped = true;
-            transform.LookAt(_companion.Player);
-           
-        } 
+            return null;
+        }
+
+        // Lorsue le compagnon s'est arrêté, il regarde vers le player
+        if (!_companion.Anim.IsInTransition(0) && _companion.Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            _direction = playerPosition - _companionPosition;
+            _desiredRotation = Quaternion.LookRotation(_direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _desiredRotation, Time.deltaTime * 5f); 
+
+        }
 
         return null;
 
