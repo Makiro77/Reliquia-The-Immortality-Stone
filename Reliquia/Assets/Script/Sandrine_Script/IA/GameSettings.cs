@@ -28,6 +28,12 @@ public class GameSettings : MonoBehaviour
 
     public float speedWalking = 5f;
 
+    public float speedAttackWalking = 3f;
+
+    public float companionAttackRange = 2f;
+
+    public float followInAttackStateDistance = 2f;
+
 
     // Compagnon et Ennemi 
     //[SerializeField] 
@@ -38,13 +44,16 @@ public class GameSettings : MonoBehaviour
 
     public static float Speed => Instance.speed;
     public static float AggroRadius => Instance.aggroRadius;
-    public static float AttackRange; // => Instance.attackRange;
+    public static float AttackRange => Instance.attackRange;
     public static float ChaseRange => Instance.chaseRange;
     public static float OutOfChaseRange => Instance.outOfChaseRange;
     public static float ChaseWaintingTime => Instance.chaseWaitingTime;
     public static float DistanceToWalk => Instance.distanceToWalk;
     public static float SpeedRunning => Instance.speedRunning;  // Companion et Enemy to check spped target
     public static float SpeedWalking => Instance.speedWalking;
+    public static float SpeedAttackWalking => Instance.speedAttackWalking;
+    public static float CompanionAttackRange => Instance.companionAttackRange;
+    public static float FollowInAttackStateDistance => Instance.followInAttackStateDistance;
 
     private void Awake()
     {
@@ -53,6 +62,6 @@ public class GameSettings : MonoBehaviour
         else
             Instance = this;
 
-        AttackRange = Instance.attackRange;
+        //AttackRange = Instance.attackRange;
     }
 }

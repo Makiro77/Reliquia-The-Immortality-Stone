@@ -30,9 +30,11 @@ public class AttackState : BaseState
         _enemy.NavAgent.speed = _enemy.EnemyAttackSpeed;
 
         Vector3 relativePos = targetPosition - _enemyPosition;
-        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
-        _attackReadyTimer -= Time.deltaTime;
+        _enemy.LookAt(relativePos, 10f);
+        // Remplace        
+        //Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
+        //_attackReadyTimer -= Time.deltaTime;
 
         // A faire : l'IA Attaque (animation, dégats ...)
         if (_attackReadyTimer <= 0f)
@@ -44,10 +46,11 @@ public class AttackState : BaseState
 
         // Si le joeur sort de la zone d'attaque
         // Retour à l'état Chase
-        if (distance > GameSettings.AttackRange + 0.5f)
+        if (distance > GameSettings.AttackRange - 1)
         {
             return typeof(ChaseState);
         }
+
 
         return null;
     }

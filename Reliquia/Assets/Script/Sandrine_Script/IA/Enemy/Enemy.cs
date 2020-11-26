@@ -57,6 +57,25 @@ public class Enemy : MonoBehaviour
         GetComponent<StateMachine>().SetStates(states);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Companion>() != null || other.CompareTag("Player"))
+        {
+            Animator anim = other.GetComponent<Animator>();
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
+            {
+                SetTarget(other.transform);
+                return;
+            }
+
+            if (Target.CompareTag("Player") )
+            {
+                return;
+            }
+            SetTarget(other.transform);
+
+        }
+    }
 
     /// <summary>
     /// fonction qui décrit les actions de l'attaque 
@@ -65,18 +84,17 @@ public class Enemy : MonoBehaviour
     /// </summary>
     internal void LaunchAttack()
     {
-        //if (NavAgent.remainingDistance <= 2f) // l'agent a atteint sa destination
-        //{
-            // assigne une nouvelle destination et rotation          
+        // Set anim Attack
+        alphaRenderer.material.SetColor("_ColorTint", Color.black); // Provisoire
+
+        if (NavAgent.remainingDistance <= 0.5f)
+        {
             navAgent.isStopped = true;
-            // Set anim Attack
-            alphaRenderer.material.SetColor("_ColorTint", Color.black); // Provisoire
             anim.SetBool("Avancer", false);
-        //}
-
-        
-
+            anim.SetBool("Attaque", true);
+        }
     }
+
     /// <summary>
     /// Assigne la cible à l'IA
     /// </summary>
@@ -88,6 +106,26 @@ public class Enemy : MonoBehaviour
         {
             alphaRenderer.material.SetColor("_ColorTint", Color.white); // Provisoire 
         }
+    }
+
+
+    internal void LookAt(Vector3 lookAtPosition, float speed)
+    {
+        Vector3 relativePos = lookAtPosition; // targetPosition - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * speed);
+    }
+
+    internal void Move(Vector3 destination, float speed, string animation = "")
+    {
+        NavAgent.isStopped = false;
+        NavAgent.speed = speed;
+        Anim.SetBool("Avancer", true);
+        Anim.SetBool("Attaque", false);
+        Anim.SetBool("Course", false);
+
+        Anim.SetBool(animation, true);
+        NavAgent.SetDestination(destination);
     }
 
 }
