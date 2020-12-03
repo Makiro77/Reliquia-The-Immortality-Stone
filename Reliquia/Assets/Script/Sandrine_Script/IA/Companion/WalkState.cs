@@ -101,7 +101,7 @@ public class WalkState : BaseState
 
         if (_companion.Name == "David")
         {
-            _destination = playerPosition - (_companion.Player.forward * 3.2f) - (_companion.Player.right * 1f);
+            _destination = playerPosition - (_companion.Player.forward * 3.2f) - (_companion.Player.right * 0.8f);
         }
 
         // ---- Positionne le compagnon à côté du Player et non derrière => je laisse au cas où se serait utilise par la suite.
