@@ -28,8 +28,8 @@ public class WaitState : BaseState
             return null;
         }
 
-        // si le player marche le compagnon passe à l'état Walk
-        if (distance > GameSettings.DistanceToWalk || 
+        // si le player marche et s'éloigne des compagnons, le compagnon passe à l'état Walk
+        if (distance > GameSettings.DistanceToWalk && 
             (!_companion.AnimPlayer.IsInTransition(0) && _companion.AnimPlayer.GetCurrentAnimatorStateInfo(0).IsName("Walking")) )
         {
             return typeof(WalkState);

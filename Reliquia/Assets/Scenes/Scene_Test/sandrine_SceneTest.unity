@@ -3923,6 +3923,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2356022809863183683, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022345508932256847, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: -0.0665
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3566afee9cbbd94498038a92e54effc8, type: 3}
 --- !u!1 &1196940295
@@ -4538,16 +4548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: David
       objectReference: {fileID: 0}
-    - target: {fileID: 4106071841729721434, guid: 33038f89b607d794cac1b58204ddf8b8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5465786116739689814, guid: 33038f89b607d794cac1b58204ddf8b8,
-        type: 3}
-      propertyPath: m_BaseOffset
-      value: -0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33038f89b607d794cac1b58204ddf8b8, type: 3}
 --- !u!1 &1472522376
@@ -4853,7 +4853,7 @@ MonoBehaviour:
   chaseRange: 15
   outOfChaseRange: 20
   chaseWaitingTime: 30
-  distanceToWalk: 2
+  distanceToWalk: 3.5
   speedWalking: 2
   speedAttackWalking: 3
   companionAttackRange: 2
@@ -6022,7 +6022,7 @@ PrefabInstance:
     - target: {fileID: 6022345508932256847, guid: 3566afee9cbbd94498038a92e54effc8,
         type: 3}
       propertyPath: m_BaseOffset
-      value: 0
+      value: -0.0665
       objectReference: {fileID: 0}
     - target: {fileID: 6022345508932256849, guid: 3566afee9cbbd94498038a92e54effc8,
         type: 3}

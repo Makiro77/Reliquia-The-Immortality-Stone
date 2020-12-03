@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
-            if (Target.CompareTag("Player") )
+            if (Target != null && Target.CompareTag("Player") )
             {
                 return;
             }
@@ -87,11 +87,11 @@ public class Enemy : MonoBehaviour
         // Set anim Attack
         alphaRenderer.material.SetColor("_ColorTint", Color.black); // Provisoire
 
-        if (NavAgent.remainingDistance <= 0.5f)
+        if (NavAgent.remainingDistance <= 2f)
         {
             navAgent.isStopped = true;
             anim.SetBool("Avancer", false);
-            anim.SetBool("Attaque", true);
+            // anim.SetBool("Attaque", true);
         }
     }
 

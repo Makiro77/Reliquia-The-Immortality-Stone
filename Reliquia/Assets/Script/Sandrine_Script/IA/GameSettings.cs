@@ -24,7 +24,7 @@ public class GameSettings : MonoBehaviour
 
     // Companion Settings
     //[SerializeField] private float distanceToWalk = 4f;
-    public float distanceToWalk = 1f;
+    public float distanceToWalk = 3.5f;
 
     public float speedWalking = 5f;
 

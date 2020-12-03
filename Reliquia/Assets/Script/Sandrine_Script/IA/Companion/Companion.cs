@@ -78,7 +78,7 @@ public class Companion : MonoBehaviour
     {
         NavAgent.isStopped = true;
         Anim.SetBool("Avancer", false);
-        Anim.SetBool("Attaque", true);
+        //Anim.SetBool("Attaque", true);
         NavAgent.speed = speed;
     }
 

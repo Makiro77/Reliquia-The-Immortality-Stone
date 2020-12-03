@@ -97,38 +97,48 @@ public class WalkState : BaseState
         Vector3 _lastDirection = _direction == Vector3.zero ? playerPosition - _companionPosition : _direction;
 
         // Par défaut Compagnon = Roxane
-        _destination = playerPosition + _companion.Player.right;
+        _destination = playerPosition - (_companion.Player.forward * 3.2f) + (_companion.Player.right * 0.5f);
 
         if (_companion.Name == "David")
         {
-            _destination = playerPosition - _companion.Player.right;
+            _destination = playerPosition - (_companion.Player.forward * 3.2f) - (_companion.Player.right * 1f);
         }
+
+        // ---- Positionne le compagnon à côté du Player et non derrière => je laisse au cas où se serait utilise par la suite.
+        //_destination = playerPosition + _companion.Player.right;
+
+        //if (_companion.Name == "David")
+        //{
+        //    _destination = playerPosition - _companion.Player.right;
+        //}
 
         // Vérifie si la destination du compagnon est libre
         // Sinon place le compagnon de l'autre côté du player
-        float rayDistance = Vector3.Distance(_destination, _companionPosition);
-        RaycastHit hit;
-        Vector3 rayDirection = (_destination - _companionPosition) + Vector3.up;
+        //float rayDistance = Vector3.Distance(_destination, _companionPosition);
+        //RaycastHit hit;
+        //Vector3 rayDirection = (_destination - _companionPosition) + Vector3.up;
 
-        for (var i = 0; i < 2; i++)
-        {
-            if (Physics.Raycast(_companionPosition, rayDirection, out hit, rayDistance))
-            {
-                Debug.DrawRay(_companionPosition, rayDirection,  Color.green);
-                var target = hit.transform;
-                if (target != null && target != _companion.Player && target != transform)
-                {
-                    _destination = playerPosition - _companion.Player.right;
-                    if (_companion.Name == "David")
-                    {
-                        _destination = playerPosition + _companion.Player.right;
-                    }
-                    break;
-                }
-            }
+        //for (var i = 0; i < 2; i++)
+        //{
+        //    if (Physics.Raycast(_companionPosition, rayDirection, out hit, rayDistance))
+        //    {
+        //        Debug.DrawRay(_companionPosition, rayDirection,  Color.green);
+        //        var target = hit.transform;
+        //        if (target != null && target != _companion.Player && target != transform)
+        //        {
+        //            _destination = playerPosition - _companion.Player.right;
+        //            if (_companion.Name == "David")
+        //            {
+        //                _destination = playerPosition + _companion.Player.right;
+        //            }
+        //            break;
+        //        }
+        //    }
 
-            rayDirection = stepAngle * rayDirection;
-        }
+        //    rayDirection = stepAngle * rayDirection;
+        //}
+
+        /// ---- End Positionnement du compagnon à côté du player.
 
         _destination = new Vector3(_destination.x, y: 1f, _destination.z);
 
