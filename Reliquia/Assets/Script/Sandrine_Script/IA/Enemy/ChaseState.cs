@@ -45,6 +45,10 @@ public class ChaseState : BaseState
         // Suivre la cible
         followTarget(_enemy.Target);
 
+        _enemy.LookAt(_direction, 0.5f);
+
+        _enemy.Move(_destination, GameSettings.SpeedWalking);
+
         var distance = Vector3.Distance(_enemyPosition, _enemy.Target.position);
 
         // Si le player passe en zone rouge => chgmt d'état vers AttackState.
@@ -75,10 +79,7 @@ public class ChaseState : BaseState
         // si le player court alors compagnon cours aussi
         if (targetSpeed >= GameSettings.SpeedRunning - 5)
         {
-            _enemy.NavAgent.speed = GameSettings.SpeedRunning;
-            _enemy.Anim.SetBool("Course", true);
-            _enemy.Anim.SetBool("Avancer", true);
-            _enemy.NavAgent.isStopped = false;
+            _enemy.Move(_destination, GameSettings.SpeedRunning, "Course");
             return null;
 
         }
@@ -102,11 +103,6 @@ public class ChaseState : BaseState
 
         _direction = Vector3.Normalize(_destination - _enemyPosition);
         _direction = new Vector3(_direction.x, y: 0f, _direction.z);
-        _desiredRotation = Quaternion.LookRotation(_direction);
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, _desiredRotation, Time.deltaTime * 0.5f);
-        _enemy.NavAgent.SetDestination(_destination);
-
 
     }
 

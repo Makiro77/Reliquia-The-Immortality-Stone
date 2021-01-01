@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.58
     agentHeight: 1.2
-    agentSlope: 45
+    agentSlope: 39
     agentClimb: 0.45
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -2277,8 +2277,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838078024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.654, y: 0, z: 5.55}
-  m_LocalScale: {x: 4.7786994, y: 2.257611, z: 0.5}
+  m_LocalPosition: {x: 30.454, y: 0, z: 5.55}
+  m_LocalScale: {x: 6.378031, y: 2.257611, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1234417265}
   m_RootOrder: 13
@@ -3696,7 +3696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178486977}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 31.86, y: 0, z: 7.256}
+  m_LocalPosition: {x: 33.3, y: 0, z: 7.256}
   m_LocalScale: {x: 3.2539978, y: 2.4080846, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1234417265}
@@ -3922,6 +3922,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356022809863183683, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022345508932256847, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: -0.0665
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3566afee9cbbd94498038a92e54effc8, type: 3}
@@ -4538,16 +4548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: David
       objectReference: {fileID: 0}
-    - target: {fileID: 4106071841729721434, guid: 33038f89b607d794cac1b58204ddf8b8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5465786116739689814, guid: 33038f89b607d794cac1b58204ddf8b8,
-        type: 3}
-      propertyPath: m_BaseOffset
-      value: -0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33038f89b607d794cac1b58204ddf8b8, type: 3}
 --- !u!1 &1472522376
@@ -4853,8 +4853,11 @@ MonoBehaviour:
   chaseRange: 15
   outOfChaseRange: 20
   chaseWaitingTime: 30
-  distanceToWalk: 2
+  distanceToWalk: 3.5
   speedWalking: 2
+  speedAttackWalking: 3
+  companionAttackRange: 2
+  followInAttackStateDistance: 2
   speedRunning: 16
 --- !u!1 &1502861861
 GameObject:
@@ -6011,6 +6014,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2356022809863183683, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022345508932256847, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: -0.0665
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022345508932256849, guid: 3566afee9cbbd94498038a92e54effc8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3566afee9cbbd94498038a92e54effc8, type: 3}
 --- !u!1 &1933336447
@@ -6368,6 +6386,11 @@ PrefabInstance:
         type: 3}
       propertyPath: vitesse
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389811491461491823, guid: 045237dd0f8a7a742b9d4d5ed002cfde,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3389811491461491829, guid: 045237dd0f8a7a742b9d4d5ed002cfde,
         type: 3}

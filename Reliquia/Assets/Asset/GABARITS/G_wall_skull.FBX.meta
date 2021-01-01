@@ -3,7 +3,12 @@ guid: 0ee7c28af3b410c4b8c0c554a75bd5ae
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trim_skull_wall
+    second: {fileID: 2100000, guid: e6ffefb91d2d0c04982ecfea261459f0, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

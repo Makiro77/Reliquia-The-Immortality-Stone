@@ -6,7 +6,6 @@ public class WaitState : BaseState
     public Companion _companion;
     private Vector3 _companionPosition;
     private Vector3 playerPosition;
-    private Vector3 _destination;
     private Vector3 _direction;
     private Quaternion _desiredRotation;
 
@@ -25,15 +24,12 @@ public class WaitState : BaseState
         // si le compagnon est toujours en train de courrir alors il doit s'arrêter.
         if (!_companion.Anim.IsInTransition(0) && _companion.Anim.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
-            _companion.Anim.SetBool("Course", false);
-            _companion.Anim.SetBool("Avancer", false);
-
-            _companion.NavAgent.speed = 0;
+            _companion.StopMoving();
             return null;
         }
 
-        // si le player marche le compagnon passe à l'état Walk
-        if (distance > GameSettings.DistanceToWalk || 
+        // si le player marche et s'éloigne des compagnons, le compagnon passe à l'état Walk
+        if (distance > GameSettings.DistanceToWalk && 
             (!_companion.AnimPlayer.IsInTransition(0) && _companion.AnimPlayer.GetCurrentAnimatorStateInfo(0).IsName("Walking")) )
         {
             return typeof(WalkState);
@@ -51,9 +47,14 @@ public class WaitState : BaseState
         if (!_companion.Anim.IsInTransition(0) && _companion.Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             _direction = playerPosition - _companionPosition;
-            _desiredRotation = Quaternion.LookRotation(_direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _desiredRotation, Time.deltaTime * 5f); 
+            _companion.LookAt(_direction, 5f);
+            
+        }
 
+        // si le player attaque alors compagnon attaque aussi
+        if (!_companion.AnimPlayer.IsInTransition(0) && _companion.AnimPlayer.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
+        {
+            return typeof(PrepareToAttackState);
         }
 
         return null;

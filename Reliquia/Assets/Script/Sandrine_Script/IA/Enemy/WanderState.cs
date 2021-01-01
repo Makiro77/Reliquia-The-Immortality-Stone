@@ -31,10 +31,12 @@ public class WanderState : BaseState
         // assigne les positions 
         _enemyPosition = _enemy.transform.position;
         playerPosition = playerTarget.transform.position;
-        _enemy.Anim.SetBool("Avancer", true);
-        _enemy.Anim.SetBool("Course", false);
-        _enemy.NavAgent.isStopped = false;
-        _enemy.NavAgent.speed = _enemy.EnemyWanderSpeed;
+
+        // Deplacer plus bas
+        //_enemy.Anim.SetBool("Avancer", true);
+        //_enemy.Anim.SetBool("Course", false);
+        //_enemy.NavAgent.isStopped = false;
+        //_enemy.NavAgent.speed = _enemy.EnemyWanderSpeed;
 
         // Détecte le joueur si la cible est nulle
         if (_enemy.Target == null)
@@ -58,8 +60,11 @@ public class WanderState : BaseState
         if (_enemy.NavAgent.remainingDistance <= 0.5f  ) // l'agent a atteint sa destination
         {
             FindRandomDestination(); // assigne une nouvelle destination et rotation          
-            transform.rotation = Quaternion.Lerp(transform.rotation, _desiredRotation, Time.deltaTime * 0.5f);
-            _enemy.NavAgent.SetDestination(_destination);
+
+            _enemy.LookAt(_direction, 0.5f);
+
+            _enemy.Move(_destination, _enemy.EnemyWanderSpeed);
+
         }
 
         float distance = Vector3.Distance(_enemyPosition, playerPosition);
@@ -184,7 +189,6 @@ public class WanderState : BaseState
 
         _direction = Vector3.Normalize(_destination - _enemyPosition);
         _direction = new Vector3(_direction.x, y: 0f, _direction.z);
-        _desiredRotation = Quaternion.LookRotation(_direction);
 
     }
 

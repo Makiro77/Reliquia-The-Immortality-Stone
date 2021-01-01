@@ -36,10 +36,10 @@ public class ReachPlayerState : BaseState
             return typeof(WalkState);
         }
 
-        _destination = playerPosition + _companion.Player.right;
+        _destination = playerPosition - _companion.Player.forward * 2  + _companion.Player.right;
         if (_companion.Name == "David")
         {
-            _destination = playerPosition - _companion.Player.right;
+            _destination = playerPosition - _companion.Player.forward * 2  - _companion.Player.right;
         }
         _destination = new Vector3(_destination.x, y: 1f, _destination.z);
 
@@ -59,7 +59,7 @@ public class ReachPlayerState : BaseState
         _companion.Anim.SetBool("Avancer", true);
         _companion.NavAgent.speed = GameSettings.SpeedWalking;
         _companion.NavAgent.isStopped = false;
-        if (_companion.NavAgent.remainingDistance <= 0.5f && _companion.NavAgent.remainingDistance != 0)
+        if (_companion.NavAgent.remainingDistance <= 1f && _companion.NavAgent.remainingDistance != 0)
         {
             return typeof(WaitState);
         }

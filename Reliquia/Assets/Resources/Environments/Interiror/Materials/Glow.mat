@@ -10,7 +10,7 @@ Material:
   m_Name: Glow
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -76,5 +76,5 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 0.49655172, b: 0, a: 1}
-    - _EmissionColor: {r: 30, g: 19.328094, b: 4.632354, a: 30}
+    - _EmissionColor: {r: 6.4222345, g: 4.169409, b: 1.0087279, a: 30}
     - _EmissionColorUI: {r: 1, g: 0.6442698, b: 0.1544118, a: 1}
