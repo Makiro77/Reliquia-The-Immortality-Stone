@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 25dabdcb68d473a4e8f102514a59a725
+guid: 55e7e7f2cfad4cd42a26fa10d5f0e715
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Lighting
+    second: Lighing Walk Left
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Lighting
+      name: Lighing Walk Left
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 56
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
