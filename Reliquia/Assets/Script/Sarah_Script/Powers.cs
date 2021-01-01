@@ -5,11 +5,18 @@ using UnityEngine;
 public class Powers : MonoBehaviour
 {
     public Animator _animator;
-
+    public GameObject lighting;
+    public Transform tlighting;
+    public bool isCreated;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
+    }
+
+    public void InstantiateSpell() {
+
+        Instantiate(lighting, transform);
     }
    
     public void Update()
@@ -17,6 +24,10 @@ public class Powers : MonoBehaviour
 
         if (Input.GetKey(/*raccourciClavier.toucheClavier["Pouvoir 1"]*/KeyCode.E)) {
 
+            if(!isCreated) {
+                Instantiate(lighting, tlighting);
+                isCreated = true;
+            }
             _animator.SetBool("Lighting", true);
         }
 
