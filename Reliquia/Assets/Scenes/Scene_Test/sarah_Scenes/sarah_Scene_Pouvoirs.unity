@@ -847,6 +847,7 @@ MonoBehaviour:
   lighting: {fileID: 197658, guid: d74ebc75b860ca341a2c8b99d74519de, type: 3}
   tlighting: {fileID: 456688483}
   isCreated: 0
+  g: {fileID: 0}
 --- !u!1 &1879496447
 GameObject:
   m_ObjectHideFlags: 0

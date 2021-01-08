@@ -8,10 +8,13 @@ public class Powers : MonoBehaviour
     public GameObject lighting;
     public Transform tlighting;
     public bool isCreated;
+    public GameObject g;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
+        g = Instantiate(lighting, tlighting);
+        g.SetActive(false);
     }
 
     public void InstantiateSpell() {
@@ -25,15 +28,19 @@ public class Powers : MonoBehaviour
         if (Input.GetKey(/*raccourciClavier.toucheClavier["Pouvoir 1"]*/KeyCode.E)) {
 
             if(!isCreated) {
-                Instantiate(lighting, tlighting);
+                _animator.SetBool("Lighting", true);
+                g.SetActive(true);
                 isCreated = true;
             }
-            _animator.SetBool("Lighting", true);
         }
 
         if (Input.GetKey(/*raccourciClavier.toucheClavier["Pouvoir 1"]*/KeyCode.R)) {
 
-            _animator.SetBool("Lighting", false);
+            if(isCreated) {
+                _animator.SetBool("Lighting", false);
+                g.SetActive(false);
+                isCreated = false;
+            }
         }
     }
 }
