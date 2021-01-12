@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     public Renderer alphaRenderer;  // Provisoire à sup
 
     public Transform Target { get; private set; }
+    public Transform TargetedBy { get; private set; }
     
     // Les getters des propriétés de l'IA
     public StateMachine StateMachine => GetComponent<StateMachine>();
@@ -70,6 +71,7 @@ public class Enemy : MonoBehaviour
 
             if (Target != null && Target.CompareTag("Player") )
             {
+                SetTargetedBy(Target.transform);
                 return;
             }
             SetTarget(other.transform);
@@ -108,6 +110,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SetTargetedBy(Transform adverser)
+    {
+        TargetedBy = adverser;
+    }
+
+
 
     internal void LookAt(Vector3 lookAtPosition, float speed)
     {
@@ -124,7 +132,11 @@ public class Enemy : MonoBehaviour
         Anim.SetBool("Attaque", false);
         Anim.SetBool("Course", false);
 
-        Anim.SetBool(animation, true);
+        if (animation != "")
+        {
+            Anim.SetBool(animation, true);
+        }
+        
         NavAgent.SetDestination(destination);
     }
 
