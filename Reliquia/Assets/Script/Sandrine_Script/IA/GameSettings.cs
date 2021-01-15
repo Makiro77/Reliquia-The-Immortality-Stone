@@ -24,20 +24,22 @@ public class GameSettings : MonoBehaviour
 
     // Companion Settings
     //[SerializeField] private float distanceToWalk = 4f;
-    public float distanceToWalk = 3.5f;
+    public float distanceToWalk = 4.5f;
 
-    public float speedWalking = 5f;
+    public float speedWalking = 3f; //5f;
 
     public float speedAttackWalking = 3f;
 
     public float companionAttackRange = 2f;
 
-    public float followInAttackStateDistance = 2f;
+    public float followInAttackStateDistance = 3f;
+
+    public float playerLeavingRange = 5f;
 
 
     // Compagnon et Ennemi 
     //[SerializeField] 
-    public float speedRunning = 16f; 
+    public float speedRunning = 16f; //16f; 
 
 
     public static GameSettings Instance { get; private set; }
@@ -54,6 +56,8 @@ public class GameSettings : MonoBehaviour
     public static float SpeedAttackWalking => Instance.speedAttackWalking;
     public static float CompanionAttackRange => Instance.companionAttackRange;
     public static float FollowInAttackStateDistance => Instance.followInAttackStateDistance;
+
+    public static float PlayerLeavingRange => Instance.playerLeavingRange;
 
     private void Awake()
     {

@@ -17,6 +17,7 @@ public class Companion : MonoBehaviour
     private Animator animPlayer;
 
     public Transform Target { get; private set; }
+    public BaseState LastState { get; private set; }
 
     public Transform Player => player;
     public Animator Anim => anim;
@@ -50,6 +51,11 @@ public class Companion : MonoBehaviour
         Target = target;
     }
 
+    internal void SetLastState(BaseState state)
+    {
+        LastState = state;
+    }
+
     internal void SetSpeed(float speed)
     {
         NavAgent.speed = speed;
@@ -68,7 +74,8 @@ public class Companion : MonoBehaviour
             {typeof(WalkState), new WalkState(companion: this) },
             {typeof(WaitState), new WaitState(companion: this) },
             {typeof(PrepareToAttackState), new PrepareToAttackState(companion: this) },
-            {typeof(CompagnonAttackState), new CompagnonAttackState(companion: this) }
+            {typeof(CompagnonAttackState), new CompagnonAttackState(companion: this) },
+            {typeof(LostState), new LostState(companion: this) }
         };
 
         GetComponent<StateMachine>().SetStates(states);
@@ -78,7 +85,7 @@ public class Companion : MonoBehaviour
     {
         NavAgent.isStopped = true;
         Anim.SetBool("Avancer", false);
-        //Anim.SetBool("Attaque", true);
+        Anim.SetBool("Attaque", true);
         NavAgent.speed = speed;
     }
 
@@ -97,7 +104,11 @@ public class Companion : MonoBehaviour
        Anim.SetBool("Attaque", false);
        Anim.SetBool("Course", false);
 
-       Anim.SetBool(animation, true);
+        if (animation != "")
+        {
+            Anim.SetBool(animation, true);
+        }
+       
        NavAgent.SetDestination(destination);
     }
 
